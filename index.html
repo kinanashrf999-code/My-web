@@ -44,54 +44,26 @@
         .stat-box h3 { color: var(--accent); font-size: 1.6rem; }
         .status-text { font-weight: bold; font-size: 1.4rem; }
 
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; font-size: 1rem; }
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         .btn:hover { transform: translateY(-3px); opacity: 0.9; }
         
-        /* تكبير خانة المتجر لمقاس كبير وواضح */
-        .store-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* تكبير العرض ليكون ضخماً */
-            gap: 25px; 
-            margin-top: 40px; 
-            padding: 0 5%; 
-        }
-        .product-card { 
-            background: rgba(255, 255, 255, 0.04); 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            border-radius: 25px; 
-            overflow: hidden; 
-            position: relative; 
-            max-width: 450px; /* الحد الأقصى للكبر */
-            margin: auto;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+        /* المتجر بالمقاس الكبير الذي طلبته */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; padding: 0 5%; }
+        .product-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 25px; overflow: hidden; position: relative; max-width: 450px; margin: auto; transition: 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .product-card:hover { border-color: var(--accent); transform: translateY(-10px); }
-
-        .img-container { position: relative; width: 100%; padding-top: 70%; } /* زيادة ارتفاع الصورة */
+        .img-container { position: relative; width: 100%; padding-top: 70%; }
         .product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        
-        .price-tag { 
-            position: absolute; 
-            top: 15px; 
-            right: 15px; 
-            background: var(--btn-blue); 
-            color: white; 
-            padding: 8px 18px; 
-            border-radius: 30px; 
-            font-weight: 900; 
-            font-size: 1.1rem; 
-            z-index: 5; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
-
+        .price-tag { position: absolute; top: 15px; right: 15px; background: var(--btn-blue); color: white; padding: 8px 18px; border-radius: 30px; font-weight: 900; font-size: 1.1rem; z-index: 5; }
         .product-info { padding: 25px; text-align: right; }
         .product-info h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.5rem; font-weight: 900; }
-        .buy-btn { width: 100%; font-size: 1.1rem; padding: 14px; border-radius: 12px; }
 
-        /* تنسيق لوحة الإدارة */
+        /* القوانين والتقديمات */
         .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 900px; text-align: right; }
+        .law-item { margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.6); border: 1px solid #1b4965; color: white; border-radius: 8px; text-align: right; }
+        
+        /* لوحة الإدارة */
+        .admin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; margin-top: 15px; border-radius: 10px; text-align: right; }
         #login-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center; }
     </style>
 </head>
@@ -134,26 +106,59 @@
     </div>
 
     <div id="store" class="section">
-        <h1 style="font-size: 2.5rem; margin-bottom: 20px;">متجر المدينة</h1>
+        <h1>متجر المدينة</h1>
         <div id="store-container" class="store-grid"></div>
     </div>
 
+    <div id="laws" class="section">
+        <h1>قوانين المدينة</h1>
+        <div class="card">
+            <div class="law-item"><h3>NLR - قوانين الحياة الجديدة</h3><p>ممنوع الرجوع لمكان القتل إلا بعد مرور 15 دقيقة.</p></div>
+            <div class="law-item"><h3>RDM - القتل العشوائي</h3><p>القتل بدون سبب واضح أو بدون سيناريو ممنوع تماماً.</p></div>
+            <div class="law-item"><h3>VDM - القتل بالسيارة</h3><p>يمنع استخدام السيارة كسلاح لدهس اللاعبين.</p></div>
+        </div>
+    </div>
+
+    <div id="police" class="section">
+        <h1>تقديم الشرطة</h1>
+        <div class="card">
+            <form id="policeForm">
+                <input type="text" id="pol-name" placeholder="الاسم الثلاثي" required>
+                <input type="text" id="pol-dc" placeholder="يوزر الديسكورد" required>
+                <textarea id="pol-exp" placeholder="اذكر خبراتك السابقة" required></textarea>
+                <button type="submit" class="btn" style="width: 100%;">إرسال الطلب</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="apply-admin" class="section">
+        <h1>تقديم الإدارة</h1>
+        <div class="card">
+            <form id="adminForm">
+                <input type="text" id="adm-name" placeholder="الاسم الثلاثي" required>
+                <input type="text" id="adm-dc" placeholder="يوزر الديسكورد" required>
+                <textarea id="adm-exp" placeholder="لماذا تريد الانضمام للإدارة؟" required></textarea>
+                <button type="submit" class="btn" style="width: 100%;">إرسال الطلب</button>
+            </form>
+        </div>
+    </div>
+
     <div id="admin-panel" class="section">
-        <h1>لوحة التحكم</h1>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+        <h1 style="color: var(--accent);">لوحة الإدارة</h1>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
             <div class="card" style="margin:0">
-                <h3>تحديث البيانات</h3>
+                <h3>حالة السيرفر</h3>
                 <select id="edit-status"><option value="متصل">متصل ✅</option><option value="غير متصل">غير متصل ❌</option></select>
-                <input type="number" id="edit-online" placeholder="عدد اللاعبين الآن">
+                <input type="number" id="edit-online" placeholder="اللاعبين الآن">
                 <input type="text" id="edit-total" placeholder="إجمالي اللاعبين">
-                <button class="btn" onclick="updateStats()" style="width: 100%;">حفظ</button>
+                <button class="btn" onclick="updateStats()" style="width:100%">تحديث</button>
             </div>
             <div class="card" style="margin:0">
-                <h3>نشر منتج</h3>
+                <h3>إضافة منتج</h3>
                 <input type="text" id="prod-img" placeholder="رابط الصورة">
                 <input type="text" id="prod-title" placeholder="اسم المنتج">
                 <input type="text" id="prod-price" placeholder="السعر">
-                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر الآن</button>
+                <button class="btn" onclick="addNewProduct()" style="width:100%">نشر</button>
             </div>
             <div class="card" style="margin:0"><h3>الطلبات</h3><div id="order-requests"></div></div>
             <div class="card" style="margin:0"><h3>التوظيف</h3><div id="all-apps"></div></div>
@@ -176,6 +181,7 @@
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
         }
 
         function handleLogin() {
@@ -184,27 +190,22 @@
             if(user === "IDL TOWN MANAGEMENT" && pass === "663567M") { 
                 document.getElementById('login-modal').style.display = 'none';
                 showSection('admin-panel'); 
-            } else { alert("بيانات خاطئة!"); }
+            } else { alert("خطأ!"); }
         }
 
         function updateStats() {
-            const online = document.getElementById('edit-online').value;
-            const total = document.getElementById('edit-total').value;
-            const status = document.getElementById('edit-status').value;
-            if(online) db.ref('site_stats/online').set(online);
-            if(total) db.ref('site_stats/total').set(total);
-            db.ref('site_stats/status').set(status);
-            alert("تم التحديث!");
+            db.ref('site_stats/online').set(document.getElementById('edit-online').value || 0);
+            db.ref('site_stats/total').set(document.getElementById('edit-total').value || 0);
+            db.ref('site_stats/status').set(document.getElementById('edit-status').value);
+            alert("تم!");
         }
 
         db.ref('site_stats').on('value', (s) => {
-            const data = s.val();
-            if(data) {
-                document.getElementById('display-online').innerText = data.online || 0;
-                document.getElementById('display-total').innerText = data.total || 0;
-                const statusBox = document.getElementById('display-status');
-                statusBox.innerText = data.status || "غير معروف";
-                statusBox.style.color = (data.status === "متصل") ? "var(--online)" : "var(--offline)";
+            const d = s.val(); if(d){
+                document.getElementById('display-online').innerText = d.online;
+                document.getElementById('display-total').innerText = d.total;
+                const box = document.getElementById('display-status');
+                box.innerText = d.status; box.style.color = (d.status==="متصل") ? "var(--online)" : "var(--offline)";
             }
         });
 
@@ -212,48 +213,30 @@
             const img = document.getElementById('prod-img').value;
             const title = document.getElementById('prod-title').value;
             const price = document.getElementById('prod-price').value;
-            if(title && price) db.ref('store_products').push({ img, title, price });
+            if(title) db.ref('store_products').push({ img, title, price });
         }
 
         db.ref('store_products').on('value', (s) => {
             const data = s.val(); const div = document.getElementById('store-container'); div.innerHTML = "";
             for(let id in data) {
                 const p = data[id];
-                div.innerHTML += `
-                    <div class="product-card">
-                        <div class="img-container">
-                            <div class="price-tag">${p.price}</div>
-                            <img src="${p.img || 'https://via.placeholder.com/600x400'}" class="product-img">
-                        </div>
-                        <div class="product-info">
-                            <h3>${p.title}</h3>
-                            <button class="btn buy-btn" onclick="buyProduct('${p.title}')">طلب شراء المنتج</button>
-                        </div>
-                    </div>`;
+                div.innerHTML += `<div class="product-card"><div class="img-container"><div class="price-tag">${p.price}</div><img src="${p.img}" class="product-img"></div><div class="product-info"><h3>${p.title}</h3><button class="btn" style="width:100%" onclick="buyProduct('${p.title}')">طلب شراء</button></div></div>`;
             }
         });
 
-        function buyProduct(name) {
-            const dc = prompt("يوزر الديسكورد:");
-            if(dc) db.ref('store_orders').push({ product: name, user: dc, date: new Date().toLocaleString() });
-        }
+        function buyProduct(n) { const dc = prompt("يوزر ديسكوردك:"); if(dc) db.ref('store_orders').push({ product: n, user: dc }); }
+
+        document.getElementById('policeForm').onsubmit = function(e){ e.preventDefault(); db.ref('all_apps').push({ type: 'شرطة', name: this['pol-name'].value, dc: this['pol-dc'].value, exp: this['pol-exp'].value }); alert("تم الإرسال"); this.reset(); };
+        document.getElementById('adminForm').onsubmit = function(e){ e.preventDefault(); db.ref('all_apps').push({ type: 'إدارة', name: this['adm-name'].value, dc: this['adm-dc'].value, exp: this['adm-exp'].value }); alert("تم الإرسال"); this.reset(); };
 
         db.ref('all_apps').on('value', (s) => {
-            const data = s.val(); const div = document.getElementById('all-apps'); div.innerHTML = "";
-            for(let id in data) {
-                const a = data[id];
-                div.innerHTML += `<div style="background:rgba(255,255,255,0.05); padding:10px; margin-top:10px; border-radius:10px;"><b>${a.name}</b><br>
-                <button class="btn" style="background:#ef4444; padding:5px; font-size:0.8rem;" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
-            }
+            const d = s.val(); const div = document.getElementById('all-apps'); div.innerHTML = "";
+            for(let id in d) div.innerHTML += `<div class="admin-card"><b>${d[id].name}</b> (${d[id].type})<br><button class="btn" style="background:#ef4444; padding:5px; margin-top:5px;" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
         });
 
         db.ref('store_orders').on('value', (s) => {
-            const data = s.val(); const div = document.getElementById('order-requests'); div.innerHTML = "";
-            for(let id in data) {
-                const o = data[id];
-                div.innerHTML += `<div style="background:rgba(255,255,255,0.05); padding:10px; margin-top:10px; border-radius:10px;">📦 ${o.product}<br>👤 ${o.user}<br>
-                <button class="btn" style="width:100%; margin-top:5px; background:#1e293b;" onclick="db.ref('store_orders/${id}').remove()">حذف</button></div>`;
-            }
+            const d = s.val(); const div = document.getElementById('order-requests'); div.innerHTML = "";
+            for(let id in d) div.innerHTML += `<div class="admin-card">📦 ${d[id].product}<br>👤 ${d[id].user}<br><button class="btn" style="background:#1e293b; width:100%; margin-top:5px;" onclick="db.ref('store_orders/${id}').remove()">حذف</button></div>`;
         });
     </script>
 </body>
