@@ -46,13 +46,13 @@
         .img-holder img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .price-tag { position: absolute; top: 15px; right: 15px; background: var(--btn-blue); padding: 5px 15px; border-radius: 20px; font-weight: 900; }
 
-        .laws-box { max-width: 900px; margin: auto; text-align: right; background: var(--glass); padding: 30px; border-radius: 20px; }
+        .laws-box { max-width: 900px; margin: auto; text-align: right; background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
         .law-card { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+        .law-card h3 { color: var(--accent); margin-bottom: 10px; font-weight: 900; }
 
         .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: right; }
         .dashboard-item { background: rgba(15, 23, 42, 0.8); padding: 25px; border-radius: 20px; border-right: 6px solid var(--accent); }
         
-        /* تحسين عرض الطلبات في الداشبورد */
         .app-entry { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-top: 15px; border: 1px solid rgba(52, 154, 233, 0.2); line-height: 1.8; }
         .app-entry b { color: var(--accent); font-size: 1.1rem; }
         .app-details { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 0.95rem; border-right: 3px solid #ccc; }
@@ -95,9 +95,30 @@
     <div id="laws" class="section">
         <h1>قوانين المدينة</h1>
         <div class="laws-box">
-            <div class="law-card"><h3># - NLR - قوانين الحياة الجديدة</h3><p>في حال اغمائك بالكامل لا يمكنك تذكر الأحداث إلا بشروط طبية.</p></div>
-            <div class="law-card"><h3># - PowerGaming</h3><p>استخدام وسائل غير واقعية للحصول على ميزة ممنوع.</p></div>
-            <div class="law-card"><h3># - NVL</h3><p>يجب تقدير الحياة والخوف عند التهديد بالسلاح.</p></div>
+            <div class="law-card">
+                <h3># - NLR - قوانين الحياة الجديدة</h3>
+                <p>في حال إغمائك بشكل كامل لا يمكنك الكلام أو الحركة أو فعل أي شيء. في حال تم إسقاطك من قبل شخص وتم إنعاشك من قبل مسعفين، تستطيع تذكر جميع الأحداث. في حال تم إعطاؤك إبرة "في العيادة الخاصة" من أحد اللاعبين الذين لديهم عداوة معك، لا تستطيع تذكر أي شيء حصل لك.</p>
+            </div>
+            <div class="law-card">
+                <h3># - PowerGaming - الباور جيمنج</h3>
+                <p>استخدام الوسائل غير الموجودة في اللعبة للحصول على ميزة أو عدم التوافق مع العالم بطريقة معقولة وبشكل واقعي.</p>
+            </div>
+            <div class="law-card">
+                <h3># - NVL - الخوف على الحياة</h3>
+                <p>عدم الخوف بشكل واقعي على حياتك عندما تتعرض للتهديد بالأسلحة أو بأذى شديد يعتبر مخالفة.</p>
+            </div>
+            <div class="law-card">
+                <h3># - MetaGaming - الميتا جيمنج</h3>
+                <p>أي معلومة تحصل عليها من خارج المدينة، مثال من بث أو ديسكورد، تعتبر مخالفة.</p>
+            </div>
+            <div class="law-card">
+                <h3># - RDM - الصدم العشوائي</h3>
+                <p>قتل الأشخاص دون سبب أو تهديد عشوائي ممنوع ومخالف للنظام العام.</p>
+            </div>
+            <div class="law-card">
+                <h3># - NWL - تقدير الحياة</h3>
+                <p>هي الحفاظ على حياتك وحياة الآخرين، وعدم التهور، وأن لا تستهين بقتل الأشخاص.</p>
+            </div>
         </div>
     </div>
 
@@ -229,7 +250,6 @@
             alert("شكراً لك! تم إرسال طلبك للإدارة."); form.reset();
         }
 
-        // تحديث عرض الطلبات ليظهر "الخبرات" و "السيرة السابقة"
         db.ref('all_apps').on('value', s => {
             const d = s.val(); const div = document.getElementById('apps-list'); div.innerHTML = "";
             for(let id in d) {
