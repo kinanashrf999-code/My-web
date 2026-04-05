@@ -39,7 +39,6 @@
         .logo-img { width: 120px; border-radius: 50%; border: 3px solid #1b4965; margin-bottom: 20px; }
         .hero-title { font-size: 3rem; font-weight: 900; }
 
-        /* تعديل العدادات لتشمل الحالة */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; max-width: 900px; margin: 30px auto; }
         .stat-box { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid #1b4965; }
         .stat-box h3 { color: var(--accent); font-size: 1.6rem; }
@@ -102,19 +101,11 @@
         <img src="https://cdn.discordapp.com/icons/1487961080310272000/abda591d3aadba01fa995d6a33948253.webp?size=1024" class="logo-img">
         <h1 class="hero-title">IDEAL TOWN</h1>
         <p>مرحباً بك في سيرفر IDEAL TOWN المتعة والإثارة بانتظارك</p>
-        
         <div class="stats-grid">
             <div class="stat-box"><h3 id="display-online">0</h3><p>اللاعبين الآن</p></div>
             <div class="stat-box"><h3 id="display-total">0</h3><p>لاعب مسجل</p></div>
-            <div class="stat-box">
-                <p>حالة السيرفر</p>
-                <div id="display-status" class="status-text">جاري التحميل...</div>
-            </div>
+            <div class="stat-box"><p>حالة السيرفر</p><div id="display-status" class="status-text">جاري التحميل...</div></div>
         </div>
-
-        <a href="https://discord.gg/G8Rqej3RGt" target="_blank" class="btn" style="background: #5865F2; margin-top: 20px;">
-            <i class="fab fa-discord"></i> انضم لسيرفر الديسكورد
-        </a>
     </div>
 
     <div id="store" class="section">
@@ -122,53 +113,17 @@
         <div id="store-container" class="store-grid"></div>
     </div>
 
-    <div id="laws" class="section">
-        <h1>قوانين المدينة</h1>
-        <div class="card">
-            <div class="law-item"><h3>NLR - قوانين الحياة الجديدة</h3><p>في حال اغمائك بشكل كامل لا يمكنك الكلام او الحركة او فعل أي شيء...</p></div>
-            <div class="law-item"><h3>RDM - القتل العشوائي</h3><p>القتل بدون سبب أو عداوة ممنوع تماماً.</p></div>
-        </div>
-    </div>
-
-    <div id="police" class="section">
-        <h1>التقديم للشرطة</h1>
-        <div class="card">
-            <form id="policeForm">
-                <input type="text" id="pol-name" placeholder="الاسم الثلاثي" required>
-                <input type="text" id="pol-dc" placeholder="يوزر الديسكورد" required>
-                <textarea id="pol-exp" placeholder="اذكر خبراتك السابقة" required></textarea>
-                <button type="submit" class="btn" style="width: 100%;">إرسال التقديم</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="apply-admin" class="section">
-        <h1>تقديم الإدارة</h1>
-        <div class="card">
-            <form id="adminForm">
-                <input type="text" id="adm-name" placeholder="الاسم الثلاثي" required>
-                <input type="text" id="adm-dc" placeholder="يوزر الديسكورد" required>
-                <textarea id="adm-exp" placeholder="الخبرات الإدارية" required></textarea>
-                <button type="submit" class="btn" style="width: 100%;">إرسال التقديم</button>
-            </form>
-        </div>
-    </div>
-
     <div id="admin-panel" class="section">
         <h1 style="color: var(--accent);">لوحة الإدارة العليا</h1>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
             <div class="card" style="margin:0">
-                <h3><i class="fas fa-server"></i> حالة السيرفر والعدادات</h3>
+                <h3>حالة السيرفر والعدادات</h3>
                 <label>حالة السيرفر:</label>
-                <select id="edit-status">
-                    <option value="متصل">متصل ✅</option>
-                    <option value="غير متصل">غير متصل ❌</option>
-                </select>
+                <select id="edit-status"><option value="متصل">متصل ✅</option><option value="غير متصل">غير متصل ❌</option></select>
                 <input type="number" id="edit-online" placeholder="عدد اللاعبين الآن">
                 <input type="text" id="edit-total" placeholder="إجمالي اللاعبين">
                 <button class="btn" onclick="updateStats()" style="width: 100%;">تحديث البيانات</button>
             </div>
-            
             <div class="card" style="margin:0">
                 <h3>إضافة منتج</h3>
                 <input type="text" id="prod-img" placeholder="رابط الصورة">
@@ -176,7 +131,6 @@
                 <input type="text" id="prod-price" placeholder="السعر">
                 <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر بالمتجر</button>
             </div>
-
             <div class="card" style="margin:0"><h3>طلبات الشراء</h3><div id="order-requests"></div></div>
             <div class="card" style="margin:0"><h3>طلبات التوظيف</h3><div id="all-apps"></div></div>
         </div>
@@ -198,28 +152,30 @@
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
         }
 
+        // تم إصلاح المشكلة هنا: إغلاق النافذة عند الدخول الصحيح
         function handleLogin() {
             const user = document.getElementById('user-input').value;
             const pass = document.getElementById('pass-input').value;
-            if(user === "IDL TOWN MANAGEMENT" && pass === "663567M") { showSection('admin-panel'); } else { alert("خطأ!"); }
+            if(user === "IDL TOWN MANAGEMENT" && pass === "663567M") { 
+                document.getElementById('login-modal').style.display = 'none'; // هذا السطر يغلق قائمة التسجيل
+                showSection('admin-panel'); 
+            } else { 
+                alert("خطأ في بيانات الدخول!"); 
+            }
         }
 
-        // تحديث العدادات والحالة
         function updateStats() {
             const online = document.getElementById('edit-online').value;
             const total = document.getElementById('edit-total').value;
             const status = document.getElementById('edit-status').value;
-            
             if(online) db.ref('site_stats/online').set(online);
             if(total) db.ref('site_stats/total').set(total);
             db.ref('site_stats/status').set(status);
-            alert("تم التحديث بنجاح!");
+            alert("تم التحديث!");
         }
 
-        // جلب البيانات وعرضها
         db.ref('site_stats').on('value', (s) => {
             const data = s.val();
             if(data) {
@@ -231,7 +187,6 @@
             }
         });
 
-        // المتجر
         function addNewProduct() {
             const img = document.getElementById('prod-img').value;
             const title = document.getElementById('prod-title').value;
@@ -262,27 +217,14 @@
             if(dc) db.ref('store_orders').push({ product: name, user: dc, date: new Date().toLocaleString() });
         }
 
-        // التوظيف
-        document.getElementById('policeForm').onsubmit = function(e) {
-            e.preventDefault();
-            db.ref('all_apps').push({ type: 'شرطة', name: this['pol-name'].value, dc: this['pol-dc'].value, exp: this['pol-exp'].value, status: 'انتظار' });
-            alert("تم الإرسال"); this.reset();
-        };
-
-        document.getElementById('adminForm').onsubmit = function(e) {
-            e.preventDefault();
-            db.ref('all_apps').push({ type: 'إدارة', name: this['adm-name'].value, dc: this['adm-dc'].value, exp: this['adm-exp'].value, status: 'انتظار' });
-            alert("تم الإرسال"); this.reset();
-        };
-
         db.ref('all_apps').on('value', (s) => {
             const data = s.val(); const div = document.getElementById('all-apps'); div.innerHTML = "";
             for(let id in data) {
                 const a = data[id];
-                div.innerHTML += `<div class="admin-card"><b>${a.name}</b> [${a.type}]<br>الحالة: ${a.status}<br>
+                div.innerHTML += `<div class="admin-card"><b>${a.name}</b> [${a.type}]<br>
                 <button class="btn-accept" onclick="db.ref('all_apps/${id}').update({status:'مقبول'})">قبول</button>
                 <button class="btn-reject" onclick="db.ref('all_apps/${id}').update({status:'مرفوض'})">رفض</button>
-                <button class="btn-delete-link" onclick="db.ref('all_apps/${id}').remove()">حذف السجل</button></div>`;
+                <button class="btn-delete-link" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
             }
         });
 
