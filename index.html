@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDEAL TOWN | لوحة التحكم المطورة</title>
+    <title>IDEAL TOWN | الموقع الرسمي</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -20,8 +20,9 @@
             --accent: #349ae9;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: #0d1b2a; color: var(--white); min-height: 100vh; line-height: 1.6; }
+        body { background: #0d1b2a; color: var(--white); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
         
+        /* Navigation */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.9); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-links a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); }
@@ -30,23 +31,39 @@
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Stats Home */
-        .stats-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        /* Home Section */
+        .hero-title { font-size: 4rem; font-weight: 900; margin-bottom: 10px; color: var(--white); }
+        .hero-sub { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 30px; max-width: 700px; margin-inline: auto; }
+        .stats-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
         .stat-item { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); min-width: 200px; }
-        .stat-item h3 { font-size: 2rem; color: var(--accent); }
+        .stat-item h3 { font-size: 2rem; color: var(--accent); font-weight: 900; }
 
+        /* Buttons */
         .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(52, 154, 233, 0.4); }
 
-        /* Admin Styles */
+        /* Store */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1200px; margin: 40px auto; }
+        .product-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; transition: 0.4s; position: relative; }
+        .img-holder { width: 100%; padding-top: 75%; position: relative; background: #1a2a3a; }
+        .img-holder img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .price-tag { position: absolute; top: 15px; right: 15px; background: var(--btn-blue); padding: 5px 15px; border-radius: 20px; font-weight: 900; z-index: 2; }
+
+        /* Laws */
+        .laws-box { max-width: 900px; margin: auto; text-align: right; background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .law-card { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+        .law-card h3 { color: var(--accent); margin-bottom: 10px; }
+
+        /* Admin Dashboard */
         .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; text-align: right; }
         .dashboard-item { background: rgba(15, 23, 42, 0.8); padding: 25px; border-radius: 20px; border-right: 6px solid var(--accent); }
         .app-entry { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.05); }
 
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.5); border: 1px solid #1e293b; color: white; border-radius: 8px; }
-        option { background: #0d1b2a; color: white; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 8px; }
+        label { font-weight: bold; color: var(--accent); }
 
         #login-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center; }
+        .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; margin: auto; text-align: right; }
     </style>
 </head>
 <body>
@@ -64,74 +81,121 @@
     </nav>
 
     <div id="home" class="section active">
-        <h1>IDEAL TOWN</h1>
-        <p>مرحباً بك في أفضل سيرفر حياة واقعية</p>
+        <h1 class="hero-title">IDEAL TOWN</h1>
+        <p class="hero-sub">عالمك المفضل للحياة الواقعية، حيث تبدأ مغامرتك وتصنع مستقبلك في أفضل بيئة لعب رول بلاي متكاملة ومحمسة!</p>
         <div class="stats-container">
             <div class="stat-item"><h3 id="display-total">0</h3><p>عضو مسجل</p></div>
-            <div class="stat-item"><h3 id="display-online">0</h3><p>لاعب متصل</p></div>
+            <div class="stat-item"><h3 id="display-online">0</h3><p>لاعب متصل الآن</p></div>
             <div class="stat-item"><h3 id="display-status">...</h3><p>حالة السيرفر</p></div>
         </div>
     </div>
 
+    <div id="store" class="section">
+        <h1>متجر المدينة</h1>
+        <div id="store-container" class="store-grid"></div>
+    </div>
+
+    <div id="laws" class="section">
+        <h1>قوانين المدينة</h1>
+        <div class="laws-box">
+            <div class="law-card"><h3># - NLR - قوانين الحياة الجديدة</h3><p>في حال اغمائك بشكل كامل لا يمكنك الكلام او الحركة او فعل أي شيء في حال تم اسقاطك من قبل شخص و تم انعاشك من قبل مسعفين تستطيع تذكر جميع الاحداث في حال تم اعطائك ابرة "في العيادة الخاصة" من احد اللاعبين اللذين لديهم عداوة معك لا تستطيع تذكر أي شي حصل لك.</p></div>
+            <div class="law-card"><h3># - PowerGaming - الباور جيمنج</h3><p>استخدام الوسائل غير موجودة في اللعبة للحصول على ميزة أو عدم التوافق مع العالم بطريقة معقولة وبشكل واقعي.</p></div>
+            <div class="law-card"><h3># - NVL - الخوف على الحياة</h3><p>عدم الخوف بشكل واقعي على حياتك عندما تتعرض للتهديد بالأسلحة أو بأذى شديد يعتبر مخالفة.</p></div>
+            <div class="law-card"><h3># - MetaGaming - الميتا جمينج</h3><p>اي معلومة تحصل عليها من خارج المدينة مثال من بث او دسكورد تعتبر مخالفة.</p></div>
+            <div class="law-card"><h3># - RDM - الصدم العشوائي</h3><p>قتل الأشخاص دون سبب أو تهديد عشوائي ممنوع ومخالف للنظام العام.</p></div>
+            <div class="law-card"><h3># - NWL - تقدير الحياة</h3><p>هي الحفاظ على حياتك وحياة الآخرين، وعدم التهور، وأن لا تستهين بقتل الأشخاص.</p></div>
+        </div>
+    </div>
+
+    <div id="police-hub" class="section">
+        <h1>مركز الشرطة</h1>
+        <div class="card" style="text-align: center;">
+            <button class="btn" onclick="showSection('police-apply')">تقديم للشرطة</button>
+            <a href="https://docs.google.com/spreadsheets/d/1z07MNr1yDcd1OsOi3ED5JiVVYsGZNWo76-OvDd2DWfY/edit?usp=sharing" target="_blank" class="btn" style="background:#1e293b; margin-right:10px;">جدول الشرطة</a>
+        </div>
+    </div>
+
+    <div id="police-apply" class="section">
+        <div class="card">
+            <h2>التقديم للشرطة</h2>
+            <form id="policeForm">
+                <input type="text" name="name" placeholder="الاسم الكامل" required>
+                <input type="number" name="age" placeholder="العمر" required>
+                <input type="text" name="dc" placeholder="يوزر الديسكورد" required>
+                <textarea name="exp" placeholder="ما هي خبراتك؟"></textarea>
+                <label>هل كنت عسكري سابقاً؟</label>
+                <select name="past"><option value="نعم">نعم</option><option value="لا">لا</option></select>
+                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="apply-admin" class="section">
+        <div class="card">
+            <h2>التقديم للإدارة</h2>
+            <form id="adminForm">
+                <input type="text" name="name" placeholder="الاسم الكامل" required>
+                <input type="number" name="age" placeholder="العمر" required>
+                <input type="text" name="dc" placeholder="يوزر الديسكورد" required>
+                <textarea name="exp" placeholder="ما هي خبراتك الإدارية؟"></textarea>
+                <label>هل كنت إداري سابقاً؟</label>
+                <select name="past"><option value="نعم">نعم</option><option value="لا">لا</option></select>
+                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
+            </form>
+        </div>
+    </div>
+
     <div id="admin-panel" class="section">
-        <h1>لوحة التحكم بالإحصائيات والطلبات</h1>
+        <h1>لوحة تحكم المدير</h1>
         <div class="admin-grid">
             
             <div class="dashboard-item">
-                <h3><i class="fas fa-toggle-on"></i> حالة السيرفر والإحصائيات</h3>
-                
-                <label>اختر حالة السيرفر:</label>
+                <h3>إعدادات الحالة</h3>
+                <label>حالة السيرفر:</label>
                 <select id="set-status">
                     <option value="متصل 🟢">متصل 🟢</option>
                     <option value="غير متصل 🔴">غير متصل 🔴</option>
                     <option value="تحت الصيانة 🛠️">تحت الصيانة 🛠️</option>
                 </select>
-
-                <label>عدد اللاعبين الحالي:</label>
-                <input type="number" id="set-online" placeholder="مثلاً: 15">
-                
-                <label>إجمالي الأعضاء:</label>
-                <input type="number" id="set-total" placeholder="مثلاً: 150">
-                
-                <button class="btn" onclick="saveStats()" style="width:100%; margin-top:10px;">تحديث الحالة الآن</button>
+                <label>اللاعبين الحاليين:</label>
+                <input type="number" id="set-online">
+                <label>إجمالي المسجلين:</label>
+                <input type="number" id="set-total">
+                <button class="btn" onclick="saveStats()" style="width:100%">تحديث البيانات</button>
             </div>
 
             <div class="dashboard-item">
-                <h3><i class="fas fa-cart-plus"></i> إضافة منتج</h3>
+                <h3>إضافة منتج</h3>
                 <input type="text" id="p-img" placeholder="رابط الصورة">
                 <input type="text" id="p-title" placeholder="اسم المنتج">
                 <input type="text" id="p-price" placeholder="السعر">
-                <button class="btn" onclick="addP()" style="width:100%">نشر المنتج</button>
+                <button class="btn" onclick="addP()" style="width:100%">نشر في المتجر</button>
             </div>
 
             <div class="dashboard-item" style="grid-column: span 2;">
-                <h3><i class="fas fa-users"></i> طلبات التوظيف</h3>
+                <h3>طلبات التوظيف</h3>
                 <div id="apps-list"></div>
             </div>
 
             <div class="dashboard-item" style="grid-column: span 2;">
-                <h3><i class="fas fa-shopping-bag"></i> طلبات الشراء</h3>
+                <h3>طلبات المتجر (تم التسليم/حذف)</h3>
                 <div id="orders-list"></div>
             </div>
-
         </div>
     </div>
 
-    <div id="store" class="section"><h1>المتجر</h1><div id="store-container" class="stats-container"></div></div>
-    <div id="laws" class="section"><h1>القوانين</h1><p>سيتم عرض القوانين هنا كما ذكرتها سابقاً.</p></div>
-    <div id="police-hub" class="section"><h1>الشرطة</h1><button class="btn" onclick="showSection('police-apply')">تقديم</button></div>
-
     <div id="login-modal">
-        <div style="background: #1a2a3a; padding: 30px; border-radius: 15px; text-align: center; width: 320px;">
+        <div class="card" style="width: 320px; text-align: center;">
             <h3>دخول الإدارة</h3>
             <input type="text" id="u-login" placeholder="المستخدم">
             <input type="password" id="p-login" placeholder="الرمز">
             <button class="btn" onclick="checkLogin()" style="width:100%">دخول</button>
+            <button class="btn" onclick="document.getElementById('login-modal').style.display='none'" style="background:none;">إلغاء</button>
         </div>
     </div>
 
     <script>
-        // إعدادات Firebase الخاصة بك
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
             authDomain: "ideal-town.firebaseapp.com",
@@ -147,6 +211,7 @@
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
         }
 
         function checkLogin() {
@@ -156,17 +221,16 @@
             } else { alert("خطأ!"); }
         }
 
-        // حفظ الحالة من القائمة المنسدلة
+        // إحصائيات السيرفر
         function saveStats() {
             db.ref('server_info').set({
-                status: document.getElementById('set-status').value, // القيمة من الـ Select
+                status: document.getElementById('set-status').value,
                 online: document.getElementById('set-online').value,
                 total: document.getElementById('set-total').value
             });
-            alert("تم تحديث حالة السيرفر بنجاح!");
+            alert("تم الحفظ!");
         }
 
-        // جلب البيانات لعرضها في الرئيسية
         db.ref('server_info').on('value', s => {
             const d = s.val(); if(d) {
                 document.getElementById('display-status').innerText = d.status;
@@ -175,12 +239,60 @@
             }
         });
 
-        // دوال التقديم والمتجر (نفس المنطق السابق لضمان العمل)
-        function addP() { db.ref('products').push({ img: document.getElementById('p-img').value, title: document.getElementById('p-title').value, price: document.getElementById('p-price').value }); }
-        db.ref('products').on('value', s => { /* عرض المنتجات */ });
-        db.ref('all_apps').on('value', s => { /* عرض التوظيف */ });
-        db.ref('orders').on('value', s => { /* عرض طلبات الشراء */ });
+        // التقديمات
+        document.getElementById('policeForm').onsubmit = function(e){ e.preventDefault(); submitApp(this, 'شرطة'); };
+        document.getElementById('adminForm').onsubmit = function(e){ e.preventDefault(); submitApp(this, 'إدارة'); };
 
+        function submitApp(form, type) {
+            db.ref('all_apps').push({
+                type: type, name: form.name.value, age: form.age.value, dc: form.dc.value, exp: form.exp.value, past: form.past.value, status: 'انتظار'
+            });
+            alert("تم الإرسال!"); form.reset();
+        }
+
+        db.ref('all_apps').on('value', s => {
+            const d = s.val(); const div = document.getElementById('apps-list'); div.innerHTML = "";
+            for(let id in d) {
+                div.innerHTML += `<div class="app-entry">
+                    <b>[${d[id].type}] - ${d[id].name}</b> (${d[id].status})<br>
+                    ديسكورد: ${d[id].dc} | العمر: ${d[id].age}<br>
+                    <button class="btn" style="background:#22c55e; padding:3px 8px;" onclick="db.ref('all_apps/${id}').update({status:'مقبول'})">قبول</button>
+                    <button class="btn" style="background:#ef4444; padding:3px 8px;" onclick="db.ref('all_apps/${id}').update({status:'مرفوض'})">رفض</button>
+                    <button class="btn" style="background:gray; padding:3px 8px;" onclick="db.ref('all_apps/${id}').remove()">حذف</button>
+                </div>`;
+            }
+        });
+
+        // المتجر
+        function addP() {
+            db.ref('products').push({ img: document.getElementById('p-img').value, title: document.getElementById('p-title').value, price: document.getElementById('p-price').value });
+        }
+
+        db.ref('products').on('value', s => {
+            const d = s.val(); const div = document.getElementById('store-container'); div.innerHTML = "";
+            for(let id in d) {
+                div.innerHTML += `<div class="product-card">
+                    <div class="img-holder"><span class="price-tag">${d[id].price}</span><img src="${d[id].img}"></div>
+                    <div style="padding:20px;"><h3>${d[id].title}</h3><button class="btn" style="width:100%" onclick="buy('${d[id].title}')">طلب شراء</button></div>
+                </div>`;
+            }
+        });
+
+        function buy(name) {
+            const user = prompt("يوزر الديسكورد:");
+            if(user) db.ref('orders').push({ product: name, user: user, status: 'انتظار' });
+        }
+
+        db.ref('orders').on('value', s => {
+            const d = s.val(); const div = document.getElementById('orders-list'); div.innerHTML = "";
+            for(let id in d) {
+                div.innerHTML += `<div class="app-entry">
+                    📦 ${d[id].product} - 👤 ${d[id].user} (${d[id].status})<br>
+                    <button class="btn" style="background:#3b82f6; padding:3px 8px;" onclick="db.ref('orders/${id}').update({status:'تم التسليم'})">تم التسليم</button>
+                    <button class="btn" style="background:#ef4444; padding:3px 8px;" onclick="db.ref('orders/${id}').remove()">حذف</button>
+                </div>`;
+            }
+        });
     </script>
 </body>
 </html>
