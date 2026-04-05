@@ -14,65 +14,66 @@
     <style>
         :root { --gold: #ffcc00; --blue: #0a192f; --white: #ffffff; --glass: rgba(255, 255, 255, 0.1); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: radial-gradient(circle at top right, #112240, #0a192f); color: var(--white); min-height: 100vh; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: var(--glass); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 215, 0, 0.2); }
-        .section { display: none; padding: 120px 8% 50px; text-align: center; }
+        body { background: radial-gradient(circle at top right, #112240, #0a192f); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--glass); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 215, 0, 0.2); }
+        .section { display: none; padding: 120px 8% 50px; min-height: 100vh; text-align: center; }
         .active { display: block; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .stat-card { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); flex: 1; min-width: 150px; }
         .stat-card h3 { color: var(--gold); font-size: 2.5rem; }
-        .btn { background: var(--gold); color: black; border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; }
-        input { width: 100%; padding: 10px; margin: 10px 0; background: rgba(0,0,0,0.5); border: 1px solid #444; color: white; border-radius: 5px; }
+        .btn { background: var(--gold); color: black; border: none; padding: 12px 25px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid #444; color: white; border-radius: 8px; }
     </style>
 </head>
 <body>
 
     <nav>
         <div style="font-weight: 900; font-size: 1.5rem; color: var(--gold);">IDEAL TOWN</div>
-        <div style="display: flex; gap: 15px;">
-            <a onclick="showSection('home')" style="cursor:pointer;">الرئيسية</a>
-            <a onclick="showSection('apply')" style="cursor:pointer;">التقديم</a>
-            <button class="btn" onclick="adminLogin()">الإدارة</button>
+        <div style="display: flex; gap: 20px;">
+            <a onclick="showSection('home')" style="cursor:pointer; font-weight:bold;">الرئيسية</a>
+            <a onclick="showSection('apply')" style="cursor:pointer; font-weight:bold;">التقديم</a>
         </div>
+        <button class="btn" onclick="adminLogin()">لوحة الإدارة</button>
     </nav>
 
     <div id="home" class="section active">
-        <h1 style="font-size: 3.5rem;">IDEAL TOWN</h1>
-        <p>عالم الواقعية والإثارة في FiveM</p>
-        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+        <h1 style="font-size: 3.5rem; font-weight: 900; margin-top: 50px;">IDEAL TOWN</h1>
+        <p style="color: #ccc; margin-bottom: 40px;">سيرفر الحياة الواقعية الأفضل</p>
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 800px; margin: auto;">
             <div class="stat-card"><h3 id="live-online">0</h3><p>لاعب متصل</p></div>
             <div class="stat-card"><h3 id="live-reg">0</h3><p>عضو مسجل</p></div>
         </div>
     </div>
 
     <div id="apply" class="section">
-        <div style="max-width: 400px; margin: auto; background: var(--glass); padding: 20px; border-radius: 15px;">
-            <h2>طلب انضمام</h2>
+        <div style="max-width: 500px; margin: auto; background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+            <h2 style="color: var(--gold); margin-bottom: 20px;">طلب انضمام</h2>
             <form id="applyForm">
-                <input type="text" id="name" placeholder="اسمك الثلاثي" required>
-                <input type="text" id="dc" placeholder="يوزر الديسكورد" required>
-                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">إرسال الطلب</button>
+                <input type="text" id="p-name" placeholder="الاسم الكامل" required>
+                <input type="text" id="p-dc" placeholder="يوزر الديسكورد" required>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 15px;">إرسال الطلب</button>
             </form>
         </div>
     </div>
 
     <div id="admin" class="section">
-        <h2>لوحة تحكم السيرفر</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+        <h2 style="color: var(--gold); margin-bottom: 30px;">لوحة التحكم</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: auto;">
             <div style="background: var(--glass); padding: 20px; border-radius: 15px;">
                 <h3>تحديث الإحصائيات</h3>
-                <input type="number" id="up-online" placeholder="عدد المتصلين">
-                <input type="number" id="up-reg" placeholder="عدد المسجلين">
-                <button class="btn" onclick="saveData()">تحديث الآن</button>
+                <input type="number" id="new-online" placeholder="المتصلين الآن">
+                <input type="number" id="new-reg" placeholder="إجمالي المسجلين">
+                <button class="btn" onclick="updateStats()" style="width:100%;">تحديث الموقع</button>
             </div>
-            <div id="apps-list" style="background: var(--glass); padding: 20px; border-radius: 15px; text-align: right;">
-                <h3>طلبات التقديم:</h3>
+            <div id="list-apps" style="background: var(--glass); padding: 20px; border-radius: 15px; text-align: right; max-height: 400px; overflow-y: auto;">
+                <h3>الطلبات الجديدة:</h3>
             </div>
         </div>
     </div>
 
     <script>
-        // إعدادات Firebase الخاصة بك يا كنان
+        // إعداداتك الخاصة يا كنان
         const firebaseConfig = {
             apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
             authDomain: "ideal-town.firebaseapp.com",
@@ -92,44 +93,44 @@
         }
 
         function adminLogin() {
-            let pass = prompt("أدخل كود الإدارة السري:");
-            if(pass === "6635764M") showSection('admin');
-            else alert("الكود خطأ!");
+            let p = prompt("كود الإدارة:");
+            if(p === "6635764M") showSection('admin');
+            else alert("خطأ!");
         }
 
-        // جلب البيانات فوراً
-        db.ref('stats').on('value', (s) => {
-            const data = s.val();
+        // جلب البيانات فوراً وتحديثها لو تغيرت في قوقل
+        db.ref('server_stats').on('value', (snap) => {
+            const data = snap.val();
             if(data) {
                 document.getElementById('live-online').innerText = data.online || 0;
                 document.getElementById('live-reg').innerText = data.reg || 0;
             }
         });
 
-        function saveData() {
-            db.ref('stats').set({
-                online: document.getElementById('up-online').value,
-                reg: document.getElementById('up-reg').value
-            }).then(() => alert("تم التحديث!"));
+        function updateStats() {
+            db.ref('server_stats').set({
+                online: document.getElementById('new-online').value,
+                reg: document.getElementById('new-reg').value
+            }).then(() => alert("تم التحديث بنجاح!"));
         }
 
         document.getElementById('applyForm').onsubmit = function(e) {
             e.preventDefault();
             db.ref('apps').push({
-                name: document.getElementById('name').value,
-                dc: document.getElementById('dc').value
-            }).then(() => { alert("تم إرسال طلبك!"); this.reset(); });
+                name: document.getElementById('p-name').value,
+                discord: document.getElementById('p-dc').value
+            }).then(() => { alert("تم الإرسال!"); this.reset(); });
         };
 
-        db.ref('apps').on('value', (s) => {
-            const apps = s.val();
-            const list = document.getElementById('apps-list');
-            list.innerHTML = "<h3>طلبات التقديم:</h3>";
-            for(let id in apps) {
-                list.innerHTML += `<div style="background:rgba(255,255,255,0.05); padding:10px; margin-top:5px; border-radius:5px;">
-                    <p>الاسم: ${apps[id].name}</p>
-                    <p>ديسكورد: ${apps[id].dc}</p>
-                    <button onclick="db.ref('apps/${id}').remove()" style="color:red; background:none; border:none; cursor:pointer;">حذف</button>
+        db.ref('apps').on('value', (snap) => {
+            const apps = snap.val();
+            const box = document.getElementById('list-apps');
+            box.innerHTML = "<h3>الطلبات الجديدة:</h3>";
+            for(let key in apps) {
+                box.innerHTML += `<div style="background:rgba(255,255,255,0.05); padding:10px; margin-top:10px; border-radius:10px; border-right:4px solid var(--gold);">
+                    <p><b>الاسم:</b> ${apps[key].name}</p>
+                    <p><b>ديسكورد:</b> ${apps[key].discord}</p>
+                    <button onclick="db.ref('apps/${key}').remove()" style="color:red; background:none; border:none; cursor:pointer; font-size:12px;">حذف</button>
                 </div>`;
             }
         });
