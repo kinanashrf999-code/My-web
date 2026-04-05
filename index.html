@@ -44,23 +44,45 @@
         .stat-box h3 { color: var(--accent); font-size: 1.6rem; }
         .status-text { font-weight: bold; font-size: 1.4rem; }
 
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; font-size: 0.9rem; }
         .btn:hover { transform: translateY(-3px); opacity: 0.9; }
         
-        /* كروت المتجر بمقاس الصورة */
-        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; padding: 0 5%; }
-        .product-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; position: relative; }
+        /* تعديل مقاسات المتجر لتصبح أصغر */
+        .store-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* تصغير عرض الخانة */
+            gap: 15px; 
+            margin-top: 30px; 
+            padding: 0 8%; 
+        }
+        .product-card { 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 15px; 
+            overflow: hidden; 
+            position: relative; 
+            max-width: 280px; /* تحديد أقصى عرض للكارت */
+            margin: auto;
+        }
         .img-container { position: relative; width: 100%; padding-top: 65%; }
         .product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .price-tag { position: absolute; top: 15px; right: 15px; background: var(--btn-blue); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; z-index: 5; }
+        
+        .price-tag { 
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            background: var(--btn-blue); 
+            color: white; 
+            padding: 3px 10px; 
+            border-radius: 15px; 
+            font-weight: bold; 
+            font-size: 0.8rem; 
+            z-index: 5; 
+        }
 
-        .product-info { padding: 20px; text-align: right; }
-        .product-info h3 { color: var(--accent); margin-bottom: 10px; }
-
-        /* أزرار الإدارة */
-        .btn-accept { background: #22c55e; margin-left: 5px; padding: 6px 18px; font-size: 0.85rem; }
-        .btn-reject { background: #ef4444; padding: 6px 18px; font-size: 0.85rem; }
-        .btn-delete-link { background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 0.75rem; text-decoration: underline; margin-top: 10px; display: block; width: fit-content; margin-right: auto; }
+        .product-info { padding: 15px; text-align: right; }
+        .product-info h3 { color: var(--accent); margin-bottom: 8px; font-size: 1.1rem; }
+        .buy-btn { width: 100%; font-size: 0.85rem; padding: 8px; }
 
         .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 900px; text-align: right; }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.6); border: 1px solid #1b4965; color: white; border-radius: 8px; text-align: right; }
@@ -100,7 +122,6 @@
     <div id="home" class="section active">
         <img src="https://cdn.discordapp.com/icons/1487961080310272000/abda591d3aadba01fa995d6a33948253.webp?size=1024" class="logo-img">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <p>مرحباً بك في سيرفر IDEAL TOWN المتعة والإثارة بانتظارك</p>
         <div class="stats-grid">
             <div class="stat-box"><h3 id="display-online">0</h3><p>اللاعبين الآن</p></div>
             <div class="stat-box"><h3 id="display-total">0</h3><p>لاعب مسجل</p></div>
@@ -118,7 +139,6 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
             <div class="card" style="margin:0">
                 <h3>حالة السيرفر والعدادات</h3>
-                <label>حالة السيرفر:</label>
                 <select id="edit-status"><option value="متصل">متصل ✅</option><option value="غير متصل">غير متصل ❌</option></select>
                 <input type="number" id="edit-online" placeholder="عدد اللاعبين الآن">
                 <input type="text" id="edit-total" placeholder="إجمالي اللاعبين">
@@ -129,7 +149,7 @@
                 <input type="text" id="prod-img" placeholder="رابط الصورة">
                 <input type="text" id="prod-title" placeholder="اسم المنتج">
                 <input type="text" id="prod-price" placeholder="السعر">
-                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر بالمتجر</button>
+                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر</button>
             </div>
             <div class="card" style="margin:0"><h3>طلبات الشراء</h3><div id="order-requests"></div></div>
             <div class="card" style="margin:0"><h3>طلبات التوظيف</h3><div id="all-apps"></div></div>
@@ -154,16 +174,13 @@
             document.getElementById(id).classList.add('active');
         }
 
-        // تم إصلاح المشكلة هنا: إغلاق النافذة عند الدخول الصحيح
         function handleLogin() {
             const user = document.getElementById('user-input').value;
             const pass = document.getElementById('pass-input').value;
             if(user === "IDL TOWN MANAGEMENT" && pass === "663567M") { 
-                document.getElementById('login-modal').style.display = 'none'; // هذا السطر يغلق قائمة التسجيل
+                document.getElementById('login-modal').style.display = 'none';
                 showSection('admin-panel'); 
-            } else { 
-                alert("خطأ في بيانات الدخول!"); 
-            }
+            } else { alert("خطأ!"); }
         }
 
         function updateStats() {
@@ -206,14 +223,14 @@
                         </div>
                         <div class="product-info">
                             <h3>${p.title}</h3>
-                            <button class="btn" style="width:100%" onclick="buyProduct('${p.title}')">طلب شراء</button>
+                            <button class="btn buy-btn" onclick="buyProduct('${p.title}')">طلب شراء</button>
                         </div>
                     </div>`;
             }
         });
 
         function buyProduct(name) {
-            const dc = prompt("يوزر الديسكورد الخاص بك:");
+            const dc = prompt("يوزر الديسكورد:");
             if(dc) db.ref('store_orders').push({ product: name, user: dc, date: new Date().toLocaleString() });
         }
 
@@ -221,10 +238,8 @@
             const data = s.val(); const div = document.getElementById('all-apps'); div.innerHTML = "";
             for(let id in data) {
                 const a = data[id];
-                div.innerHTML += `<div class="admin-card"><b>${a.name}</b> [${a.type}]<br>
-                <button class="btn-accept" onclick="db.ref('all_apps/${id}').update({status:'مقبول'})">قبول</button>
-                <button class="btn-reject" onclick="db.ref('all_apps/${id}').update({status:'مرفوض'})">رفض</button>
-                <button class="btn-delete-link" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
+                div.innerHTML += `<div class="admin-card"><b>${a.name}</b><br>
+                <button class="btn" style="background:#22c55e" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
             }
         });
 
@@ -233,7 +248,7 @@
             for(let id in data) {
                 const o = data[id];
                 div.innerHTML += `<div class="admin-card">📦 ${o.product}<br>👤 ${o.user}<br>
-                <button class="btn" style="width:100%; margin-top:5px; background:#1e293b;" onclick="db.ref('store_orders/${id}').remove()">تم التسليم / حذف</button></div>`;
+                <button class="btn" style="width:100%; margin-top:5px; background:#1e293b;" onclick="db.ref('store_orders/${id}').remove()">حذف</button></div>`;
             }
         });
     </script>
