@@ -19,7 +19,7 @@
             --glass: rgba(255, 255, 255, 0.05); 
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: #0d1b2a; color: var(--white); min-height: 100vh; line-height: 1.6; }
+        body { background: #0d1b2a; color: var(--white); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
         
         nav { 
             display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; 
@@ -34,22 +34,23 @@
 
         .logo-img { width: 120px; border-radius: 50%; border: 3px solid #1b4965; margin-bottom: 20px; }
         .hero-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; }
-        .hero-sub { font-size: 1.8rem; color: #cbd5e1; margin-bottom: 30px; }
 
         .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
-        .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 700px; text-align: right; }
-        .law-item { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
-        .law-title { color: #349ae9; font-weight: 900; font-size: 1.4rem; }
+        .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 800px; text-align: right; }
+        
+        /* المتجر */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .product-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; transition: 0.3s; text-align: center; }
+        .product-card:hover { border-color: #349ae9; transform: translateY(-5px); }
+        .product-img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .price-tag { color: #349ae9; font-weight: 900; font-size: 1.2rem; display: block; margin: 10px 0; }
 
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 8px; font-size: 1rem; }
         
-        .admin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; margin-top: 15px; border-radius: 10px; position: relative; }
-        .status-badge { padding: 3px 10px; border-radius: 5px; font-size: 0.8rem; margin-right: 10px; }
-        .pending { background: #856404; }
-        .accepted { background: #155724; }
-        .rejected { background: #721c24; }
+        .admin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; margin-top: 15px; border-radius: 10px; position: relative; text-align: right; }
+        .badge { padding: 3px 10px; border-radius: 5px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -61,114 +62,82 @@
         </div>
         <div class="nav-links">
             <a onclick="showSection('home')">الرئيسية</a>
+            <a onclick="showSection('store')">المتجر</a>
             <a onclick="showSection('laws')">القوانين</a>
-            <a onclick="showSection('police')">قسم الشرطة</a>
-            <a onclick="showSection('apply-admin')">تقديم الإدارة</a>
-            <a href="https://discord.gg/7xQUbSvtV" target="_blank" class="btn" style="padding: 5px 15px; font-size: 0.9rem;"><i class="fab fa-discord"></i> الديسكورد</a>
+            <a onclick="showSection('police')">الشرطة</a>
+            <a onclick="showSection('apply-admin')">التقديم</a>
         </div>
-        <button class="btn" onclick="adminLogin()" style="font-size: 0.8rem;">دخول الإدارة</button>
+        <button class="btn" onclick="adminLogin()" style="font-size: 0.8rem;">لوحة الإدارة</button>
     </nav>
 
     <div id="home" class="section active">
         <img src="https://cdn.discordapp.com/icons/1487961080310272000/abda591d3aadba01fa995d6a33948253.webp?size=1024" class="logo-img">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <h2 class="hero-sub">مرحبا بك في سيرفر IDEAL TOWN حيث يوجد المتعه و الإثاره ابدأ رحلتك الأن</h2>
-        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-            <div style="background: var(--glass); padding: 20px; border-radius: 15px; min-width: 150px;">
-                <h3 id="live-online" style="font-size: 2.5rem; color: #349ae9;">0</h3>
-                <p>لاعب متصل</p>
+        <h2 style="color: #cbd5e1;">مرحباً بك في سيرفر IDEAL TOWN المتعة والإثارة بانتظارك</h2>
+    </div>
+
+    <div id="store" class="section">
+        <h1>متجر IDEAL TOWN</h1>
+        <p>اختر منتجك المفضل وتميز داخل السيرفر</p>
+        <div id="store-container" class="store-grid">
             </div>
-            <div style="background: var(--glass); padding: 20px; border-radius: 15px; min-width: 150px;">
-                <h3 id="live-reg" style="font-size: 2.5rem; color: #349ae9;">0</h3>
-                <p>عضو مسجل</p>
-            </div>
-        </div>
     </div>
 
     <div id="laws" class="section">
-        <h1 style="margin-bottom: 30px;">قوانين المدينة</h1>
+        <h1>قوانين المدينة</h1>
         <div class="card">
-            <div class="law-item">
-                <div class="law-title">NLR - قوانين الحياة الجديدة</div>
-                <p>في حال اغمائك بشكل كامل لا يمكنك الكلام او الحركة او فعل أي شيء... في حال تم اعطائك ابرة في العيادة الخاصة لا تستطيع تذكر أي شي حصل لك.</p>
-            </div>
-            <div class="law-item">
-                <div class="law-title">PowerGaming - الباور جيمنج</div>
-                <p>استخدام الوسائل غير موجودة في اللعبة للحصول على ميزة أو عدم التوافق مع العالم بطريقة معقولة وبشكل واقعي.</p>
-            </div>
-            <div class="law-item">
-                <div class="law-title">NVL - الخوف على الحياة</div>
-                <p>عدم الخوف بشكل واقعي على حياتك عندما تتعرض للتهديد بالأسلحة أو بأذى شديد يعتبر مخالفة جسيمة.</p>
-            </div>
-            <div class="law-item">
-                <div class="law-title">MetaGaming - الميتا جمينج</div>
-                <p>اي معلومة تحصل عليها من خارج المدينة (بث، ديسكورد، يوتيوب) وتستخدمها داخل اللعبة تعتبر مخالفة.</p>
-            </div>
-            <div class="law-item">
-                <div class="law-title">RDM - الصدم العشوائي</div>
-                <p>قتل الأشخاص دون سبب أو تهديد أو بصورة عشوائية ممنوع ومخالف للنظام العام.</p>
-            </div>
-            <div class="law-item">
-                <div class="law-title">NWL - تقدير الحياة</div>
-                <p>هي الحفاظ على حياتك وحياة الآخرين، وعدم التهور، وأن لا تستهين بقتل الأشخاص، ومحاورة اللاعب قبل أي عمل خطر.</p>
-            </div>
+            <p><strong>NLR:</strong> عدم تذكر أحداث ما قبل الإغماء.</p>
+            <p><strong>NVL:</strong> الخوف على حياتك أمر أساسي.</p>
+            <p><strong>RDM:</strong> القتل العشوائي ممنوع قطعياً.</p>
         </div>
     </div>
 
     <div id="police" class="section">
-        <h1>قسم شرطة IDEAL TOWN</h1>
-        <div style="margin: 20px 0;">
-            <a href="https://docs.google.com/spreadsheets/d/1z07MNr1yDcd1OsOi3ED5JiVVYsGZNWo76-OvDd2DWfY/edit?usp=sharing" target="_blank" class="btn"><i class="fas fa-table"></i> فتح جدول الشرطة</a>
-        </div>
+        <h1>التقديم للشرطة</h1>
         <div class="card">
-            <h3 style="text-align: center; margin-bottom: 20px;">طلب انضمام لجهاز الشرطة</h3>
             <form id="policeForm">
-                <input type="text" id="pol-name" placeholder="الاسم الكامل" required>
-                <input type="number" id="pol-age" placeholder="العمر" required>
-                <input type="text" id="pol-dc" placeholder="يوزر الديسكورد" required>
-                <textarea id="pol-exp" placeholder="الخبرات السابقة" rows="3" required></textarea>
-                <select id="pol-mil">
-                    <option value="">هل كنت عسكري سابق؟</option>
-                    <option value="نعم">نعم</option>
-                    <option value="لا">لا</option>
-                </select>
-                <button type="submit" class="btn" style="width: 100%;">إرسال طلب التوظيف</button>
+                <input type="text" id="pol-name" placeholder="الاسم" required>
+                <input type="text" id="pol-dc" placeholder="ديسكورد" required>
+                <textarea id="pol-exp" placeholder="الخبرات" required></textarea>
+                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
             </form>
         </div>
     </div>
 
     <div id="apply-admin" class="section">
-        <h1>التقديم لإدارة السيرفر</h1>
+        <h1>التقديم للإدارة</h1>
         <div class="card">
             <form id="adminForm">
-                <input type="text" id="adm-name" placeholder="الاسم الكامل" required>
-                <input type="number" id="adm-age" placeholder="العمر" required>
-                <input type="text" id="adm-dc" placeholder="يوزر الديسكورد" required>
-                <textarea id="adm-exp" placeholder="الخبرات الإدارية" rows="3" required></textarea>
-                <select id="adm-prev">
-                    <option value="">هل كنت إداري سابق؟</option>
-                    <option value="نعم">نعم</option>
-                    <option value="لا">لا</option>
-                </select>
-                <button type="submit" class="btn" style="width: 100%;">إرسال طلب الإدارة</button>
+                <input type="text" id="adm-name" placeholder="الاسم" required>
+                <input type="text" id="adm-dc" placeholder="ديسكورد" required>
+                <textarea id="adm-exp" placeholder="الخبرات الإدارية" required></textarea>
+                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
             </form>
         </div>
     </div>
 
     <div id="admin-panel" class="section">
-        <h1>لوحة تحكم الإدارة العليا</h1>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: right;">
-            <div class="card" style="max-width: 100%;">
-                <h3>تحديث إحصائيات المدينة</h3>
-                <input type="number" id="up-online" placeholder="المتصلين الآن">
-                <input type="number" id="up-reg" placeholder="المسجلين كلياً">
-                <button class="btn" onclick="updateStats()" style="width:100%;">حفظ الأرقام</button>
+        <h1 style="color: #349ae9;">لوحة الإدارة العليا</h1>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+            
+            <div class="card" style="margin: 0;">
+                <h3><i class="fas fa-plus-circle"></i> إضافة منتج جديد</h3>
+                <input type="text" id="prod-img" placeholder="رابط صورة المنتج">
+                <input type="text" id="prod-title" placeholder="اسم المنتج">
+                <textarea id="prod-desc" placeholder="وصف المنتج"></textarea>
+                <input type="text" id="prod-price" placeholder="السعر (مثال: 50$)">
+                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر في المتجر</button>
             </div>
-            <div class="card" style="max-width: 100%;">
-                <h3>إدارة الطلبات (شرطة وإدارة)</h3>
-                <div id="all-requests" style="max-height: 500px; overflow-y: auto;">
-                    <p style="text-align: center; color: #888;">لا يوجد طلبات حالياً</p>
-                </div>
+
+            <div class="card" style="margin: 0;">
+                <h3><i class="fas fa-shopping-cart"></i> طلبات الشراء الجديدة</h3>
+                <div id="order-requests" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+
+            <div class="card" style="margin: 0;">
+                <h3><i class="fas fa-user-shield"></i> طلبات الإدارة والشرطة</h3>
+                <div id="all-apps" style="max-height: 400px; overflow-y: auto;"></div>
             </div>
         </div>
     </div>
@@ -195,89 +164,106 @@
 
         function adminLogin() {
             let user = prompt("اسم المستخدم:");
-            let pass = prompt("رمز الدخول:");
+            let pass = prompt("الرمز:");
             if(user === "IDL TOWN MANAGEMENT" && pass === "663567M") {
                 showSection('admin-panel');
-            } else {
-                alert("بيانات الدخول خاطئة!");
+            } else { alert("خطأ!"); }
+        }
+
+        // --- وظائف المتجر ---
+        function addNewProduct() {
+            const img = document.getElementById('prod-img').value;
+            const title = document.getElementById('prod-title').value;
+            const desc = document.getElementById('prod-desc').value;
+            const price = document.getElementById('prod-price').value;
+
+            if(title && price) {
+                db.ref('store_products').push({ img, title, desc, price });
+                alert("تمت إضافة المنتج للمتجر!");
+                document.querySelectorAll('#admin-panel input, #admin-panel textarea').forEach(i => i.value = "");
             }
         }
 
-        // تحديث الإحصائيات
-        db.ref('stats').on('value', (s) => {
-            const d = s.val() || { online: 0, reg: 0 };
-            document.getElementById('live-online').innerText = d.online;
-            document.getElementById('live-reg').innerText = d.reg;
-        });
-
-        function updateStats() {
-            db.ref('stats').set({
-                online: document.getElementById('up-online').value || 0,
-                reg: document.getElementById('up-reg').value || 0
-            }).then(() => alert("تم تحديث الإحصائيات"));
-        }
-
-        // تقديم الشرطة
-        document.getElementById('policeForm').onsubmit = function(e) {
-            e.preventDefault();
-            db.ref('all_apps').push({
-                type: 'شرطة',
-                name: document.getElementById('pol-name').value,
-                age: document.getElementById('pol-age').value,
-                dc: document.getElementById('pol-dc').value,
-                exp: document.getElementById('pol-exp').value,
-                extra: document.getElementById('pol-mil').value,
-                status: 'قيد الانتظار'
-            }).then(() => { alert("تم إرسال طلبك للشرطة"); this.reset(); });
-        };
-
-        // تقديم الإدارة
-        document.getElementById('adminForm').onsubmit = function(e) {
-            e.preventDefault();
-            db.ref('all_apps').push({
-                type: 'إدارة',
-                name: document.getElementById('adm-name').value,
-                age: document.getElementById('adm-age').value,
-                dc: document.getElementById('adm-dc').value,
-                exp: document.getElementById('adm-exp').value,
-                extra: document.getElementById('adm-prev').value,
-                status: 'قيد الانتظار'
-            }).then(() => { alert("تم إرسال طلبك للإدارة"); this.reset(); });
-        };
-
-        // عرض الطلبات للادارة
-        db.ref('all_apps').on('value', (s) => {
-            const apps = s.val();
-            const container = document.getElementById('all-requests');
+        // عرض المنتجات للاعبين
+        db.ref('store_products').on('value', (s) => {
+            const prods = s.val();
+            const container = document.getElementById('store-container');
             container.innerHTML = "";
-            if(!apps) { container.innerHTML = "<p>لا يوجد طلبات</p>"; return; }
-            
-            for(let id in apps) {
-                let app = apps[id];
+            for(let id in prods) {
+                let p = prods[id];
                 container.innerHTML += `
-                    <div class="admin-card">
-                        <span class="status-badge ${app.status === 'مقبول' ? 'accepted' : app.status === 'مرفوض' ? 'rejected' : 'pending'}">${app.status}</span>
-                        <strong>نوع الطلب: ${app.type}</strong><br>
-                        الاسم: ${app.name} (${app.age} سنة)<br>
-                        ديسكورد: ${app.dc}<br>
-                        الخبرات: ${app.exp}<br>
-                        سابق: ${app.extra}<br>
-                        <div style="margin-top:10px;">
-                            <button onclick="updateStatus('${id}', 'مقبول')" style="color:lime; background:none; border:1px solid lime; cursor:pointer; padding:2px 5px;">قبول</button>
-                            <button onclick="updateStatus('${id}', 'مرفوض')" style="color:red; background:none; border:1px solid red; cursor:pointer; padding:2px 5px;">رفض</button>
-                            <button onclick="deleteApp('${id}')" style="color:gray; background:none; border:none; cursor:pointer; float:left;">حذف</button>
-                        </div>
+                    <div class="product-card">
+                        <img src="${p.img || 'https://via.placeholder.com/150'}" class="product-img">
+                        <h3>${p.title}</h3>
+                        <p style="font-size: 0.9rem; color: #888;">${p.desc}</p>
+                        <span class="price-tag">${p.price}</span>
+                        <button class="btn" onclick="buyProduct('${p.title}')">طلب شراء</button>
                     </div>
                 `;
             }
         });
 
-        function updateStatus(id, newStatus) {
-            db.ref('all_apps/' + id).update({ status: newStatus });
+        function buyProduct(name) {
+            const dc = prompt("أدخل يوزر الديسكورد الخاص بك:");
+            const reason = prompt("لماذا تريد شراء هذا المنتج؟ (أو تفاصيل إضافية):");
+            if(dc) {
+                db.ref('store_orders').push({ product: name, user: dc, reason: reason, date: new Date().toLocaleString() });
+                alert("تم إرسال طلبك للإدارة، سيتم التواصل معك عبر الديسكورد.");
+            }
         }
-        function deleteApp(id) {
-            if(confirm("هل تريد حذف الطلب نهائياً؟")) db.ref('all_apps/' + id).remove();
-        }
+
+        // عرض طلبات الشراء للإدارة
+        db.ref('store_orders').on('value', (s) => {
+            const orders = s.val();
+            const container = document.getElementById('order-requests');
+            container.innerHTML = orders ? "" : "<p>لا يوجد طلبات شراء</p>";
+            for(let id in orders) {
+                let o = orders[id];
+                container.innerHTML += `
+                    <div class="admin-card" style="border-right: 4px solid #349ae9;">
+                        <strong>المنتج: ${o.product}</strong><br>
+                        اللاعب: ${o.user}<br>
+                        السبب: ${o.reason}<br>
+                        <small>${o.date}</small>
+                        <button onclick="deleteOrder('${id}')" style="background:none; color:red; border:none; float:left; cursor:pointer;">حذف</button>
+                    </div>
+                `;
+            }
+        });
+
+        function deleteOrder(id) { if(confirm("حذف الطلب؟")) db.ref('store_orders/' + id).remove(); }
+
+        // --- التقديمات (شرطة وإدارة) ---
+        document.getElementById('policeForm').onsubmit = function(e) {
+            e.preventDefault();
+            db.ref('all_apps').push({ type: 'شرطة', name: document.getElementById('pol-name').value, dc: document.getElementById('pol-dc').value, exp: document.getElementById('pol-exp').value });
+            alert("تم الإرسال!"); this.reset();
+        };
+
+        document.getElementById('adminForm').onsubmit = function(e) {
+            e.preventDefault();
+            db.ref('all_apps').push({ type: 'إدارة', name: document.getElementById('adm-name').value, dc: document.getElementById('adm-dc').value, exp: document.getElementById('adm-exp').value });
+            alert("تم الإرسال!"); this.reset();
+        };
+
+        db.ref('all_apps').on('value', (s) => {
+            const apps = s.val();
+            const container = document.getElementById('all-apps');
+            container.innerHTML = apps ? "" : "<p>لا يوجد طلبات توظيف</p>";
+            for(let id in apps) {
+                let a = apps[id];
+                container.innerHTML += `
+                    <div class="admin-card">
+                        <span class="badge" style="background:#1b4965">${a.type}</span><br>
+                        الاسم: ${a.name}<br>
+                        ديسكورد: ${a.dc}<br>
+                        <button onclick="deleteApp('${id}')" style="background:none; color:red; border:none; float:left; cursor:pointer;">حذف</button>
+                    </div>
+                `;
+            }
+        });
+
+        function deleteApp(id) { if(confirm("حذف التقديم؟")) db.ref('all_apps/' + id).remove(); }
     </script>
 </body>
 </html>
