@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDEAL TOWN | Official Website</title>
+    <title>IDEAL TOWN | الموقع الرسمي</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -19,7 +19,7 @@
             --glass: rgba(255, 255, 255, 0.05); 
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: #0d1b2a; color: var(--white); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
+        body { background: #0d1b2a; color: var(--white); min-height: 100vh; overflow-x: hidden; }
         
         nav { 
             display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; 
@@ -33,24 +33,28 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .logo-img { width: 120px; border-radius: 50%; border: 3px solid #1b4965; margin-bottom: 20px; }
-        .hero-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; }
+        .hero-title { font-size: 3rem; font-weight: 900; }
 
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        /* العدادات */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; max-width: 800px; margin: 30px auto; }
+        .stat-box { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid #1b4965; }
+        .stat-box h3 { color: #349ae9; font-size: 1.8rem; }
+
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn:hover { transform: translateY(-3px); }
+        .btn-accept { background: #22c55e; margin-left: 5px; padding: 5px 15px; }
+        .btn-reject { background: #ef4444; padding: 5px 15px; }
 
         .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 800px; text-align: right; }
         
         /* المتجر */
         .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
-        .product-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; transition: 0.3s; text-align: center; }
-        .product-card:hover { border-color: #349ae9; transform: translateY(-5px); }
-        .product-img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
-        .price-tag { color: #349ae9; font-weight: 900; font-size: 1.2rem; display: block; margin: 10px 0; }
+        .product-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; text-align: center; }
+        .product-img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; }
 
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 8px; font-size: 1rem; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 8px; text-align: right; }
         
-        .admin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; margin-top: 15px; border-radius: 10px; position: relative; text-align: right; }
-        .badge { padding: 3px 10px; border-radius: 5px; font-size: 0.8rem; }
+        .admin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; margin-top: 15px; border-radius: 10px; text-align: right; }
     </style>
 </head>
 <body>
@@ -58,7 +62,7 @@
     <nav>
         <div style="display: flex; align-items: center; gap: 10px;">
             <img src="https://cdn.discordapp.com/icons/1487961080310272000/abda591d3aadba01fa995d6a33948253.webp?size=1024" width="40" style="border-radius: 50%;">
-            <span style="font-weight: 900; font-size: 1.2rem;">IDEAL TOWN</span>
+            <span style="font-weight: 900;">IDEAL TOWN</span>
         </div>
         <div class="nav-links">
             <a onclick="showSection('home')">الرئيسية</a>
@@ -67,20 +71,29 @@
             <a onclick="showSection('police')">الشرطة</a>
             <a onclick="showSection('apply-admin')">التقديم</a>
         </div>
-        <button class="btn" onclick="adminLogin()" style="font-size: 0.8rem;">لوحة الإدارة</button>
+        <button class="btn" onclick="adminLogin()" style="padding: 5px 15px; font-size: 0.8rem;">لوحة الإدارة</button>
     </nav>
 
     <div id="home" class="section active">
         <img src="https://cdn.discordapp.com/icons/1487961080310272000/abda591d3aadba01fa995d6a33948253.webp?size=1024" class="logo-img">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <h2 style="color: #cbd5e1;">مرحباً بك في سيرفر IDEAL TOWN المتعة والإثارة بانتظارك</h2>
+        <p>مرحباً بك في سيرفر IDEAL TOWN المتعة والإثارة بانتظارك</p>
+        
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h3 id="stat-online">0</h3>
+                <p>اللاعبين الآن</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="stat-total">1,250</h3>
+                <p>لاعب مسجل</p>
+            </div>
+        </div>
     </div>
 
     <div id="store" class="section">
-        <h1>متجر IDEAL TOWN</h1>
-        <p>اختر منتجك المفضل وتميز داخل السيرفر</p>
-        <div id="store-container" class="store-grid">
-            </div>
+        <h1>متجر المدينة</h1>
+        <div id="store-container" class="store-grid"></div>
     </div>
 
     <div id="laws" class="section">
@@ -96,10 +109,16 @@
         <h1>التقديم للشرطة</h1>
         <div class="card">
             <form id="policeForm">
-                <input type="text" id="pol-name" placeholder="الاسم" required>
-                <input type="text" id="pol-dc" placeholder="ديسكورد" required>
-                <textarea id="pol-exp" placeholder="الخبرات" required></textarea>
-                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
+                <input type="text" id="pol-name" placeholder="الاسم الثلاثي" required>
+                <input type="number" id="pol-age" placeholder="العمر" required>
+                <input type="text" id="pol-dc" placeholder="يوزر الديسكورد" required>
+                <select id="pol-prev">
+                    <option value="">هل كنت عسكري سابق؟</option>
+                    <option value="نعم">نعم</option>
+                    <option value="لا">لا</option>
+                </select>
+                <textarea id="pol-exp" placeholder="اذكر خبراتك السابقة بالشرطة" required></textarea>
+                <button type="submit" class="btn" style="width: 100%;">إرسال التقديم</button>
             </form>
         </div>
     </div>
@@ -111,33 +130,31 @@
                 <input type="text" id="adm-name" placeholder="الاسم" required>
                 <input type="text" id="adm-dc" placeholder="ديسكورد" required>
                 <textarea id="adm-exp" placeholder="الخبرات الإدارية" required></textarea>
-                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
+                <button type="submit" class="btn" style="width: 100%;">إرسال التقديم</button>
             </form>
         </div>
     </div>
 
     <div id="admin-panel" class="section">
-        <h1 style="color: #349ae9;">لوحة الإدارة العليا</h1>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+        <h1>لوحة الإدارة العليا</h1>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
             
-            <div class="card" style="margin: 0;">
-                <h3><i class="fas fa-plus-circle"></i> إضافة منتج جديد</h3>
-                <input type="text" id="prod-img" placeholder="رابط صورة المنتج">
+            <div class="card" style="margin:0">
+                <h3>إضافة منتج للمتجر</h3>
+                <input type="text" id="prod-img" placeholder="رابط الصورة">
                 <input type="text" id="prod-title" placeholder="اسم المنتج">
-                <textarea id="prod-desc" placeholder="وصف المنتج"></textarea>
-                <input type="text" id="prod-price" placeholder="السعر (مثال: 50$)">
-                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر في المتجر</button>
+                <input type="text" id="prod-price" placeholder="السعر">
+                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر</button>
             </div>
 
-            <div class="card" style="margin: 0;">
-                <h3><i class="fas fa-shopping-cart"></i> طلبات الشراء الجديدة</h3>
-                <div id="order-requests" style="max-height: 400px; overflow-y: auto;"></div>
+            <div class="card" style="margin:0">
+                <h3>طلبات الشراء</h3>
+                <div id="order-requests"></div>
             </div>
 
-            <div class="card" style="margin: 0;">
-                <h3><i class="fas fa-user-shield"></i> طلبات الإدارة والشرطة</h3>
-                <div id="all-apps" style="max-height: 400px; overflow-y: auto;"></div>
+            <div class="card" style="margin:0">
+                <h3>طلبات التوظيف</h3>
+                <div id="all-apps"></div>
             </div>
         </div>
     </div>
@@ -152,118 +169,84 @@
             messagingSenderId: "505860972539",
             appId: "1:505860972539:web:30e3455476674bd45eb55e"
         };
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
         }
 
         function adminLogin() {
-            let user = prompt("اسم المستخدم:");
-            let pass = prompt("الرمز:");
-            if(user === "IDL TOWN MANAGEMENT" && pass === "663567M") {
-                showSection('admin-panel');
-            } else { alert("خطأ!"); }
+            if(prompt("المستخدم:") === "IDL TOWN MANAGEMENT" && prompt("الرمز:") === "663567M") showSection('admin-panel');
         }
 
-        // --- وظائف المتجر ---
-        function addNewProduct() {
-            const img = document.getElementById('prod-img').value;
-            const title = document.getElementById('prod-title').value;
-            const desc = document.getElementById('prod-desc').value;
-            const price = document.getElementById('prod-price').value;
+        // عداد اللاعبين وهمي للتجميل
+        setInterval(() => { document.getElementById('stat-online').innerText = Math.floor(Math.random() * (40 - 20 + 1)) + 20; }, 5000);
 
-            if(title && price) {
-                db.ref('store_products').push({ img, title, desc, price });
-                alert("تمت إضافة المنتج للمتجر!");
-                document.querySelectorAll('#admin-panel input, #admin-panel textarea').forEach(i => i.value = "");
-            }
-        }
-
-        // عرض المنتجات للاعبين
-        db.ref('store_products').on('value', (s) => {
-            const prods = s.val();
-            const container = document.getElementById('store-container');
-            container.innerHTML = "";
-            for(let id in prods) {
-                let p = prods[id];
-                container.innerHTML += `
-                    <div class="product-card">
-                        <img src="${p.img || 'https://via.placeholder.com/150'}" class="product-img">
-                        <h3>${p.title}</h3>
-                        <p style="font-size: 0.9rem; color: #888;">${p.desc}</p>
-                        <span class="price-tag">${p.price}</span>
-                        <button class="btn" onclick="buyProduct('${p.title}')">طلب شراء</button>
-                    </div>
-                `;
-            }
-        });
-
-        function buyProduct(name) {
-            const dc = prompt("أدخل يوزر الديسكورد الخاص بك:");
-            const reason = prompt("لماذا تريد شراء هذا المنتج؟ (أو تفاصيل إضافية):");
-            if(dc) {
-                db.ref('store_orders').push({ product: name, user: dc, reason: reason, date: new Date().toLocaleString() });
-                alert("تم إرسال طلبك للإدارة، سيتم التواصل معك عبر الديسكورد.");
-            }
-        }
-
-        // عرض طلبات الشراء للإدارة
-        db.ref('store_orders').on('value', (s) => {
-            const orders = s.val();
-            const container = document.getElementById('order-requests');
-            container.innerHTML = orders ? "" : "<p>لا يوجد طلبات شراء</p>";
-            for(let id in orders) {
-                let o = orders[id];
-                container.innerHTML += `
-                    <div class="admin-card" style="border-right: 4px solid #349ae9;">
-                        <strong>المنتج: ${o.product}</strong><br>
-                        اللاعب: ${o.user}<br>
-                        السبب: ${o.reason}<br>
-                        <small>${o.date}</small>
-                        <button onclick="deleteOrder('${id}')" style="background:none; color:red; border:none; float:left; cursor:pointer;">حذف</button>
-                    </div>
-                `;
-            }
-        });
-
-        function deleteOrder(id) { if(confirm("حذف الطلب؟")) db.ref('store_orders/' + id).remove(); }
-
-        // --- التقديمات (شرطة وإدارة) ---
+        // التقديمات مع القبول والرفض
         document.getElementById('policeForm').onsubmit = function(e) {
             e.preventDefault();
-            db.ref('all_apps').push({ type: 'شرطة', name: document.getElementById('pol-name').value, dc: document.getElementById('pol-dc').value, exp: document.getElementById('pol-exp').value });
+            db.ref('all_apps').push({ type: 'شرطة', name: this['pol-name'].value, age: this['pol-age'].value, dc: this['pol-dc'].value, prev: this['pol-prev'].value, exp: this['pol-exp'].value, status: 'انتظار' });
             alert("تم الإرسال!"); this.reset();
         };
 
         document.getElementById('adminForm').onsubmit = function(e) {
             e.preventDefault();
-            db.ref('all_apps').push({ type: 'إدارة', name: document.getElementById('adm-name').value, dc: document.getElementById('adm-dc').value, exp: document.getElementById('adm-exp').value });
+            db.ref('all_apps').push({ type: 'إدارة', name: this['adm-name'].value, dc: this['adm-dc'].value, exp: this['adm-exp'].value, status: 'انتظار' });
             alert("تم الإرسال!"); this.reset();
         };
 
         db.ref('all_apps').on('value', (s) => {
-            const apps = s.val();
-            const container = document.getElementById('all-apps');
-            container.innerHTML = apps ? "" : "<p>لا يوجد طلبات توظيف</p>";
-            for(let id in apps) {
-                let a = apps[id];
-                container.innerHTML += `
+            const data = s.val(); const div = document.getElementById('all-apps'); div.innerHTML = "";
+            for(let id in data) {
+                const a = data[id];
+                div.innerHTML += `
                     <div class="admin-card">
-                        <span class="badge" style="background:#1b4965">${a.type}</span><br>
-                        الاسم: ${a.name}<br>
-                        ديسكورد: ${a.dc}<br>
-                        <button onclick="deleteApp('${id}')" style="background:none; color:red; border:none; float:left; cursor:pointer;">حذف</button>
-                    </div>
-                `;
+                        <span style="color:#349ae9">[${a.type}]</span> ${a.name}<br>
+                        الديسكورد: ${a.dc} | العمر: ${a.age || '--'}<br>
+                        الحالة: <b>${a.status}</b><br>
+                        <button class="btn btn-accept" onclick="updateStatus('${id}', 'مقبول')">قبول</button>
+                        <button class="btn btn-reject" onclick="updateStatus('${id}', 'مرفوض')">رفض</button>
+                    </div>`;
             }
         });
 
-        function deleteApp(id) { if(confirm("حذف التقديم؟")) db.ref('all_apps/' + id).remove(); }
+        function updateStatus(id, status) { db.ref('all_apps/' + id).update({ status: status }); }
+
+        // وظائف المتجر
+        function addNewProduct() {
+            const img = document.getElementById('prod-img').value;
+            const title = document.getElementById('prod-title').value;
+            const price = document.getElementById('prod-price').value;
+            if(title && price) db.ref('store_products').push({ img, title, price });
+        }
+
+        db.ref('store_products').on('value', (s) => {
+            const data = s.val(); const div = document.getElementById('store-container'); div.innerHTML = "";
+            for(let id in data) {
+                const p = data[id];
+                div.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.img}" class="product-img">
+                        <h3>${p.title}</h3><p>${p.price}</p>
+                        <button class="btn" onclick="buyProduct('${p.title}')">طلب شراء</button>
+                    </div>`;
+            }
+        });
+
+        function buyProduct(name) {
+            const dc = prompt("يوزر الديسكورد:");
+            if(dc) db.ref('store_orders').push({ product: name, user: dc, date: new Date().toLocaleString() });
+        }
+
+        db.ref('store_orders').on('value', (s) => {
+            const data = s.val(); const div = document.getElementById('order-requests'); div.innerHTML = "";
+            for(let id in data) {
+                const o = data[id];
+                div.innerHTML += `<div class="admin-card">${o.product} - للاعب: ${o.user}<br><button class="btn btn-reject" onclick="db.ref('store_orders/${id}').remove()">حذف</button></div>`;
+            }
+        });
     </script>
 </body>
 </html>
