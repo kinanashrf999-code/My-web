@@ -15,6 +15,7 @@
         :root { 
             --dark-blue: #0a192f; 
             --btn-blue: linear-gradient(135.5deg, rgb(17, 58, 107) 0%, rgb(36, 154, 233) 100%);
+            --discord-color: #5865F2;
             --white: #ffffff; 
             --glass: rgba(255, 255, 255, 0.05); 
             --accent: #349ae9;
@@ -41,6 +42,9 @@
         /* Buttons */
         .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(52, 154, 233, 0.4); }
+        
+        .btn-discord { background: var(--discord-color); border: none; font-size: 1.2rem; }
+        .btn-discord:hover { background: #4752c4; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4); }
 
         /* Store */
         .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1200px; margin: 40px auto; }
@@ -76,6 +80,7 @@
             <a onclick="showSection('laws')">القوانين</a>
             <a onclick="showSection('police-hub')">الشرطة</a>
             <a onclick="showSection('apply-admin')">تقديم الإدارة</a>
+            <a href="https://discord.gg/G8Rqej3RGt" target="_blank" style="color: #5865F2;"><i class="fab fa-discord"></i> ديسكورد</a>
         </div>
         <button class="btn" onclick="document.getElementById('login-modal').style.display='flex'">لوحة الإدارة</button>
     </nav>
@@ -83,6 +88,13 @@
     <div id="home" class="section active">
         <h1 class="hero-title">IDEAL TOWN</h1>
         <p class="hero-sub">عالمك المفضل للحياة الواقعية، حيث تبدأ مغامرتك وتصنع مستقبلك في أفضل بيئة لعب رول بلاي متكاملة ومحمسة!</p>
+        
+        <div style="margin-bottom: 40px;">
+            <a href="https://discord.gg/G8Rqej3RGt" target="_blank" class="btn btn-discord">
+                <i class="fab fa-discord"></i> انضم إلى مجتمعنا على ديسكورد
+            </a>
+        </div>
+
         <div class="stats-container">
             <div class="stat-item"><h3 id="display-total">0</h3><p>عضو مسجل</p></div>
             <div class="stat-item"><h3 id="display-online">0</h3><p>لاعب متصل الآن</p></div>
@@ -98,12 +110,10 @@
     <div id="laws" class="section">
         <h1>قوانين المدينة</h1>
         <div class="laws-box">
-            <div class="law-card"><h3># - NLR - قوانين الحياة الجديدة</h3><p>في حال اغمائك بشكل كامل لا يمكنك الكلام او الحركة او فعل أي شيء في حال تم اسقاطك من قبل شخص و تم انعاشك من قبل مسعفين تستطيع تذكر جميع الاحداث في حال تم اعطائك ابرة "في العيادة الخاصة" من احد اللاعبين اللذين لديهم عداوة معك لا تستطيع تذكر أي شي حصل لك.</p></div>
-            <div class="law-card"><h3># - PowerGaming - الباور جيمنج</h3><p>استخدام الوسائل غير موجودة في اللعبة للحصول على ميزة أو عدم التوافق مع العالم بطريقة معقولة وبشكل واقعي.</p></div>
-            <div class="law-card"><h3># - NVL - الخوف على الحياة</h3><p>عدم الخوف بشكل واقعي على حياتك عندما تتعرض للتهديد بالأسلحة أو بأذى شديد يعتبر مخالفة.</p></div>
-            <div class="law-card"><h3># - MetaGaming - الميتا جمينج</h3><p>اي معلومة تحصل عليها من خارج المدينة مثال من بث او دسكورد تعتبر مخالفة.</p></div>
-            <div class="law-card"><h3># - RDM - الصدم العشوائي</h3><p>قتل الأشخاص دون سبب أو تهديد عشوائي ممنوع ومخالف للنظام العام.</p></div>
-            <div class="law-card"><h3># - NWL - تقدير الحياة</h3><p>هي الحفاظ على حياتك وحياة الآخرين، وعدم التهور، وأن لا تستهين بقتل الأشخاص.</p></div>
+            <div class="law-card"><h3># - NLR - قوانين الحياة الجديدة</h3><p>في حال اغمائك بشكل كامل لا يمكنك الكلام او الحركة او فعل أي شيء...</p></div>
+            <div class="law-card"><h3># - PowerGaming - الباور جيمنج</h3><p>استخدام الوسائل غير موجودة في اللعبة للحصول على ميزة...</p></div>
+            <div class="law-card"><h3># - NVL - الخوف على الحياة</h3><p>عدم الخوف بشكل واقعي على حياتك يعتبر مخالفة...</p></div>
+            <div class="law-card"><h3># - MetaGaming - الميتا جمينج</h3><p>اي معلومة تحصل عليها من خارج المدينة تعتبر مخالفة...</p></div>
         </div>
     </div>
 
@@ -123,9 +133,7 @@
                 <input type="number" name="age" placeholder="العمر" required>
                 <input type="text" name="dc" placeholder="يوزر الديسكورد" required>
                 <textarea name="exp" placeholder="ما هي خبراتك؟"></textarea>
-                <label>هل كنت عسكري سابقاً؟</label>
-                <select name="past"><option value="نعم">نعم</option><option value="لا">لا</option></select>
-                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
+                <button type="submit" class="btn" style="width: 100%;">إرسال الطلب</button>
             </form>
         </div>
     </div>
@@ -137,10 +145,8 @@
                 <input type="text" name="name" placeholder="الاسم الكامل" required>
                 <input type="number" name="age" placeholder="العمر" required>
                 <input type="text" name="dc" placeholder="يوزر الديسكورد" required>
-                <textarea name="exp" placeholder="ما هي خبراتك الإدارية؟"></textarea>
-                <label>هل كنت إداري سابقاً؟</label>
-                <select name="past"><option value="نعم">نعم</option><option value="لا">لا</option></select>
-                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
+                <textarea name="exp" placeholder="الخبرات الإدارية"></textarea>
+                <button type="submit" class="btn" style="width: 100%;">إرسال الطلب</button>
             </form>
         </div>
     </div>
@@ -148,7 +154,6 @@
     <div id="admin-panel" class="section">
         <h1>لوحة تحكم المدير</h1>
         <div class="admin-grid">
-            
             <div class="dashboard-item">
                 <h3>إعدادات الحالة</h3>
                 <label>حالة السيرفر:</label>
@@ -161,7 +166,7 @@
                 <input type="number" id="set-online">
                 <label>إجمالي المسجلين:</label>
                 <input type="number" id="set-total">
-                <button class="btn" onclick="saveStats()" style="width:100%">تحديث البيانات</button>
+                <button class="btn" onclick="saveStats()" style="width:100%">تحديث الحالة</button>
             </div>
 
             <div class="dashboard-item">
@@ -169,7 +174,7 @@
                 <input type="text" id="p-img" placeholder="رابط الصورة">
                 <input type="text" id="p-title" placeholder="اسم المنتج">
                 <input type="text" id="p-price" placeholder="السعر">
-                <button class="btn" onclick="addP()" style="width:100%">نشر في المتجر</button>
+                <button class="btn" onclick="addP()" style="width:100%">نشر المنتج</button>
             </div>
 
             <div class="dashboard-item" style="grid-column: span 2;">
@@ -178,7 +183,7 @@
             </div>
 
             <div class="dashboard-item" style="grid-column: span 2;">
-                <h3>طلبات المتجر (تم التسليم/حذف)</h3>
+                <h3>طلبات المتجر</h3>
                 <div id="orders-list"></div>
             </div>
         </div>
@@ -195,7 +200,6 @@
     </div>
 
     <script>
-        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
             authDomain: "ideal-town.firebaseapp.com",
@@ -218,17 +222,16 @@
             if(document.getElementById('u-login').value === "IDL TOWN MANAGEMENT" && document.getElementById('p-login').value === "663567M") {
                 document.getElementById('login-modal').style.display='none';
                 showSection('admin-panel');
-            } else { alert("خطأ!"); }
+            } else { alert("خطأ في البيانات!"); }
         }
 
-        // إحصائيات السيرفر
         function saveStats() {
             db.ref('server_info').set({
                 status: document.getElementById('set-status').value,
                 online: document.getElementById('set-online').value,
                 total: document.getElementById('set-total').value
             });
-            alert("تم الحفظ!");
+            alert("تم تحديث البيانات بنجاح!");
         }
 
         db.ref('server_info').on('value', s => {
@@ -239,15 +242,14 @@
             }
         });
 
-        // التقديمات
         document.getElementById('policeForm').onsubmit = function(e){ e.preventDefault(); submitApp(this, 'شرطة'); };
         document.getElementById('adminForm').onsubmit = function(e){ e.preventDefault(); submitApp(this, 'إدارة'); };
 
         function submitApp(form, type) {
             db.ref('all_apps').push({
-                type: type, name: form.name.value, age: form.age.value, dc: form.dc.value, exp: form.exp.value, past: form.past.value, status: 'انتظار'
+                type: type, name: form.name.value, age: form.age.value, dc: form.dc.value, exp: form.exp.value, status: 'انتظار'
             });
-            alert("تم الإرسال!"); form.reset();
+            alert("تم إرسال طلبك بنجاح!"); form.reset();
         }
 
         db.ref('all_apps').on('value', s => {
@@ -263,9 +265,9 @@
             }
         });
 
-        // المتجر
         function addP() {
             db.ref('products').push({ img: document.getElementById('p-img').value, title: document.getElementById('p-title').value, price: document.getElementById('p-price').value });
+            alert("تمت إضافة المنتج!");
         }
 
         db.ref('products').on('value', s => {
@@ -279,7 +281,7 @@
         });
 
         function buy(name) {
-            const user = prompt("يوزر الديسكورد:");
+            const user = prompt("أدخل يوزر الديسكورد الخاص بك:");
             if(user) db.ref('orders').push({ product: name, user: user, status: 'انتظار' });
         }
 
