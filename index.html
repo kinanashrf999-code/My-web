@@ -44,54 +44,54 @@
         .stat-box h3 { color: var(--accent); font-size: 1.6rem; }
         .status-text { font-weight: bold; font-size: 1.4rem; }
 
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; font-size: 0.95rem; }
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; font-size: 1rem; }
         .btn:hover { transform: translateY(-3px); opacity: 0.9; }
         
-        /* تعديل مقاسات المتجر لتكون "متوسطة" */
+        /* تكبير خانة المتجر لمقاس كبير وواضح */
         .store-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* تكبير العرض قليلاً */
-            gap: 20px; 
-            margin-top: 30px; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* تكبير العرض ليكون ضخماً */
+            gap: 25px; 
+            margin-top: 40px; 
             padding: 0 5%; 
         }
         .product-card { 
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 18px; 
+            background: rgba(255, 255, 255, 0.04); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 25px; 
             overflow: hidden; 
             position: relative; 
-            max-width: 320px; /* تكبير الحد الأقصى */
+            max-width: 450px; /* الحد الأقصى للكبر */
             margin: auto;
-            transition: 0.3s ease;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .product-card:hover { border-color: var(--accent); transform: scale(1.02); }
+        .product-card:hover { border-color: var(--accent); transform: translateY(-10px); }
 
-        .img-container { position: relative; width: 100%; padding-top: 65%; }
+        .img-container { position: relative; width: 100%; padding-top: 70%; } /* زيادة ارتفاع الصورة */
         .product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         
         .price-tag { 
             position: absolute; 
-            top: 12px; 
-            right: 12px; 
+            top: 15px; 
+            right: 15px; 
             background: var(--btn-blue); 
             color: white; 
-            padding: 5px 14px; 
-            border-radius: 20px; 
-            font-weight: bold; 
-            font-size: 0.9rem; 
+            padding: 8px 18px; 
+            border-radius: 30px; 
+            font-weight: 900; 
+            font-size: 1.1rem; 
             z-index: 5; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
-        .product-info { padding: 18px; text-align: right; }
-        .product-info h3 { color: var(--accent); margin-bottom: 10px; font-size: 1.25rem; }
-        .buy-btn { width: 100%; font-size: 0.95rem; padding: 10px; }
+        .product-info { padding: 25px; text-align: right; }
+        .product-info h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.5rem; font-weight: 900; }
+        .buy-btn { width: 100%; font-size: 1.1rem; padding: 14px; border-radius: 12px; }
 
+        /* تنسيق لوحة الإدارة */
         .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 900px; text-align: right; }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.6); border: 1px solid #1b4965; color: white; border-radius: 8px; text-align: right; }
-        
-        .admin-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; margin-top: 15px; border-radius: 10px; text-align: right; }
         #login-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center; }
     </style>
 </head>
@@ -134,29 +134,29 @@
     </div>
 
     <div id="store" class="section">
-        <h1>متجر المدينة</h1>
+        <h1 style="font-size: 2.5rem; margin-bottom: 20px;">متجر المدينة</h1>
         <div id="store-container" class="store-grid"></div>
     </div>
 
     <div id="admin-panel" class="section">
-        <h1 style="color: var(--accent);">لوحة الإدارة العليا</h1>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+        <h1>لوحة التحكم</h1>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
             <div class="card" style="margin:0">
-                <h3>حالة السيرفر والعدادات</h3>
+                <h3>تحديث البيانات</h3>
                 <select id="edit-status"><option value="متصل">متصل ✅</option><option value="غير متصل">غير متصل ❌</option></select>
                 <input type="number" id="edit-online" placeholder="عدد اللاعبين الآن">
                 <input type="text" id="edit-total" placeholder="إجمالي اللاعبين">
-                <button class="btn" onclick="updateStats()" style="width: 100%;">تحديث البيانات</button>
+                <button class="btn" onclick="updateStats()" style="width: 100%;">حفظ</button>
             </div>
             <div class="card" style="margin:0">
-                <h3>إضافة منتج</h3>
+                <h3>نشر منتج</h3>
                 <input type="text" id="prod-img" placeholder="رابط الصورة">
                 <input type="text" id="prod-title" placeholder="اسم المنتج">
                 <input type="text" id="prod-price" placeholder="السعر">
-                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر</button>
+                <button class="btn" onclick="addNewProduct()" style="width: 100%;">نشر الآن</button>
             </div>
-            <div class="card" style="margin:0"><h3>طلبات الشراء</h3><div id="order-requests"></div></div>
-            <div class="card" style="margin:0"><h3>طلبات التوظيف</h3><div id="all-apps"></div></div>
+            <div class="card" style="margin:0"><h3>الطلبات</h3><div id="order-requests"></div></div>
+            <div class="card" style="margin:0"><h3>التوظيف</h3><div id="all-apps"></div></div>
         </div>
     </div>
 
@@ -184,7 +184,7 @@
             if(user === "IDL TOWN MANAGEMENT" && pass === "663567M") { 
                 document.getElementById('login-modal').style.display = 'none';
                 showSection('admin-panel'); 
-            } else { alert("خطأ!"); }
+            } else { alert("بيانات خاطئة!"); }
         }
 
         function updateStats() {
@@ -223,11 +223,11 @@
                     <div class="product-card">
                         <div class="img-container">
                             <div class="price-tag">${p.price}</div>
-                            <img src="${p.img || 'https://via.placeholder.com/400x260'}" class="product-img">
+                            <img src="${p.img || 'https://via.placeholder.com/600x400'}" class="product-img">
                         </div>
                         <div class="product-info">
                             <h3>${p.title}</h3>
-                            <button class="btn buy-btn" onclick="buyProduct('${p.title}')">طلب شراء</button>
+                            <button class="btn buy-btn" onclick="buyProduct('${p.title}')">طلب شراء المنتج</button>
                         </div>
                     </div>`;
             }
@@ -242,8 +242,8 @@
             const data = s.val(); const div = document.getElementById('all-apps'); div.innerHTML = "";
             for(let id in data) {
                 const a = data[id];
-                div.innerHTML += `<div class="admin-card"><b>${a.name}</b><br>
-                <button class="btn" style="background:#ef4444; padding: 5px 10px;" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
+                div.innerHTML += `<div style="background:rgba(255,255,255,0.05); padding:10px; margin-top:10px; border-radius:10px;"><b>${a.name}</b><br>
+                <button class="btn" style="background:#ef4444; padding:5px; font-size:0.8rem;" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
             }
         });
 
@@ -251,7 +251,7 @@
             const data = s.val(); const div = document.getElementById('order-requests'); div.innerHTML = "";
             for(let id in data) {
                 const o = data[id];
-                div.innerHTML += `<div class="admin-card">📦 ${o.product}<br>👤 ${o.user}<br>
+                div.innerHTML += `<div style="background:rgba(255,255,255,0.05); padding:10px; margin-top:10px; border-radius:10px;">📦 ${o.product}<br>👤 ${o.user}<br>
                 <button class="btn" style="width:100%; margin-top:5px; background:#1e293b;" onclick="db.ref('store_orders/${id}').remove()">حذف</button></div>`;
             }
         });
