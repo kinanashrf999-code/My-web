@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDEAL TOWN | Dashboard</title>
+    <title>IDEAL TOWN | الموقع الرسمي</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -22,8 +22,9 @@
             --offline: #ef4444;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: #0d1b2a; color: var(--white); min-height: 100vh; }
+        body { background: #0d1b2a; color: var(--white); min-height: 100vh; line-height: 1.6; }
         
+        /* Nav */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.9); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-links a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); }
@@ -32,39 +33,46 @@
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 0.9rem; margin: 2px; }
-        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
-        .btn-success { background: #22c55e; }
-        .btn-danger { background: #ef4444; }
-        .btn-info { background: #3b82f6; }
+        /* Hero */
+        .hero-title { font-size: 4rem; font-weight: 900; color: var(--white); margin-bottom: 10px; }
+        .hero-sub { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 30px; max-width: 700px; margin-inline: auto; }
 
-        .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 900px; text-align: right; }
-        
-        /* Dashboard Cards */
-        .admin-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 20px; margin-top: 15px; border-radius: 12px; border-right: 5px solid var(--accent); text-align: right; position: relative; }
-        .status-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
-        .pending { background: #f59e0b; color: #000; }
-        .accepted { background: #22c55e; color: #fff; }
-        .rejected { background: #ef4444; color: #fff; }
-        .delivered { background: #3b82f6; color: #fff; }
+        /* Stats Home */
+        .stats-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .stat-item { background: var(--glass); padding: 15px 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); min-width: 180px; }
+        .stat-item h3 { font-size: 1.8rem; color: var(--accent); }
 
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.6); border: 1px solid #1b4965; color: white; border-radius: 8px; text-align: right; }
-        
-        #login-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center; }
-        
-        /* Store grid from previous version */
-        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; padding: 0 5%; }
-        .product-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 25px; overflow: hidden; position: relative; max-width: 450px; margin: auto; transition: 0.4s ease; }
-        .img-container { position: relative; width: 100%; padding-top: 70%; }
-        .product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        /* Buttons */
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(52, 154, 233, 0.3); }
+
+        /* Store */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; max-width: 1200px; margin: 40px auto; }
+        .product-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; transition: 0.4s; }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .img-holder { width: 100%; padding-top: 75%; position: relative; background: #1a2a3a; }
+        .img-holder img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .price-tag { position: absolute; top: 15px; right: 15px; background: var(--btn-blue); padding: 5px 15px; border-radius: 20px; font-weight: 900; }
+
+        /* Laws */
+        .laws-box { max-width: 900px; margin: auto; text-align: right; background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .law-card { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+        .law-card h3 { color: var(--accent); margin-bottom: 8px; }
+
+        /* Forms */
+        .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; margin: auto; text-align: right; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 8px; text-align: right; }
+
+        /* Admin Dashboard */
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
+        .dashboard-item { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border-right: 5px solid var(--accent); text-align: right; }
+        .status-badge { padding: 2px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-weight: 900; font-size: 1.5rem; color: var(--accent);">IDEAL TOWN</span>
-        </div>
+        <div style="font-weight: 900; font-size: 1.4rem;">IDEAL TOWN</div>
         <div class="nav-links">
             <a onclick="showSection('home')">الرئيسية</a>
             <a onclick="showSection('store')">المتجر</a>
@@ -72,88 +80,112 @@
             <a onclick="showSection('police-hub')">الشرطة</a>
             <a onclick="showSection('apply-admin')">تقديم الإدارة</a>
         </div>
-        <button class="btn" onclick="document.getElementById('login-modal').style.display='flex'">لوحة التحكم</button>
+        <button class="btn" onclick="document.getElementById('login-modal').style.display='flex'" style="padding: 5px 15px;">لوحة الإدارة</button>
     </nav>
-
-    <div id="login-modal">
-        <div class="card" style="width: 350px; text-align: center;">
-            <h3>تسجيل الدخول للإدارة</h3>
-            <input type="text" id="user-input" placeholder="اسم المستخدم">
-            <input type="password" id="pass-input" placeholder="الرمز">
-            <button class="btn" onclick="handleLogin()" style="width: 100%;">دخول</button>
-            <button class="btn" onclick="document.getElementById('login-modal').style.display='none'" style="background:none;">إغاء</button>
-        </div>
-    </div>
 
     <div id="home" class="section active">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <div class="card" style="max-width: 400px; margin: auto;">
-            <h3 id="display-online">0</h3><p>لاعب متصل الآن</p>
+        <p class="hero-sub">عالمك المفضل للحياة الواقعية، حيث تبدأ مغامرتك وتصنع مستقبلك في أفضل بيئة لعب رول بلاي متكاملة ومحمسة!</p>
+        <div class="stats-container">
+            <div class="stat-item"><h3 id="display-total">0</h3><p>عضو مسجل</p></div>
+            <div class="stat-item"><h3 id="display-online">0</h3><p>لاعب متصل</p></div>
+            <div class="stat-item"><h3 id="display-status">...</h3><p>حالة السيرفر</p></div>
         </div>
     </div>
 
     <div id="store" class="section">
-        <h1>المتجر</h1>
+        <h1>متجر المدينة</h1>
         <div id="store-container" class="store-grid"></div>
     </div>
 
-    <div id="admin-panel" class="section">
-        <h1>لوحة تحكم الإدارة</h1>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
-            
-            <div class="card" style="margin:0">
-                <h2 style="color: var(--accent);"><i class="fas fa-users-cog"></i> طلبات التوظيف</h2>
-                <div id="all-apps"></div>
-            </div>
-
-            <div class="card" style="margin:0">
-                <h2 style="color: var(--accent);"><i class="fas fa-shopping-cart"></i> طلبات المتجر</h2>
-                <div id="order-requests"></div>
-            </div>
-
-            <div class="card" style="margin:0; grid-column: 1 / -1;">
-                <h2>إدارة المحتوى</h2>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="prod-img" placeholder="رابط صورة المنتج">
-                    <input type="text" id="prod-title" placeholder="اسم المنتج">
-                    <input type="text" id="prod-price" placeholder="السعر">
-                    <button class="btn" onclick="addNewProduct()">إضافة للمتجر</button>
-                </div>
-            </div>
+    <div id="laws" class="section">
+        <h1>قوانين المدينة</h1>
+        <div class="laws-box">
+            <div class="law-card"><h3># - NLR - قوانين الحياة الجديدة</h3><p>في حال اغمائك بشكل كامل لا يمكنك الكلام او الحركة... (تكملة القانون)</p></div>
+            <div class="law-card"><h3># - PowerGaming - الباور جيمنج</h3><p>استخدام الوسائل غير موجودة في اللعبة للحصول على ميزة...</p></div>
+            <div class="law-card"><h3># - NVL - الخوف على الحياة</h3><p>عدم الخوف بشكل واقعي على حياتك عندما تتعرض للتهديد بالأسلحة...</p></div>
+            <div class="law-card"><h3># - MetaGaming - الميتا جمينج</h3><p>اي معلومة تحصل عليها من خارج المدينة تعتبر مخالفة...</p></div>
+            <div class="law-card"><h3># - RDM - القتل العشوائي</h3><p>قتل الأشخاص دون سبب, تهديد, بصورة عشوائية ممنوع...</p></div>
+            <div class="law-card"><h3># - NWL - تقدير الحياة</h3><p>هي الحفاظ على حياتك وحياة الآخرين، وعدم التهور...</p></div>
         </div>
     </div>
 
-    <div id="police-hub" class="section"><h1>قسم الشرطة</h1><button class="btn" onclick="showSection('police-apply')">تقديم</button></div>
+    <div id="police-hub" class="section">
+        <h1>مركز الشرطة</h1>
+        <div class="card" style="text-align: center;">
+            <button class="btn" onclick="showSection('police-apply')">تقديم للشرطة</button>
+            <a href="https://docs.google.com/spreadsheets/d/1z07MNr1yDcd1OsOi3ED5JiVVYsGZNWo76-OvDd2DWfY/edit?usp=sharing" target="_blank" class="btn" style="background:#1e293b; margin-right:10px;">جدول الشرطة</a>
+        </div>
+    </div>
+
     <div id="police-apply" class="section">
         <div class="card">
-            <h3>تقديم للشرطة</h3>
+            <h2>التقديم للشرطة</h2>
             <form id="policeForm">
                 <input type="text" name="name" placeholder="الاسم الكامل" required>
                 <input type="number" name="age" placeholder="العمر" required>
                 <input type="text" name="dc" placeholder="يوزر الديسكورد" required>
-                <textarea name="exp" placeholder="الخبرات السابقة"></textarea>
+                <textarea name="exp" placeholder="ما هي خبراتك؟"></textarea>
                 <select name="past"><option value="نعم">كنت عسكري سابقاً</option><option value="لا">لم أكن عسكرياً</option></select>
-                <button type="submit" class="btn" style="width:100%">إرسال</button>
-            </form>
-        </div>
-    </div>
-    
-    <div id="apply-admin" class="section">
-        <div class="card">
-            <h3>تقديم للإدارة</h3>
-            <form id="adminForm">
-                <input type="text" name="name" placeholder="الاسم الكامل" required>
-                <input type="number" name="age" placeholder="العمر" required>
-                <input type="text" name="dc" placeholder="يوزر الديسكورد" required>
-                <textarea name="exp" placeholder="لماذا تريد الإدارة؟"></textarea>
-                <select name="past"><option value="نعم">كنت إدارياً سابقاً</option><option value="لا">لم أكن إدارياً</option></select>
-                <button type="submit" class="btn" style="width:100%">إرسال</button>
+                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
             </form>
         </div>
     </div>
 
+    <div id="apply-admin" class="section">
+        <div class="card">
+            <h2>التقديم للإدارة</h2>
+            <form id="adminForm">
+                <input type="text" name="name" placeholder="الاسم الكامل" required>
+                <input type="number" name="age" placeholder="العمر" required>
+                <input type="text" name="dc" placeholder="يوزر الديسكورد" required>
+                <textarea name="exp" placeholder="ما هي خبراتك الإدارية؟"></textarea>
+                <select name="past"><option value="نعم">كنت إدارياً سابقاً</option><option value="لا">لم أكن إدارياً</option></select>
+                <button type="submit" class="btn" style="width: 100%;">إرسال</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="section">
+        <h1>لوحة التحكم</h1>
+        <div class="admin-grid">
+            <div class="dashboard-item">
+                <h3>إعدادات السيرفر</h3>
+                <input type="text" id="set-status" placeholder="حالة السيرفر (متصل/غير متصل)">
+                <input type="number" id="set-online" placeholder="عدد اللاعبين الآن">
+                <input type="number" id="set-total" placeholder="إجمالي المسجلين">
+                <button class="btn" onclick="saveStats()" style="width:100%">حفظ التغييرات</button>
+            </div>
+            <div class="dashboard-item">
+                <h3>إضافة منتج</h3>
+                <input type="text" id="p-img" placeholder="رابط الصورة">
+                <input type="text" id="p-title" placeholder="اسم المنتج">
+                <input type="text" id="p-price" placeholder="السعر">
+                <button class="btn" onclick="addP()" style="width:100%">نشر في المتجر</button>
+            </div>
+            <div class="dashboard-item" style="grid-column: span 2;">
+                <h3>طلبات التوظيف (إدارة/شرطة)</h3>
+                <div id="apps-list"></div>
+            </div>
+            <div class="dashboard-item" style="grid-column: span 2;">
+                <h3>طلبات المنتجات</h3>
+                <div id="orders-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center;">
+        <div class="card" style="width: 320px; text-align: center;">
+            <h3>دخول الإدارة</h3>
+            <input type="text" id="u-login" placeholder="المستخدم">
+            <input type="password" id="p-login" placeholder="الرمز">
+            <button class="btn" onclick="checkLogin()" style="width:100%">دخول</button>
+            <button class="btn" onclick="document.getElementById('login-modal').style.display='none'" style="background:none;">إلغاء</button>
+        </div>
+    </div>
+
     <script>
-        // Firebase Config (Keep yours)
+        // دمج إعدادات Firebase الخاصة بك هنا
         const firebaseConfig = {
             apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
             authDomain: "ideal-town.firebaseapp.com",
@@ -169,88 +201,90 @@
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
         }
 
-        function handleLogin() {
-            if(document.getElementById('user-input').value === "IDL TOWN MANAGEMENT" && document.getElementById('pass-input').value === "663567M") {
-                document.getElementById('login-modal').style.display = 'none';
+        function checkLogin() {
+            if(document.getElementById('u-login').value === "IDL TOWN MANAGEMENT" && document.getElementById('p-login').value === "663567M") {
+                document.getElementById('login-modal').style.display='none';
                 showSection('admin-panel');
             } else { alert("خطأ!"); }
         }
 
-        // Logic for Employment Apps (Accept/Reject/Delete)
+        // حفظ إحصائيات السيرفر
+        function saveStats() {
+            db.ref('server_info').set({
+                status: document.getElementById('set-status').value,
+                online: document.getElementById('set-online').value,
+                total: document.getElementById('set-total').value
+            });
+            alert("تم التحديث!");
+        }
+
+        // جلب الإحصائيات للصفحة الرئيسية
+        db.ref('server_info').on('value', s => {
+            const d = s.val(); if(d) {
+                document.getElementById('display-status').innerText = d.status || "مجهول";
+                document.getElementById('display-online').innerText = d.online || 0;
+                document.getElementById('display-total').innerText = d.total || 0;
+            }
+        });
+
+        // تقديمات
+        document.getElementById('policeForm').onsubmit = function(e){ e.preventDefault(); submitApp(this, 'شرطة'); };
+        document.getElementById('adminForm').onsubmit = function(e){ e.preventDefault(); submitApp(this, 'إدارة'); };
+
+        function submitApp(form, type) {
+            db.ref('all_apps').push({
+                type: type, name: form.name.value, age: form.age.value, dc: form.dc.value, exp: form.exp.value, past: form.past.value, status: 'قيد الانتظار'
+            });
+            alert("تم إرسال الطلب!"); form.reset();
+        }
+
+        // عرض التقديمات في الداشبورد
         db.ref('all_apps').on('value', s => {
-            const d = s.val(); const div = document.getElementById('all-apps'); div.innerHTML = "";
+            const d = s.val(); const div = document.getElementById('apps-list'); div.innerHTML = "";
             for(let id in d) {
-                const app = d[id];
-                const statusClass = app.status === 'مقبول' ? 'accepted' : (app.status === 'مرفوض' ? 'rejected' : 'pending');
-                div.innerHTML += `
-                <div class="admin-card">
-                    <span class="status-badge ${statusClass}">${app.status || 'قيد الانتظار'}</span><br>
-                    <b>النوع: ${app.type}</b><br>
-                    الاسم: ${app.name} | العمر: ${app.age}<br>
-                    الديسكورد: ${app.dc}<br>
-                    <small>سابقاً: ${app.past}</small><br>
-                    <div style="margin-top:10px;">
-                        <button class="btn btn-success" onclick="updateAppStatus('${id}', 'مقبول')">قبول</button>
-                        <button class="btn btn-danger" onclick="updateAppStatus('${id}', 'مرفوض')">رفض</button>
-                        <button class="btn" style="background:gray;" onclick="deleteData('all_apps/${id}')">حذف</button>
-                    </div>
+                div.innerHTML += `<div class="dashboard-item" style="border-right-color:#f59e0b; margin-top:10px;">
+                    <b>[${d[id].type}] - ${d[id].name}</b> (${d[id].status})<br>
+                    ديسكورد: ${d[id].dc} | العمر: ${d[id].age}<br>
+                    <button class="btn" style="background:#22c55e; padding:3px 8px;" onclick="db.ref('all_apps/${id}').update({status:'مقبول'})">قبول</button>
+                    <button class="btn" style="background:#ef4444; padding:3px 8px;" onclick="db.ref('all_apps/${id}').update({status:'مرفوض'})">رفض</button>
+                    <button class="btn" style="background:gray; padding:3px 8px;" onclick="db.ref('all_apps/${id}').remove()">حذف</button>
                 </div>`;
             }
         });
 
-        // Logic for Store Orders (Deliver/Delete)
-        db.ref('store_orders').on('value', s => {
-            const d = s.val(); const div = document.getElementById('order-requests'); div.innerHTML = "";
+        // المتجر والطلبات
+        function addP() {
+            db.ref('products').push({ img: document.getElementById('p-img').value, title: document.getElementById('p-title').value, price: document.getElementById('p-price').value });
+        }
+
+        db.ref('products').on('value', s => {
+            const d = s.val(); const div = document.getElementById('store-container'); div.innerHTML = "";
             for(let id in d) {
-                const order = d[id];
-                const statusClass = order.status === 'تم التسليم' ? 'delivered' : 'pending';
-                div.innerHTML += `
-                <div class="admin-card">
-                    <span class="status-badge ${statusClass}">${order.status || 'لم يتم التسليم'}</span><br>
-                    📦 المنتج: <b>${order.product}</b><br>
-                    👤 المشتري: ${order.user}<br>
-                    <div style="margin-top:10px;">
-                        <button class="btn btn-info" onclick="updateOrderStatus('${id}', 'تم التسليم')">تم التسليم</button>
-                        <button class="btn btn-danger" onclick="deleteData('store_orders/${id}')">حذف</button>
-                    </div>
+                div.innerHTML += `<div class="product-card">
+                    <div class="img-holder"><span class="price-tag">${d[id].price}</span><img src="${d[id].img}"></div>
+                    <div style="padding:20px;"><h3>${d[id].title}</h3><button class="btn" style="width:100%" onclick="buy('${d[id].title}')">طلب شراء</button></div>
                 </div>`;
             }
         });
 
-        // Firebase Update/Delete Functions
-        function updateAppStatus(id, newStatus) { db.ref('all_apps/'+id).update({ status: newStatus }); }
-        function updateOrderStatus(id, newStatus) { db.ref('store_orders/'+id).update({ status: newStatus }); }
-        function deleteData(path) { if(confirm("هل أنت متأكد من الحذف؟")) db.ref(path).remove(); }
-
-        // Store Logic
-        function addNewProduct() {
-            const img = document.getElementById('prod-img').value;
-            const title = document.getElementById('prod-title').value;
-            const price = document.getElementById('prod-price').value;
-            if(title) db.ref('store_products').push({ img, title, price });
+        function buy(name) {
+            const user = prompt("يوزر الديسكورد:");
+            if(user) db.ref('orders').push({ product: name, user: user, status: 'انتظار' });
         }
 
-        db.ref('store_products').on('value', s => {
-            const data = s.val(); const div = document.getElementById('store-container'); div.innerHTML = "";
-            for(let id in data) {
-                const p = data[id];
-                div.innerHTML += `<div class="product-card"><div class="img-container"><div class="price-tag">${p.price}</div><img src="${p.img}" class="product-img"></div><div class="product-info"><h3>${p.title}</h3><button class="btn" style="width:100%" onclick="buyProduct('${p.title}')">طلب شراء</button></div></div>`;
+        db.ref('orders').on('value', s => {
+            const d = s.val(); const div = document.getElementById('orders-list'); div.innerHTML = "";
+            for(let id in d) {
+                div.innerHTML += `<div class="dashboard-item" style="margin-top:10px;">
+                    📦 ${d[id].product} - 👤 ${d[id].user} (${d[id].status})<br>
+                    <button class="btn" style="background:#3b82f6; padding:3px 8px;" onclick="db.ref('orders/${id}').update({status:'تم التسليم'})">تم التسليم</button>
+                    <button class="btn" style="background:#ef4444; padding:3px 8px;" onclick="db.ref('orders/${id}').remove()">حذف</button>
+                </div>`;
             }
         });
-
-        function buyProduct(n) { const dc = prompt("يوزر ديسكوردك:"); if(dc) db.ref('store_orders').push({ product: n, user: dc, status: 'قيد الانتظار' }); }
-
-        // Form Submit Listeners
-        document.getElementById('policeForm').onsubmit = function(e){ e.preventDefault(); submitForm(this, 'شرطة'); };
-        document.getElementById('adminForm').onsubmit = function(e){ e.preventDefault(); submitForm(this, 'إدارة'); };
-
-        function submitForm(form, type) {
-            const data = { type: type, name: form.name.value, age: form.age.value, dc: form.dc.value, exp: form.exp.value, past: form.past.value, status: 'قيد الانتظار' };
-            db.ref('all_apps').push(data);
-            alert("تم الإرسال!"); form.reset();
-        }
     </script>
 </body>
 </html>
