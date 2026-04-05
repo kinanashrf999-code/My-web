@@ -44,50 +44,54 @@
         .stat-box h3 { color: var(--accent); font-size: 1.6rem; }
         .status-text { font-weight: bold; font-size: 1.4rem; }
 
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; font-size: 0.9rem; }
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; font-size: 0.95rem; }
         .btn:hover { transform: translateY(-3px); opacity: 0.9; }
         
-        /* تعديل مقاسات المتجر لتصبح أصغر */
+        /* تعديل مقاسات المتجر لتكون "متوسطة" */
         .store-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* تصغير عرض الخانة */
-            gap: 15px; 
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* تكبير العرض قليلاً */
+            gap: 20px; 
             margin-top: 30px; 
-            padding: 0 8%; 
+            padding: 0 5%; 
         }
         .product-card { 
             background: rgba(255, 255, 255, 0.03); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 15px; 
+            border-radius: 18px; 
             overflow: hidden; 
             position: relative; 
-            max-width: 280px; /* تحديد أقصى عرض للكارت */
+            max-width: 320px; /* تكبير الحد الأقصى */
             margin: auto;
+            transition: 0.3s ease;
         }
+        .product-card:hover { border-color: var(--accent); transform: scale(1.02); }
+
         .img-container { position: relative; width: 100%; padding-top: 65%; }
         .product-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         
         .price-tag { 
             position: absolute; 
-            top: 10px; 
-            right: 10px; 
+            top: 12px; 
+            right: 12px; 
             background: var(--btn-blue); 
             color: white; 
-            padding: 3px 10px; 
-            border-radius: 15px; 
+            padding: 5px 14px; 
+            border-radius: 20px; 
             font-weight: bold; 
-            font-size: 0.8rem; 
+            font-size: 0.9rem; 
             z-index: 5; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .product-info { padding: 15px; text-align: right; }
-        .product-info h3 { color: var(--accent); margin-bottom: 8px; font-size: 1.1rem; }
-        .buy-btn { width: 100%; font-size: 0.85rem; padding: 8px; }
+        .product-info { padding: 18px; text-align: right; }
+        .product-info h3 { color: var(--accent); margin-bottom: 10px; font-size: 1.25rem; }
+        .buy-btn { width: 100%; font-size: 0.95rem; padding: 10px; }
 
         .card { background: var(--glass); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin: 20px auto; max-width: 900px; text-align: right; }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.6); border: 1px solid #1b4965; color: white; border-radius: 8px; text-align: right; }
         
-        .admin-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; margin-top: 15px; border-radius: 10px; text-align: right; }
+        .admin-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; margin-top: 15px; border-radius: 10px; text-align: right; }
         #login-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center; }
     </style>
 </head>
@@ -239,7 +243,7 @@
             for(let id in data) {
                 const a = data[id];
                 div.innerHTML += `<div class="admin-card"><b>${a.name}</b><br>
-                <button class="btn" style="background:#22c55e" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
+                <button class="btn" style="background:#ef4444; padding: 5px 10px;" onclick="db.ref('all_apps/${id}').remove()">حذف</button></div>`;
             }
         });
 
