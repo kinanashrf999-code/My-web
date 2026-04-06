@@ -23,45 +23,54 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
         body { background: #0d1b2a; color: white; line-height: 1.6; overflow-x: hidden; }
 
-        /* القائمة العلوية */
+        /* Navigation */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); }
 
-        /* الأقسام الأساسية */
+        /* Hamburger Menu */
+        .menu-icon { font-size: 1.8rem; cursor: pointer; color: white; margin-left: 20px; }
+        .side-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background: #0a192f; z-index: 2000; padding: 40px 20px; transition: 0.4s; border-left: 1px solid var(--accent); }
+        .side-menu.active { right: 0; }
+        .side-menu button { width: 100%; margin-bottom: 15px; text-align: right; padding: 12px; font-size: 1.1rem; }
+
+        /* Sections */
         .section { display: none; padding: 120px 5% 50px; text-align: center; animation: fadeIn 0.6s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* العناوين والبطاقات */
         .hero-title { font-size: 4.5rem; font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(52,154,233,0.5); }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 1100px; margin: 40px auto; }
-        .stat-card { background: var(--glass); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .stat-card { background: var(--glass); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
         .stat-card h2 { font-size: 3rem; color: var(--accent); font-weight: 900; }
 
         .card { background: var(--glass); padding: 35px; border-radius: 25px; max-width: 900px; margin: auto; text-align: right; border: 1px solid rgba(255,255,255,0.1); }
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent); }
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; border: 1px solid transparent; }
+        .btn:hover { transform: scale(1.05); border-color: var(--accent); }
         .btn-danger { background: var(--danger); }
-        
-        /* أيقونة المستخدم */
+        .btn-success { background: var(--success); }
+
         .user-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; background: var(--glass); }
         .user-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* المدخلات */
-        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; background: rgba(0,0,0,0.5); border: 1px solid #1b4965; color: white; border-radius: 12px; text-align: right; font-size: 1rem; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 10px; text-align: right; }
         
-        /* المتجر */
-        #store-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
-        .p-card { background: var(--glass); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; }
-        .p-price { position: absolute; top: 10px; right: 10px; background: var(--accent); padding: 5px 15px; border-radius: 8px; font-weight: 900; }
-        .p-img { width: 100%; height: 200px; object-fit: cover; }
+        /* Store Styles */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .p-card { background: var(--glass); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .p-price { position: absolute; top: 10px; left: 10px; background: var(--accent); padding: 4px 12px; border-radius: 5px; font-weight: bold; font-size: 0.9rem; }
+        .p-img { width: 100%; height: 180px; object-fit: cover; }
+        
+        .app-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 5px solid var(--accent); }
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="font-weight: 900; font-size: 2rem; color: var(--accent);">IDEAL TOWN</div>
+        <div style="display: flex; align-items: center;">
+            <div class="menu-icon" onclick="toggleSideMenu()"><i class="fas fa-bars"></i></div>
+            <div style="font-weight: 900; font-size: 1.8rem; color: var(--accent); margin-right: 15px;">IDEAL TOWN</div>
+        </div>
         <div class="nav-links">
             <a onclick="showSection('home')">الرئيسية</a>
             <a onclick="showSection('police-dept')">قسم الشرطة</a>
@@ -74,100 +83,122 @@
                 <i class="fas fa-user-plus" id="plus-icon"></i>
                 <img id="user-avatar" style="display:none;">
             </div>
-            <button class="btn" style="padding: 8px 15px;" onclick="openAdminModal()">لوحة الإدارة</button>
+            <button class="btn" style="padding: 6px 15px;" onclick="openAdminModal('IDEAL_ADMIN')">الإدارة</button>
         </div>
     </nav>
 
+    <div id="side-menu" class="side-menu">
+        <h3 style="margin-bottom: 20px; border-bottom: 1px solid var(--accent); padding-bottom: 10px;">لوحات التحكم</h3>
+        <button class="btn" onclick="openAdminModal('POLICE')">داشبورد الشرطة</button>
+        <button class="btn" onclick="openAdminModal('EMS')">داشبورد الإسعاف</button>
+        <button class="btn" onclick="openAdminModal('SOCIAL')">داشبورد السوشل ميديا</button>
+        <button class="btn" onclick="openAdminModal('DEPT_ADM')">داشبورد الإدارة</button>
+        <button class="btn btn-danger" style="margin-top: 30px;" onclick="toggleSideMenu()">إغلاق</button>
+    </div>
+
     <div id="home" class="section active">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <p style="font-size: 1.3rem; color: #ccc; margin-bottom: 30px;">عالمك الافتراضي الأمثل في FiveM، حيث تجتمع المتعة والاحترافية.</p>
+        <p id="server-desc">عالمك الافتراضي الأمثل في FiveM.</p>
         <div class="stats-grid">
             <div class="stat-card"><h2 id="view-total">0</h2><p>عضو مسجل</p></div>
             <div class="stat-card"><h2 id="view-online">0</h2><p>لاعب متصل</p></div>
+            <div class="stat-card"><h2 id="view-scripts">0</h2><p>عدد السكربتات</p></div>
             <div class="stat-card"><h2 id="view-status">فحص...</h2><p>حالة السيرفر</p></div>
         </div>
-        <a id="main-dc-link" href="#" target="_blank" class="btn" style="background: #5865F2; padding: 15px 40px;">
-            <i class="fab fa-discord"></i> دخول الديسكورد
-        </a>
+        <a id="main-dc-link" href="#" target="_blank" class="btn" style="background: #5865F2; padding: 15px 40px;"><i class="fab fa-discord"></i> دخول الديسكورد</a>
     </div>
 
     <div id="police-dept" class="section">
-        <h1 class="hero-title" style="font-size: 3rem;">جهاز الشرطة</h1>
-        <div class="card" style="margin-top: 30px;">
-            <i class="fas fa-shield-halved" style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"></i>
-            <p style="font-size: 1.3rem; margin-bottom: 25px;">مرحباً بك في البوابة الإلكترونية الموحدة لجميع منسوبي جهاز الشرطة.</p>
-            <button class="btn" style="font-size: 1.5rem; padding: 25px 60px;" onclick="openPoliceSheet()">
-                <i class="fas fa-table"></i> فتح جدول المناوبات
-            </button>
+        <div class="card" style="text-align: center;">
+            <h1 class="hero-title" style="font-size: 3rem;">جهاز الشرطة</h1>
+            <i class="fas fa-shield-halved" style="font-size: 4rem; color: var(--accent); margin: 20px 0;"></i>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">البوابة الرسمية لمنسوبي الشرطة لمتابعة المناوبات والمهام.</p>
+            <button class="btn" style="font-size: 1.4rem; padding: 20px 50px;" onclick="openPoliceSheet()">جدول الشرطة</button>
         </div>
+    </div>
+
+    <div id="store" class="section">
+        <h1 class="hero-title" style="font-size: 3rem;">متجر المدينة</h1>
+        <div id="store-list" class="store-grid"></div>
     </div>
 
     <div id="laws-page" class="section">
         <h1 class="hero-title" style="font-size: 3rem;">قوانين المدينة</h1>
         <div id="laws-categories-btns" style="margin: 20px 0;"></div>
-        <div class="card" id="laws-display-container">يرجى اختيار أحد الأقسام لمراجعة القوانين...</div>
-    </div>
-
-    <div id="store" class="section">
-        <h1 class="hero-title" style="font-size: 3rem;">متجر المدينة</h1>
-        <div id="store-list"></div>
+        <div class="card" id="laws-display-container">اختر قسم القوانين...</div>
     </div>
 
     <div id="apply-hub" class="section">
         <h1 class="hero-title" style="font-size: 3rem;">مركز التقديمات</h1>
-        <div style="margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+        <div style="margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
             <button class="btn" onclick="setupApply('إدارة')">تقديم إدارة</button>
             <button class="btn" onclick="setupApply('شرطة')">تقديم شرطة</button>
             <button class="btn" onclick="setupApply('إسعاف')">تقديم إسعاف</button>
+            <button class="btn" onclick="setupApply('سوشل ميديا')">تقديم سوشل ميديا</button>
         </div>
         <div id="apply-form-container" class="card" style="display:none; margin-top:30px;">
             <h2 id="apply-title-display"></h2>
+            <input type="text" id="ap-user-dc" readonly placeholder="يوزر الديسكورد">
             <input type="text" id="ap-name" placeholder="الاسم الكامل">
             <input type="number" id="ap-age" placeholder="العمر">
-            <textarea id="ap-exp" rows="4" placeholder="اذكر خبراتك السابقة بالتفصيل..."></textarea>
-            <button class="btn" style="width: 100%;" onclick="sendApplyToDiscord()">إرسال الطلب الآن</button>
+            <textarea id="ap-exp" placeholder="خبراتك السابقة..."></textarea>
+            <select id="ap-prev"><option id="prev-q-text" value=""></option><option value="نعم">نعم</option><option value="لا">لا</option></select>
+            <button class="btn" style="width: 100%;" onclick="sendApplyToFirebase()">إرسال الطلب</button>
         </div>
     </div>
 
-    <div id="admin-panel" class="section">
-        <h1 class="hero-title" style="font-size: 3rem;">لوحة التحكم</h1>
+    <div id="admin-high" class="section">
+        <h2 class="hero-title" style="font-size: 2.5rem;">الإدارة العليا</h2>
         
-        <div class="card" style="margin-bottom:30px;">
-            <h3><i class="fas fa-link"></i> إعدادات الروابط</h3>
-            <input type="text" id="set-police-url" placeholder="رابط جدول الشرطة الجديد">
-            <input type="text" id="set-dc" placeholder="رابط الديسكورد الجديد">
-            <button class="btn" style="width:100%" onclick="saveServerLinks()">حفظ الروابط</button>
-        </div>
-
-        <div class="card" style="margin-bottom:30px;">
-            <h3><i class="fas fa-chart-line"></i> إحصائيات السيرفر</h3>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                <input type="number" id="set-online" placeholder="عدد المتصلين">
-                <select id="set-status">
-                    <option value="متصل 🟢">متصل 🟢</option>
-                    <option value="صيانة 🟠">صيانة 🟠</option>
-                    <option value="مغلق 🔴">مغلق 🔴</option>
-                </select>
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>إعدادات السيرفر</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <input type="number" id="inp-online" placeholder="اللاعبين المتصلين">
+                <input type="number" id="inp-scripts" placeholder="عدد السكربتات">
+                <select id="inp-status"><option value="متصل 🟢">متصل 🟢</option><option value="تحت الصيانه 🟠">تحت الصيانه 🟠</option><option value="غير متصل 🔴">غير متصل 🔴</option></select>
+                <input type="text" id="inp-dc-link" placeholder="رابط الديسكورد">
+                <input type="text" id="inp-police-url" placeholder="رابط جدول الشرطة">
             </div>
-            <button class="btn" style="width:100%; margin-top:15px;" onclick="saveServerStats()">تحديث الحالة</button>
+            <button class="btn" style="width:100%" onclick="saveHighSettings()">حفظ الإعدادات</button>
         </div>
-        
-        <button class="btn btn-danger" onclick="location.reload()">تسجيل خروج من الإدارة</button>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>إدارة القوانين</h3>
+            <input type="text" id="law-cat-name" placeholder="اسم القسم الجديد">
+            <button class="btn" onclick="addLawCategory()">إضافة قسم</button>
+            <hr style="margin:15px 0; opacity:0.2;">
+            <select id="law-cat-select"></select>
+            <input type="text" id="law-title" placeholder="اسم القانون (مثال: RDM)">
+            <textarea id="law-desc" placeholder="تعريف القانون..."></textarea>
+            <button class="btn" onclick="addLawItem()">إضافة القانون</button>
+        </div>
+
+        <div class="card">
+            <h3>إدارة المتجر</h3>
+            <input type="text" id="p-name-inp" placeholder="اسم المنتج">
+            <input type="text" id="p-price-inp" placeholder="السعر">
+            <input type="text" id="p-img-inp" placeholder="رابط الصورة">
+            <button class="btn" onclick="addProduct()">إضافة للمتجر</button>
+        </div>
     </div>
 
-    <div id="admin-login-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; align-items:center; justify-content:center;">
-        <div class="card" style="width:380px; text-align:center;">
-            <i class="fas fa-user-shield" style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;"></i>
-            <h2>دخول المسؤولين</h2>
-            <input type="text" id="adm-user-input" placeholder="اسم المستخدم">
-            <input type="password" id="adm-pass-input" placeholder="كلمة المرور">
-            <button class="btn" style="width:100%" onclick="verifyAdmin()">تحقق</button>
-            <button class="btn btn-danger" style="width:100%; margin-top:10px;" onclick="closeAdminModal()">إلغاء</button>
+    <div id="admin-staff" class="section">
+        <h2 id="staff-dash-title" class="hero-title" style="font-size: 2.5rem;">داشبورد القسم</h2>
+        <div id="staff-apps-list" class="card" style="text-align: right;"></div>
+    </div>
+
+    <div id="login-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; align-items:center; justify-content:center;">
+        <div class="card" style="width:350px; text-align:center;">
+            <h2 id="login-modal-title">دخول</h2>
+            <input type="text" id="login-user" placeholder="اسم المستخدم">
+            <input type="password" id="login-pass" placeholder="الرمز السري">
+            <button class="btn" style="width:100%" onclick="processLogin()">دخول</button>
+            <button class="btn btn-danger" style="width:100%; margin-top:10px;" onclick="closeModal()">إلغاء</button>
         </div>
     </div>
 
     <script>
-        // إعدادات Firebase
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
             authDomain: "ideal-town.firebaseapp.com",
@@ -176,117 +207,177 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
+        const WEBHOOK = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
 
-        // ويب هوك الديسكورد
-        const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
-        
         let user = JSON.parse(localStorage.getItem('ideal_user')) || null;
-        let currentPoliceUrl = "";
+        let loginTarget = "";
+        let currentPoliceLink = "";
 
-        // نظام التحقق من الإدارة
-        function openAdminModal() { document.getElementById('admin-login-modal').style.display='flex'; }
-        function closeAdminModal() { document.getElementById('admin-login-modal').style.display='none'; }
-        function verifyAdmin() {
-            const u = document.getElementById('adm-user-input').value;
-            const p = document.getElementById('adm-pass-input').value;
-            if(u === "IDEAL" && p === "663567M") {
-                closeAdminModal();
-                showSection('admin-panel');
-            } else {
-                alert("بيانات الدخول غير صحيحة!");
-            }
-        }
+        const creds = {
+            'IDEAL_ADMIN': { u: 'IDEAL', p: '663567M' },
+            'POLICE': { u: 'الشرطة', p: '665327P', type: 'شرطة' },
+            'EMS': { u: 'الاسعاف', p: '558976M', type: 'إسعاف' },
+            'SOCIAL': { u: 'socialideal', p: '5529910S', type: 'سوشل ميديا' },
+            'DEPT_ADM': { u: 'IDEALADM', p: '1106846M', type: 'إدارة' }
+        };
 
-        // مزامنة البيانات مع Firebase
-        function syncAllData() {
-            // إعدادات السيرفر
-            db.ref('settings').on('value', s => {
-                const d = s.val() || {};
-                document.getElementById('view-online').innerText = d.online || 0;
-                document.getElementById('view-status').innerText = d.status || "متصل 🟢";
-                document.getElementById('main-dc-link').href = d.dc_link || "#";
-                currentPoliceUrl = d.police_url || "";
-                
-                // تحديث حقول الإدارة تلقائياً
-                document.getElementById('set-police-url').value = currentPoliceUrl;
-                document.getElementById('set-dc').value = d.dc_link || "";
-                document.getElementById('set-online').value = d.online || 0;
-                document.getElementById('set-status').value = d.status || "متصل 🟢";
-            });
-
-            // عداد الأعضاء (يزيد تلقائياً مع كل تسجيل دخول ديسكورد)
-            db.ref('users').on('value', s => {
-                document.getElementById('view-total').innerText = s.numChildren();
-            });
-
-            // المتجر
-            db.ref('products').on('value', s => {
-                const prods = s.val();
-                const list = document.getElementById('store-list');
-                list.innerHTML = "";
-                for(let id in prods) {
-                    list.innerHTML += `
-                        <div class="p-card">
-                            <span class="p-price">${prods[id].price}</span>
-                            <img src="${prods[id].img}" class="p-img">
-                            <div style="padding:15px">
-                                <h3>${prods[id].name}</h3>
-                                <button class="btn" onclick="buyItem('${prods[id].name}')">طلب شراء</button>
-                            </div>
-                        </div>`;
-                }
-            });
-
-            // القوانين
-            db.ref('laws').on('value', s => {
-                const laws = s.val();
-                const btnContainer = document.getElementById('laws-categories-btns');
-                btnContainer.innerHTML = "";
-                const categories = [...new Set(Object.values(laws || {}).map(l => l.cat))];
-                categories.forEach(cat => {
-                    btnContainer.innerHTML += `<button class="btn" style="margin:5px" onclick="filterLaws('${cat}')">${cat}</button>`;
-                });
-            });
-        }
-
-        // وظائف الأزرار
-        function openPoliceSheet() {
-            if(currentPoliceUrl) window.open(currentPoliceUrl, '_blank');
-            else alert("عذراً، لم يتم ضبط رابط الجدول من قبل الإدارة بعد.");
-        }
-
-        function saveServerLinks() {
-            db.ref('settings').update({
-                police_url: document.getElementById('set-police-url').value,
-                dc_link: document.getElementById('set-dc').value
-            });
-            alert("تم حفظ الروابط بنجاح!");
-        }
-
-        function saveServerStats() {
-            db.ref('settings').update({
-                online: document.getElementById('set-online').value,
-                status: document.getElementById('set-status').value
-            });
-            alert("تم تحديث الإحصائيات!");
-        }
-
-        // دالة التبديل بين الأقسام
+        function toggleSideMenu() { document.getElementById('side-menu').classList.toggle('active'); }
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
+            if(id !== 'side-menu') document.getElementById('side-menu').classList.remove('active');
         }
 
-        // نظام تسجيل الدخول عبر ديسكورد
-        function toggleDiscordLogin() {
-            if(user) {
-                if(confirm("هل تود تسجيل الخروج؟")) {
-                    localStorage.removeItem('ideal_user');
-                    location.reload();
-                }
-                return;
+        // Login Logic
+        function openAdminModal(target) {
+            loginTarget = target;
+            document.getElementById('login-modal-title').innerText = "دخول " + (creds[target].u);
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+        function closeModal() { document.getElementById('login-modal').style.display = 'none'; }
+
+        function processLogin() {
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
+            if(u === creds[loginTarget].u && p === creds[loginTarget].p) {
+                closeModal();
+                if(loginTarget === 'IDEAL_ADMIN') showSection('admin-high');
+                else loadStaffDash(creds[loginTarget].type);
+            } else { alert("خطأ في البيانات!"); }
+        }
+
+        // Home Stats
+        db.ref('settings').on('value', s => {
+            const d = s.val() || {};
+            document.getElementById('view-online').innerText = d.online || 0;
+            document.getElementById('view-scripts').innerText = d.scripts || 0;
+            document.getElementById('view-status').innerText = d.status || "متصل 🟢";
+            document.getElementById('main-dc-link').href = d.dc_link || "#";
+            currentPoliceLink = d.police_url || "";
+        });
+        db.ref('users').on('value', s => { document.getElementById('view-total').innerText = s.numChildren(); });
+
+        // Save High Admin
+        function saveHighSettings() {
+            db.ref('settings').update({
+                online: document.getElementById('inp-online').value,
+                scripts: document.getElementById('inp-scripts').value,
+                status: document.getElementById('inp-status').value,
+                dc_link: document.getElementById('inp-dc-link').value,
+                police_url: document.getElementById('inp-police-url').value
+            });
+            alert("تم الحفظ!");
+        }
+
+        function openPoliceSheet() {
+            if(currentPoliceLink) window.open(currentPoliceLink, '_blank');
+            else alert("لم يتم ضبط الرابط!");
+        }
+
+        // Laws Management
+        function addLawCategory() {
+            const name = document.getElementById('law-cat-name').value;
+            if(name) { db.ref('law_cats').push(name); document.getElementById('law-cat-name').value = ""; }
+        }
+        db.ref('law_cats').on('value', s => {
+            const cats = s.val();
+            const select = document.getElementById('law-cat-select');
+            const btns = document.getElementById('laws-categories-btns');
+            select.innerHTML = ""; btns.innerHTML = "";
+            for(let id in cats) {
+                select.innerHTML += `<option value="${cats[id]}">${cats[id]}</option>`;
+                btns.innerHTML += `<button class="btn" style="margin:5px" onclick="viewLaws('${cats[id]}')">${cats[id]}</button>`;
             }
+        });
+        function addLawItem() {
+            const cat = document.getElementById('law-cat-select').value;
+            db.ref('laws').push({ cat: cat, title: document.getElementById('law-title').value, desc: document.getElementById('law-desc').value });
+            alert("تمت إضافة القانون!");
+        }
+        function viewLaws(cat) {
+            db.ref('laws').once('value', s => {
+                const laws = s.val();
+                let h = `<h2>قسم: ${cat}</h2><br>`;
+                for(let id in laws) {
+                    if(laws[id].cat === cat) {
+                        h += `<div class="app-item"><h4>${laws[id].title}</h4><p>${laws[id].desc}</p>
+                        <button class="btn btn-danger" onclick="deleteLaw('${id}')">حذف</button></div>`;
+                    }
+                }
+                document.getElementById('laws-display-container').innerHTML = h;
+            });
+        }
+        function deleteLaw(id) { if(confirm("حذف؟")) db.ref('laws/'+id).remove(); }
+
+        // Store
+        function addProduct() {
+            db.ref('products').push({
+                name: document.getElementById('p-name-inp').value,
+                price: document.getElementById('p-price-inp').value,
+                img: document.getElementById('p-img-inp').value
+            });
+            alert("تمت الإضافة!");
+        }
+        db.ref('products').on('value', s => {
+            const ps = s.val(); const div = document.getElementById('store-list'); div.innerHTML = "";
+            for(let id in ps) {
+                div.innerHTML += `<div class="p-card"><span class="p-price">${ps[id].price}</span><img src="${ps[id].img}" class="p-img">
+                <div style="padding:15px"><h4>${ps[id].name}</h4><button class="btn" onclick="buyItem('${ps[id].name}')">طلب شراء</button></div></div>`;
+            }
+        });
+
+        // Apply Logic
+        function setupApply(type) {
+            if(!user) return alert("سجل دخول ديسكورد أولاً!");
+            showSection('apply-hub');
+            document.getElementById('apply-form-container').style.display = 'block';
+            document.getElementById('apply-title-display').innerText = "تقديم " + type;
+            document.getElementById('ap-user-dc').value = user.username + "#" + user.discriminator;
+            document.getElementById('prev-q-text').innerText = `هل كنت (${type}) من قبل؟`;
+        }
+
+        function sendApplyToFirebase() {
+            const type = document.getElementById('apply-title-display').innerText.replace("تقديم ", "");
+            const data = {
+                type: type,
+                dc: document.getElementById('ap-user-dc').value,
+                name: document.getElementById('ap-name').value,
+                age: document.getElementById('ap-age').value,
+                exp: document.getElementById('ap-exp').value,
+                prev: document.getElementById('ap-prev').value,
+                status: 'قيد الانتظار'
+            };
+            db.ref('applications').push(data);
+            alert("تم إرسال طلبك!");
+            document.getElementById('apply-form-container').style.display = 'none';
+        }
+
+        // Staff Dash Loading
+        function loadStaffDash(type) {
+            showSection('admin-staff');
+            document.getElementById('staff-dash-title').innerText = "تقديمات " + type;
+            db.ref('applications').on('value', s => {
+                const apps = s.val(); const div = document.getElementById('staff-apps-list'); div.innerHTML = "";
+                for(let id in apps) {
+                    if(apps[id].type === type) {
+                        div.innerHTML += `<div class="app-item">
+                            <p><b>المتقدم:</b> ${apps[id].dc}</p><p><b>الاسم:</b> ${apps[id].name}</p><p><b>العمر:</b> ${apps[id].age}</p>
+                            <p><b>الخبرة:</b> ${apps[id].exp}</p><p><b>سابق:</b> ${apps[id].prev}</p>
+                            <div style="margin-top:10px">
+                                <button class="btn btn-success" onclick="updateApp('${id}', 'مقبول')">قبول</button>
+                                <button class="btn" onclick="updateApp('${id}', 'مرفوض')">رفض</button>
+                                <button class="btn btn-danger" onclick="deleteApp('${id}')">حذف</button>
+                            </div></div>`;
+                    }
+                }
+            });
+        }
+        function updateApp(id, status) { db.ref('applications/'+id).update({status: status}); alert("تم التحديث!"); }
+        function deleteApp(id) { db.ref('applications/'+id).remove(); }
+
+        // Discord OAuth
+        function toggleDiscordLogin() {
+            if(user) { if(confirm("خروج؟")) { localStorage.removeItem('ideal_user'); location.reload(); } return; }
             const clientID = "1490563807834275972";
             const redirect = encodeURIComponent(window.location.href.split('#')[0]);
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&scope=identify`;
@@ -295,14 +386,11 @@
         window.onload = () => {
             const params = new URLSearchParams(window.location.hash.slice(1));
             if(params.has('access_token')) {
-                fetch('https://discord.com/api/users/@me', {
-                    headers: { Authorization: `Bearer ${params.get('access_token')}` }
-                })
+                fetch('https://discord.com/api/users/@me', { headers: { Authorization: `Bearer ${params.get('access_token')}` } })
                 .then(r => r.json()).then(d => {
                     localStorage.setItem('ideal_user', JSON.stringify(d));
                     db.ref('users/' + d.id).set(d);
-                    location.hash = "";
-                    location.reload();
+                    location.hash = ""; location.reload();
                 });
             }
             if(user) {
@@ -310,60 +398,12 @@
                 document.getElementById('user-avatar').style.display='block';
                 document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
             }
-            syncAllData();
         };
 
-        // التقديمات
-        function setupApply(type) {
-            if(!user) return alert("يرجى تسجيل الدخول عبر الديسكورد أولاً!");
-            document.getElementById('apply-title-display').innerText = "نموذج تقديم: " + type;
-            document.getElementById('apply-form-container').style.display = 'block';
-        }
-
-        async function sendApplyToDiscord() {
-            const name = document.getElementById('ap-name').value;
-            const age = document.getElementById('ap-age').value;
-            const exp = document.getElementById('ap-exp').value;
-            const type = document.getElementById('apply-title-display').innerText;
-
-            if(!name || !age || !exp) return alert("يرجى تعبئة جميع الخانات!");
-
-            const payload = {
-                content: `📝 **طلب تقديم جديد**\n👤 المتقدم: <@${user.id}>\n📛 الاسم: ${name}\n🎂 العمر: ${age}\n📜 النوع: ${type}\n💡 الخبرات: ${exp}`
-            };
-
-            await fetch(DISCORD_WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            alert("تم إرسال طلبك بنجاح!");
-            document.getElementById('apply-form-container').style.display = 'none';
-        }
-
-        // الشراء
-        async function buyItem(itemName) {
-            if(!user) return alert("سجل دخولك أولاً!");
-            const payload = { content: `🛒 **طلب شراء**\n👤 المشتري: <@${user.id}>\n📦 المنتج: ${itemName}` };
-            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            alert("تم إرسال طلب الشراء إلى الإدارة!");
-        }
-
-        function filterLaws(cat) {
-            db.ref('laws').once('value', s => {
-                const laws = s.val();
-                let html = `<h2>قسم: ${cat}</h2><br>`;
-                for(let id in laws) {
-                    if(laws[id].cat === cat) {
-                        html += `<div style="background:var(--glass); padding:15px; margin-bottom:10px; border-right:5px solid var(--accent); text-align:right;">
-                            <h3>${laws[id].title}</h3>
-                            <p>${laws[id].text}</p>
-                        </div>`;
-                    }
-                }
-                document.getElementById('laws-display-container').innerHTML = html;
-            });
+        async function buyItem(n) {
+            if(!user) return alert("سجل دخولك!");
+            await fetch(WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: `🛒 **طلب شراء**\n👤 المشتري: <@${user.id}>\n📦 المنتج: ${n}` }) });
+            alert("تم إرسال الطلب للديسكورد!");
         }
     </script>
 </body>
