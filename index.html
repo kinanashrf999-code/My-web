@@ -142,7 +142,6 @@
 
     <div id="admin-high" class="section">
         <h2 class="hero-title" style="font-size: 2.5rem;">لوحة الإدارة العليا (IDEAL)</h2>
-        
         <div class="card" style="margin-bottom: 20px;">
             <h3>الإعدادات الرئيسية</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -154,32 +153,20 @@
             </div>
             <button class="btn" style="width:100%" onclick="saveHighSettings()">حفظ وتحديث السيرفر</button>
         </div>
-
         <div class="card" style="margin-bottom: 20px;">
             <h3>إدارة أقسام القوانين (الخانات)</h3>
             <input type="text" id="law-cat-name" placeholder="اسم الخانة الجديدة">
             <button class="btn" onclick="addLawCategory()">إضافة الخانة</button>
             <div id="admin-cat-list" style="margin-top:15px; border-top:1px solid #333; padding-top:10px;"></div>
         </div>
-
         <div class="card" style="margin-bottom: 20px;">
-            <h3>إضافة قانون جديد</h3>
+            <h3>إدارة القوانين</h3>
             <select id="law-cat-select"></select>
             <input type="text" id="law-title" placeholder="اسم القانون">
             <textarea id="law-desc" placeholder="تعريف القانون..."></textarea>
             <button class="btn" onclick="addLawItem()">حفظ القانون</button>
             <div id="admin-laws-manage-list" style="margin-top:15px; border-top:1px solid #333; padding-top:10px;"></div>
         </div>
-
-        <div class="card">
-            <h3>إدارة المتجر</h3>
-            <input type="text" id="p-name-inp" placeholder="اسم المنتج">
-            <input type="text" id="p-price-inp" placeholder="السعر">
-            <input type="text" id="p-img-inp" placeholder="رابط الصورة">
-            <button class="btn" onclick="addProduct()">إضافة منتج</button>
-            <div id="admin-store-manage" style="margin-top:10px;"></div>
-        </div>
-        
         <button class="btn btn-danger" style="margin-top:20px;" onclick="location.reload()">تسجيل خروج الإدارة</button>
     </div>
 
@@ -216,8 +203,8 @@
 
         const creds = {
             'IDEAL_ADMIN': { u: 'IDEAL', p: '663567M', label: 'الإدارة العليا' },
-            'POLICE': { u: 'الشرطة', p: '665327P', type: 'شرطة' },
-            'EMS': { u: 'الاسعاف', p: '558976M', type: 'إسعاف' },
+            'POLICE': { u: 'IDLPOLICE', p: '665327P', type: 'شرطة' },
+            'EMS': { u: 'IDEALM', p: '558976M', type: 'إسعاف' },
             'SOCIAL': { u: 'socialideal', p: '5529910S', type: 'سوشل ميديا' },
             'DEPT_ADM': { u: 'IDEALADM', p: '1106846M', type: 'إدارة' }
         };
@@ -243,15 +230,14 @@
                 closeModal();
                 if(loginTarget === 'IDEAL_ADMIN') {
                     showSection('admin-high');
-                    loadAdminLaws(); // تحميل خيارات الحذف للمدير فقط
-                    loadAdminStore();
+                    loadAdminLaws();
                 } else {
                     loadStaffDash(creds[loginTarget].type);
                 }
-            } else { alert("رمز الدخول غير صحيح!"); }
+            } else { alert("البيانات غير صحيحة!"); }
         }
 
-        // --- نظام القوانين والصلاحيات ---
+        // --- Laws Logic ---
         function addLawCategory() {
             const name = document.getElementById('law-cat-name').value;
             if(name) { db.ref('law_cats').push(name); document.getElementById('law-cat-name').value = ""; }
@@ -262,59 +248,47 @@
             const select = document.getElementById('law-cat-select');
             const btns = document.getElementById('laws-categories-btns');
             const adminCatList = document.getElementById('admin-cat-list');
-            
             select.innerHTML = ""; btns.innerHTML = ""; adminCatList.innerHTML = "<b>حذف الخانات:</b><br>";
-            
             for(let id in cats) {
                 select.innerHTML += `<option value="${cats[id]}">${cats[id]}</option>`;
                 btns.innerHTML += `<button class="btn" style="margin:5px" onclick="viewLaws('${cats[id]}')">${cats[id]}</button>`;
-                // زر حذف الخانة يظهر فقط في داشبورد الإدارة العليا
-                adminCatList.innerHTML += `<div class="item-row">${cats[id]} <button class="btn btn-danger" onclick="deleteCategory('${id}')">حذف الخانة</button></div>`;
+                adminCatList.innerHTML += `<div class="item-row">${cats[id]} <button class="btn btn-danger" onclick="deleteCategory('${id}')">حذف</button></div>`;
             }
         });
 
-        function deleteCategory(id) { if(confirm("هل تريد حذف هذه الخانة بالكامل؟")) db.ref('law_cats/'+id).remove(); }
+        function deleteCategory(id) { if(confirm("حذف الخانة؟")) db.ref('law_cats/'+id).remove(); }
 
         function addLawItem() {
             const cat = document.getElementById('law-cat-select').value;
             db.ref('laws').push({ cat: cat, title: document.getElementById('law-title').value, desc: document.getElementById('law-desc').value });
-            alert("تم حفظ القانون!");
+            alert("تم الحفظ!");
         }
 
-        // عرض القوانين للمستخدم العادي (بدون حذف)
         function viewLaws(cat) {
             db.ref('laws').once('value', s => {
                 const laws = s.val();
                 let h = `<h2 style="color:var(--accent)">قوانين: ${cat}</h2><br>`;
                 for(let id in laws) {
                     if(laws[id].cat === cat) {
-                        h += `<div class="item-row" style="flex-direction:column; align-items:start;">
-                                <h3 style="color:white">${laws[id].title}</h3>
-                                <p style="color:#ccc">${laws[id].desc}</p>
-                              </div>`;
+                        h += `<div class="item-row" style="flex-direction:column; align-items:start;"><h3>${laws[id].title}</h3><p>${laws[id].desc}</p></div>`;
                     }
                 }
                 document.getElementById('laws-display-container').innerHTML = h;
             });
         }
 
-        // عرض القوانين في داشبورد الإدارة مع أزرار الحذف
         function loadAdminLaws() {
             db.ref('laws').on('value', s => {
-                const laws = s.val();
-                const list = document.getElementById('admin-laws-manage-list');
-                list.innerHTML = "<b>إدارة وحذف القوانين:</b><br>";
+                const laws = s.val(); const list = document.getElementById('admin-laws-manage-list');
+                list.innerHTML = "<b>حذف القوانين:</b><br>";
                 for(let id in laws) {
-                    list.innerHTML += `<div class="item-row">
-                        <span>[${laws[id].cat}] ${laws[id].title}</span>
-                        <button class="btn btn-danger" onclick="deleteLaw('${id}')">حذف القانون</button>
-                    </div>`;
+                    list.innerHTML += `<div class="item-row"><span>[${laws[id].cat}] ${laws[id].title}</span><button class="btn btn-danger" onclick="deleteLaw('${id}')">حذف</button></div>`;
                 }
             });
         }
         function deleteLaw(id) { if(confirm("حذف القانون؟")) db.ref('laws/'+id).remove(); }
 
-        // --- الإحصائيات والمتجر ---
+        // --- Settings & Stats ---
         db.ref('settings').on('value', s => {
             const d = s.val() || {};
             document.getElementById('view-online').innerText = d.online || 0;
@@ -322,12 +296,6 @@
             document.getElementById('view-status').innerText = d.status || "فحص...";
             document.getElementById('main-dc-link').href = d.dc_link || "#";
             currentPoliceLink = d.police_url || "";
-            // تعبئة الحقول في الداشبورد تلقائياً
-            document.getElementById('inp-online').value = d.online || 0;
-            document.getElementById('inp-scripts').value = d.scripts || 0;
-            document.getElementById('inp-status').value = d.status || "متصل 🟢";
-            document.getElementById('inp-dc-link').value = d.dc_link || "";
-            document.getElementById('inp-police-url').value = d.police_url || "";
         });
 
         function saveHighSettings() {
@@ -338,7 +306,7 @@
                 dc_link: document.getElementById('inp-dc-link').value,
                 police_url: document.getElementById('inp-police-url').value
             });
-            alert("تم تحديث بيانات السيرفر!");
+            alert("تم التحديث!");
         }
 
         function openPoliceSheet() {
@@ -346,54 +314,25 @@
             else alert("الرابط غير متوفر!");
         }
 
-        function addProduct() {
-            db.ref('products').push({
-                name: document.getElementById('p-name-inp').value,
-                price: document.getElementById('p-price-inp').value,
-                img: document.getElementById('p-img-inp').value
-            });
-        }
-
-        function loadAdminStore() {
-            db.ref('products').on('value', s => {
-                const ps = s.val();
-                const list = document.getElementById('admin-store-manage');
-                list.innerHTML = "<b>حذف منتجات المتجر:</b><br>";
-                for(let id in ps) {
-                    list.innerHTML += `<div class="item-row">${ps[id].name} <button class="btn btn-danger" onclick="deleteProd('${id}')">حذف</button></div>`;
-                }
-            });
-        }
-        function deleteProd(id) { db.ref('products/'+id).remove(); }
-
-        db.ref('products').on('value', s => {
-            const ps = s.val(); const div = document.getElementById('store-list'); div.innerHTML = "";
-            for(let id in ps) {
-                div.innerHTML += `<div class="p-card"><span class="p-price">${ps[id].price}</span><img src="${ps[id].img}" class="p-img">
-                <div style="padding:15px"><h4>${ps[id].name}</h4><button class="btn" onclick="buyItem('${ps[id].name}')">طلب شراء</button></div></div>`;
-            }
-        });
-
-        // --- التقديمات ---
+        // --- Applications ---
         function setupApply(type) {
-            if(!user) return alert("ممنوع التقديم! سجل دخولك بحساب الديسكورد أولاً.");
+            if(!user) return alert("سجل دخول ديسكورد أولاً!");
             showSection('apply-hub');
             document.getElementById('apply-form-container').style.display = 'block';
             document.getElementById('apply-title-display').innerText = "تقديم " + type;
-            document.getElementById('ap-user-dc').value = user.username + "#" + (user.discriminator || "0");
+            document.getElementById('ap-user-dc').value = user.username;
             document.getElementById('prev-q-text').innerText = `هل كنت (${type}) من قبل؟`;
         }
 
         function sendApplyToFirebase() {
             const type = document.getElementById('apply-title-display').innerText.replace("تقديم ", "");
-            const data = {
+            db.ref('applications').push({
                 type: type, dc: document.getElementById('ap-user-dc').value,
                 name: document.getElementById('ap-name').value, age: document.getElementById('ap-age').value,
                 exp: document.getElementById('ap-exp').value, prev: document.getElementById('ap-prev').value,
                 status: 'انتظار', timestamp: Date.now()
-            };
-            db.ref('applications').push(data);
-            alert("تم إرسال طلبك للإدارة بنجاح!");
+            });
+            alert("تم الإرسال!");
             showSection('home');
         }
 
@@ -402,10 +341,8 @@
             document.getElementById('staff-dash-title').innerText = "طلبات: " + type;
             db.ref('applications').on('value', s => {
                 const apps = s.val(); const div = document.getElementById('staff-apps-list'); div.innerHTML = "";
-                let found = false;
                 for(let id in apps) {
                     if(apps[id].type === type) {
-                        found = true;
                         div.innerHTML += `<div class="item-row" style="flex-direction:column; align-items:start;">
                             <p><b>المتقدم:</b> ${apps[id].dc}</p><p><b>الاسم:</b> ${apps[id].name}</p>
                             <p><b>العمر:</b> ${apps[id].age}</p><p><b>الخبرة:</b> ${apps[id].exp}</p>
@@ -415,14 +352,13 @@
                             </div></div>`;
                     }
                 }
-                if(!found) div.innerHTML = "لا توجد طلبات حالياً.";
             });
         }
-        function updateApp(id, status) { db.ref('applications/'+id).update({status: status}); alert("تم التحديث بنجاح!"); }
+        function updateApp(id, status) { db.ref('applications/'+id).update({status: status}); alert("تم التحديث!"); }
 
-        // --- الديسكورد ---
+        // --- Discord Auth ---
         function toggleDiscordLogin() {
-            if(user) { if(confirm("تسجيل خروج؟")) { localStorage.removeItem('ideal_user'); location.reload(); } return; }
+            if(user) { if(confirm("خروج؟")) { localStorage.removeItem('ideal_user'); location.reload(); } return; }
             const clientID = "1490563807834275972";
             const redirect = encodeURIComponent(window.location.href.split('#')[0]);
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&scope=identify`;
@@ -445,12 +381,6 @@
             }
             db.ref('users').on('value', s => { document.getElementById('view-total').innerText = s.numChildren(); });
         };
-
-        async function buyItem(n) {
-            if(!user) return alert("سجل دخولك!");
-            await fetch(WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: `🛒 **طلب شراء جديد**\n👤 المشتري: <@${user.id}>\n📦 المنتج: ${n}` }) });
-            alert("تم إرسال طلب الشراء للإدارة!");
-        }
     </script>
 </body>
 </html>
