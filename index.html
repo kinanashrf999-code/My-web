@@ -1,37 +1,299 @@
-// --- إعدادات الويبهوكات الجديدة ---
-const WEBHOOKS = {
-    'إدارة': "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT",
-    'شرطة': "https://discord.com/api/webhooks/1490672417931137137/tf09tzr2LhARX-qcc6TR_RunxQkPehZ73OsPjHcOf2cx1hrtrqw6uIVAGQYi8RA9ZF6C",
-    'سوشل ميديا': "https://discord.com/api/webhooks/1490672310678454374/OL5V8GncHV-p9FJTWDRBAJ8UHPEuV5R3FUIeCe2v-4ek12im25asa5Rg3E5E7Eh8Gp6I",
-    'برمجة': "https://discord.com/api/webhooks/1490672236330221779/K_tMfzrbWnNIx9bnUE1BMk8l_IFNUVcVgYl6Urye_3TjZs4Mrtaw2jgH3Oyo2Rd41Yb-",
-    'طلبات': "https://discord.com/api/webhooks/1490674069215907840/w1ROK2Ur4GAK6k2K8GHZIUSo2u95nwr7_xAKVoDfuO8fPS0C3W8nP4TKFV8WAWhyyyZR"
-};
-
-// دالة إرسال التقديمات
-async function sendToDiscord(data) {
-    if(!user) return alert("سجل دخولك أولاً!");
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDEAL TOWN | النظام المتكامل</title>
     
-    const targetWebhook = WEBHOOKS[data.type];
-    const content = `📢 **تقديم جديد القسم: ${data.type}**\n👤 صاحب الطلب: <@${user.id}>\n📝 الاسم: ${data.name}\n🎂 العمر: ${data.age}\n✅ الخبرات: ${data.exp}\n🏛️ خبرة سابقة: ${data.prev || 'لا يوجد'}`;
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --dark-blue: #0a192f; 
+            --btn-blue: linear-gradient(135.5deg, rgb(17, 58, 107) 0%, rgb(36, 154, 233) 100%);
+            --accent: #349ae9;
+            --glass: rgba(255, 255, 255, 0.05);
+            --danger: #ff4d4d;
+            --success: #2ecc71;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: #0d1b2a; color: white; line-height: 1.6; overflow-x: hidden; }
+        
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
-    await fetch(targetWebhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: content })
-    });
-    alert("تم إرسال تقديمك بنجاح!");
-}
+        .section { display: none; padding: 120px 5% 50px; text-align: center; animation: fadeIn 0.5s ease; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-// دالة طلب شراء منتج
-async function buyItem(productName, price) {
-    if(!user) return alert("سجل دخولك أولاً!");
+        .hero-title { font-size: 4.5rem; font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(52,154,233,0.5); }
+        .card { background: var(--glass); padding: 30px; border-radius: 20px; max-width: 900px; margin: auto; text-align: right; border: 1px solid rgba(255,255,255,0.1); }
+        
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 10px; text-align: right; }
+        
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; margin: 5px; }
+        .btn:hover { transform: scale(1.05); }
+        .btn-danger { background: var(--danger); }
+        .btn-edit { background: var(--success); }
 
-    const content = `🛒 **طلب شراء منتج جديد**\n👤 المشتري: <@${user.id}>\n📦 المنتج: **${productName}**\n💰 السعر: **${price}**`;
+        /* قوانين */
+        .law-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .law-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border-right: 5px solid var(--accent); margin-bottom: 10px; text-align: right; }
 
-    await fetch(WEBHOOKS['طلبات'], {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: content })
-    });
-    alert("تم إرسال طلب الشراء، سيصلك الرد في الخاص قريباً!");
-}
+        /* متجر */
+        .p-card { background: var(--glass); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .p-img { width: 100%; height: 180px; object-fit: cover; }
+
+        /* الإدارة */
+        .admin-list-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 10px; margin: 5px 0; border-radius: 8px; }
+
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+        .modal-content { background: #0d1b2a; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); width: 350px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-weight: 900; font-size: 1.8rem; color: var(--accent);">IDEAL TOWN</div>
+        <div class="nav-links">
+            <a onclick="showSection('home')">الرئيسية</a>
+            <a onclick="showSection('store')">المتجر</a>
+            <a onclick="showSection('laws-page')">القوانين</a>
+            <a onclick="showSection('apply-hub')">التقديمات</a>
+        </div>
+        <button class="btn" onclick="showAdminLoginModal()">الادارة</button>
+    </nav>
+
+    <div id="home" class="section active">
+        <h1 class="hero-title">IDEAL TOWN</h1>
+        <p>أهلاً بك في مدينة المثالية! النظام المتطور لإدارة المجتمع.</p>
+    </div>
+
+    <div id="laws-page" class="section">
+        <h1>قوانين المدينة</h1>
+        <div class="law-tabs">
+            <button class="btn" onclick="filterLaws('عامة')">القوانين العامة</button>
+            <button class="btn" onclick="filterLaws('شرطة')">قوانين الشرطة</button>
+            <button class="btn" onclick="filterLaws('إجرام')">قوانين الإجرام</button>
+        </div>
+        <div class="card" id="laws-display">
+            </div>
+    </div>
+
+    <div id="store" class="section">
+        <h1>متجر المدينة</h1>
+        <div id="store-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:20px;"></div>
+    </div>
+
+    <div id="admin-panel" class="section">
+        <h1>لوحة تحكم الإدارة العليا</h1>
+        
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:20px;">
+            <div class="card">
+                <h3>إدارة القوانين</h3>
+                <input type="hidden" id="edit-law-id">
+                <input type="text" id="law-title" placeholder="عنوان القانون">
+                <select id="law-category">
+                    <option value="عامة">قوانين عامة</option>
+                    <option value="شرطة">قوانين شرطة</option>
+                    <option value="إجرام">قوانين إجرام</option>
+                </select>
+                <textarea id="law-desc" placeholder="شرح القانون"></textarea>
+                <button class="btn" id="btn-save-law" onclick="addOrUpdateLaw()">إضافة / حفظ القانون</button>
+                <hr style="margin:20px 0; opacity:0.1;">
+                <div id="admin-laws-list"></div>
+            </div>
+
+            <div class="card">
+                <h3>إدارة المنتجات</h3>
+                <input type="hidden" id="edit-prod-id">
+                <input type="text" id="p-name" placeholder="اسم المنتج">
+                <input type="text" id="p-price" placeholder="السعر">
+                <input type="text" id="p-img" placeholder="رابط الصورة">
+                <button class="btn" id="btn-save-prod" onclick="addOrUpdateProduct()">إضافة / حفظ المنتج</button>
+                <hr style="margin:20px 0; opacity:0.1;">
+                <div id="admin-prods-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <h2>دخول الإدارة</h2>
+            <input type="password" id="admin-pass" placeholder="الرمز السري">
+            <button class="btn" style="width:100%" onclick="checkAdmin()">دخول</button>
+        </div>
+    </div>
+
+    <script>
+        // تكوين Firebase (نفس اللي كان عندك)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
+            authDomain: "ideal-town.firebaseapp.com",
+            databaseURL: "https://ideal-town-default-rtdb.firebaseio.com",
+            projectId: "ideal-town"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
+
+        // وظائف التنقل
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function showAdminLoginModal() { document.getElementById('adminModal').style.display = 'flex'; }
+        function checkAdmin() {
+            if(document.getElementById('admin-pass').value === "663567M") {
+                document.getElementById('adminModal').style.display = 'none';
+                showSection('admin-panel');
+            } else { alert("رمز خاطئ!"); }
+        }
+
+        // --- إدارة القوانين ---
+        function addOrUpdateLaw() {
+            const id = document.getElementById('edit-law-id').value;
+            const data = {
+                title: document.getElementById('law-title').value,
+                cat: document.getElementById('law-category').value,
+                desc: document.getElementById('law-desc').value
+            };
+            if(id) db.ref('laws/' + id).set(data);
+            else db.ref('laws').push(data);
+            
+            resetLawForm();
+        }
+
+        function resetLawForm() {
+            document.getElementById('edit-law-id').value = "";
+            document.getElementById('law-title').value = "";
+            document.getElementById('law-desc').value = "";
+        }
+
+        function editLaw(id, title, cat, desc) {
+            document.getElementById('edit-law-id').value = id;
+            document.getElementById('law-title').value = title;
+            document.getElementById('law-category').value = cat;
+            document.getElementById('law-desc').value = desc;
+            window.scrollTo(0,0);
+        }
+
+        function deleteLaw(id) { if(confirm("حذف القانون؟")) db.ref('laws/' + id).remove(); }
+
+        // --- إدارة المنتجات ---
+        function addOrUpdateProduct() {
+            const id = document.getElementById('edit-prod-id').value;
+            const data = {
+                name: document.getElementById('p-name').value,
+                price: document.getElementById('p-price').value,
+                img: document.getElementById('p-img').value
+            };
+            if(id) db.ref('products/' + id).set(data);
+            else db.ref('products').push(data);
+            
+            resetProdForm();
+        }
+
+        function resetProdForm() {
+            document.getElementById('edit-prod-id').value = "";
+            document.getElementById('p-name').value = "";
+            document.getElementById('p-price').value = "";
+            document.getElementById('p-img').value = "";
+        }
+
+        function editProd(id, name, price, img) {
+            document.getElementById('edit-prod-id').value = id;
+            document.getElementById('p-name').value = name;
+            document.getElementById('p-price').value = price;
+            document.getElementById('p-img').value = img;
+        }
+
+        function deleteProd(id) { if(confirm("حذف المنتج؟")) db.ref('products/' + id).remove(); }
+
+        // --- جلب البيانات وعرضها ---
+        db.ref('laws').on('value', snap => {
+            const laws = snap.val();
+            const adminList = document.getElementById('admin-laws-list');
+            adminList.innerHTML = "";
+            
+            for(let id in laws) {
+                adminList.innerHTML += `
+                <div class="admin-list-item">
+                    <span>${laws[id].title} (${laws[id].cat})</span>
+                    <div>
+                        <button class="btn btn-edit" onclick="editLaw('${id}', '${laws[id].title}', '${laws[id].cat}', '${laws[id].desc}')">تعديل</button>
+                        <button class="btn btn-danger" onclick="deleteLaw('${id}')">حذف</button>
+                    </div>
+                </div>`;
+            }
+            filterLaws('عامة'); // العرض الافتراضي
+        });
+
+        function filterLaws(category) {
+            db.ref('laws').once('value', snap => {
+                const laws = snap.val();
+                const display = document.getElementById('laws-display');
+                display.innerHTML = `<h2>قوانين قسم: ${category}</h2><br>`;
+                for(let id in laws) {
+                    if(laws[id].cat === category) {
+                        display.innerHTML += `<div class="law-item"><h3>${laws[id].title}</h3><p>${laws[id].desc}</p></div>`;
+                    }
+                }
+            });
+        }
+
+        db.ref('products').on('value', snap => {
+            const prods = snap.val();
+            const adminList = document.getElementById('admin-prods-list');
+            const storeList = document.getElementById('store-list');
+            adminList.innerHTML = "";
+            storeList.innerHTML = "";
+
+            for(let id in prods) {
+                // للداش بورد
+                adminList.innerHTML += `
+                <div class="admin-list-item">
+                    <span>${prods[id].name}</span>
+                    <div>
+                        <button class="btn btn-edit" onclick="editProd('${id}', '${prods[id].name}', '${prods[id].price}', '${prods[id].img}')">تعديل</button>
+                        <button class="btn btn-danger" onclick="deleteProd('${id}')">حذف</button>
+                    </div>
+                </div>`;
+                
+                // للمتجر
+                storeList.innerHTML += `
+                <div class="p-card">
+                    <img src="${prods[id].img}" class="p-img">
+                    <div style="padding:15px;">
+                        <h3>${prods[id].name}</h3>
+                        <p style="color:var(--accent); font-weight:bold;">السعر: ${prods[id].price}</p>
+                        <button class="btn" onclick="buyItem('${prods[id].name}')">طلب شراء</button>
+                    </div>
+                </div>`;
+            }
+        });
+
+        // --- إرسال للديسكورد (عشان الأزرار تشتغل) ---
+        async function buyItem(itemName) {
+            const userTown = JSON.parse(localStorage.getItem('user_town'));
+            if(!userTown) return alert("يرجى تسجيل الدخول عن طريق الديسكورد أولاً!");
+            
+            const payload = {
+                content: `🛒 **طلب شراء جديد**\n👤 المشتري: <@${userTown.id}>\n📦 المنتج: ${itemName}`
+            };
+
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            alert("تم إرسال طلب الشراء! سيقوم البوت بإضافة أزرار التحكم في السيرفر.");
+        }
+    </script>
+</body>
+</html>
