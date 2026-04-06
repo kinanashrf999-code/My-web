@@ -41,14 +41,18 @@
         .user-circle { width: 45px; height: 45px; border-radius: 50%; background: var(--glass); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; }
         .user-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        .p-card { background: var(--glass); border-radius: 20px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.1); }
+        .p-card { background: var(--glass); border-radius: 20px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
         .p-price { position: absolute; top: 10px; right: 10px; background: var(--accent); padding: 5px 12px; border-radius: 10px; font-weight: 900; }
         .p-img { width: 100%; height: 200px; object-fit: cover; }
 
         .card { background: var(--glass); padding: 30px; border-radius: 20px; max-width: 800px; margin: auto; text-align: right; border: 1px solid rgba(255,255,255,0.1); }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 10px; text-align: right; }
         
-        .law-item { margin-bottom: 25px; padding: 15px; background: rgba(255,255,255,0.03); border-right: 5px solid var(--accent); border-radius: 10px; }
+        .law-item { margin-bottom: 25px; padding: 15px; background: rgba(255,255,255,0.03); border-right: 5px solid var(--accent); border-radius: 10px; text-align: right; }
+        
+        /* Modal for Admin Login */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+        .modal-content { background: #0d1b2a; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); width: 350px; text-align: center; }
     </style>
 </head>
 <body>
@@ -67,13 +71,13 @@
                 <i class="fas fa-plus" id="plus-icon"></i>
                 <img id="user-img" src="" style="display:none;">
             </div>
-            <button class="btn" style="padding: 8px 15px;" onclick="openAdmin()">الادارة العليا</button>
+            <button class="btn" style="padding: 8px 15px;" onclick="showAdminLoginModal()">الادارة العليا</button>
         </div>
     </nav>
 
     <div id="home" class="section active">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <p class="hero-desc">أهلاً بك في أقوى مجتمع للحياة الواقعية! انضم إلينا الآن وكن جزءاً من الأسطورة في مدينة الأحلام.</p>
+        <p class="hero-desc">أهلاً بك في مدينة المثالية! أقوى مجتمع للحياة الواقعية، انضم إلينا الآن وكن جزءاً من الأسطورة.</p>
         
         <div class="stats-grid">
             <div class="stat-card"><h2 id="view-total">0</h2><p>عضو مسجل</p></div>
@@ -87,7 +91,8 @@
         </a>
     </div>
 
-    <div id="store" class="section"><h1>متجر المدينة</h1><div id="store-list" class="store-grid"></div></div>
+    <div id="store" class="section"><h1>متجر المدينة</h1><div id="store-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;"></div></div>
+    
     <div id="laws-page" class="section"><h1>قوانين المدينة</h1><div class="card" id="laws-container"></div></div>
     
     <div id="apply-hub" class="section">
@@ -117,22 +122,48 @@
     <div id="police-dept" class="section"><h1>قسم الشرطة</h1><div class="card"><a id="police-table-link" href="#" target="_blank" class="btn">فتح الجدول العملياتي</a></div></div>
 
     <div id="admin-panel" class="section">
-        <h1>الادارة العليا</h1>
+        <h1>لوحة تحكم الإدارة العليا</h1>
         <div class="card" style="margin-bottom:20px;">
-            <h3>الإعدادات العامة</h3>
-            <input type="text" id="set-dc-link" placeholder="رابط الديسكورد الجديد">
+            <h3>الإعدادات والروابط</h3>
+            <input type="number" id="set-total" placeholder="عدد المسجلين">
+            <input type="number" id="set-online" placeholder="لاعبين متصلين">
+            <input type="number" id="set-scripts" placeholder="عدد السكربتات">
+            <select id="set-status"><option value="متصل 🟢">متصل</option><option value="غير متصل 🔴">غير متصل</option><option value="تحت الصيانة 🟠">تحت الصيانة</option></select>
+            <input type="text" id="set-dc-link" placeholder="رابط الديسكورد">
             <input type="text" id="set-police-link" placeholder="رابط جدول الشرطة">
-            <button class="btn" onclick="saveLinks()">حفظ الروابط</button>
+            <button class="btn" onclick="saveAdminSettings()">حفظ كافة الإعدادات</button>
         </div>
-        <div id="admin-tools" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+        
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+            <div class="card">
+                <h3>إضافة قانون</h3>
+                <input type="text" id="law-title" placeholder="عنوان القانون">
+                <textarea id="law-desc" placeholder="شرح القانون"></textarea>
+                <button class="btn" onclick="addLaw()">إضافة</button>
             </div>
+            <div class="card">
+                <h3>إضافة منتج</h3>
+                <input type="text" id="p-name" placeholder="اسم المنتج">
+                <input type="text" id="p-price" placeholder="السعر">
+                <input type="text" id="p-img" placeholder="رابط الصورة">
+                <button class="btn" onclick="addProduct()">نشر</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-bottom:20px;">دخول الإدارة العليا</h2>
+            <input type="text" id="admin-user" placeholder="اسم المستخدم">
+            <input type="password" id="admin-pass" placeholder="الرمز السري">
+            <button class="btn" style="width: 100%;" onclick="checkAdminLogin()">دخول</button>
+            <button class="btn" style="background:none; border:none; margin-top:10px; font-size: 0.8rem;" onclick="hideAdminModal()">إلغاء</button>
+        </div>
     </div>
 
     <script>
-        // الـ Webhook الجديد اللي أعطيتني اياه
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
         
-        // إعدادات Firebase (تأكد من صحتها)
         const firebaseConfig = {
             apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
             authDomain: "ideal-town.firebaseapp.com",
@@ -144,47 +175,43 @@
 
         let user = JSON.parse(localStorage.getItem('user_town')) || null;
 
-        // دالة إرسال التقديم للديسكورد عبر الويب هوك
-        async function sendToDiscord(data) {
-            const embed = {
-                title: `📝 تقديم جديد: ${data.type}`,
-                color: 3447003,
-                description: `👤 **مقدم الطلب:** <@${user.id}>\n\n**الاسم:** ${data.name}\n**العمر:** ${data.age}\n**الخبرات:** ${data.exp}\n**خبرة سابقة:** ${data.prev || 'لا يوجد'}`,
-                footer: { text: "Ideal Town System" },
-                timestamp: new Date()
-            };
+        function showAdminLoginModal() { document.getElementById('adminModal').style.display = 'flex'; }
+        function hideAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
 
-            await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: `🔔 منشن الإدارة: <@&ID_الرتبة_هنا>`, embeds: [embed] })
-            });
-            alert("تم إرسال طلبك بنجاح للديسكورد!");
+        function checkAdminLogin() {
+            const u = document.getElementById('admin-user').value;
+            const p = document.getElementById('admin-pass').value;
+            if(u === "Admin" && p === "663567M") {
+                hideAdminModal();
+                showSection('admin-panel');
+            } else { alert("خطأ في الاسم أو الرمز!"); }
         }
 
-        // دالة تسجيل الدخول بالديسكورد
+        async function sendToDiscord(data) {
+            const msg = `📢 **تقديم جديد (${data.type})**\n👤 المتقدم: <@${user.id}>\n📝 الاسم: ${data.name}\n🎂 العمر: ${data.age}\n✅ الخبرات: ${data.exp}\n🏛️ خبرة سابقة: ${data.prev || 'لا يوجد'}`;
+            await fetch(WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: msg }) });
+            alert("تم الإرسال بنجاح!");
+        }
+
         function toggleUserAuth() {
             const REDIRECT = encodeURIComponent("https://kinanashrf999-code.github.io/My-web/");
             const LOGIN = `https://discord.com/oauth2/authorize?client_id=1490563807834275972&response_type=token&scope=identify&redirect_uri=${REDIRECT}`;
-            if(!user) { window.location.href = LOGIN; }
-            else { if(confirm("تسجيل خروج؟")) { localStorage.removeItem('user_town'); location.reload(); } }
+            if(!user) window.location.href = LOGIN;
+            else if(confirm("خروج؟")) { localStorage.removeItem('user_town'); location.reload(); }
         }
 
-        // عند تحميل الصفحة
         window.onload = () => {
             const params = new URLSearchParams(window.location.hash.slice(1));
             if(params.get('access_token')) {
                 fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${params.get('access_token')}` } })
-                .then(r => r.json()).then(d => {
-                    localStorage.setItem('user_town', JSON.stringify(d));
-                    location.hash = ""; location.reload();
-                });
+                .then(r => r.json()).then(d => { localStorage.setItem('user_town', JSON.stringify(d)); location.hash = ""; location.reload(); });
             }
             if(user) {
                 document.getElementById('plus-icon').style.display = 'none';
                 document.getElementById('user-img').style.display = 'block';
                 document.getElementById('user-img').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
             }
+            loadLiveStats();
         };
 
         function showSection(id) {
@@ -192,31 +219,70 @@
             document.getElementById(id).classList.add('active');
         }
 
+        function loadLiveStats() {
+            db.ref('settings').on('value', s => {
+                const d = s.val() || {};
+                document.getElementById('view-total').innerText = d.total || 0;
+                document.getElementById('view-online').innerText = d.online || 0;
+                document.getElementById('view-scripts').innerText = d.scripts || 0;
+                const st = document.getElementById('view-status');
+                st.innerText = d.status || "متصل 🟢";
+                st.style.color = d.status?.includes('🟢') ? '#00ff00' : (d.status?.includes('🔴') ? '#ff0000' : '#ff9900');
+                document.getElementById('main-dc-btn').href = d.dc_link || "#";
+                document.getElementById('police-table-link').href = d.police_link || "#";
+            });
+
+            db.ref('laws').on('value', s => {
+                const laws = s.val();
+                const cont = document.getElementById('laws-container');
+                cont.innerHTML = "";
+                for(let id in laws) cont.innerHTML += `<div class="law-item"><h3># ${laws[id].title}</h3><p>${laws[id].desc}</p></div>`;
+            });
+
+            db.ref('products').on('value', s => {
+                const prods = s.val();
+                const list = document.getElementById('store-list');
+                list.innerHTML = "";
+                for(let id in prods) {
+                    list.innerHTML += `<div class="p-card"><span class="p-price">${prods[id].price}</span><img src="${prods[id].img}" class="p-img"><div style="padding:15px;"><h3>${prods[id].name}</h3><button class="btn" onclick="buyItem('${prods[id].name}')">طلب شراء</button></div></div>`;
+                }
+            });
+        }
+
+        function saveAdminSettings() {
+            db.ref('settings').set({
+                total: document.getElementById('set-total').value,
+                online: document.getElementById('set-online').value,
+                scripts: document.getElementById('set-scripts').value,
+                status: document.getElementById('set-status').value,
+                dc_link: document.getElementById('set-dc-link').value,
+                police_link: document.getElementById('set-police-link').value
+            });
+            alert("تم الحفظ!");
+        }
+
+        function addLaw() { db.ref('laws').push({ title: document.getElementById('law-title').value, desc: document.getElementById('law-desc').value }); alert("تم!"); }
+        function addProduct() { db.ref('products').push({ name: document.getElementById('p-name').value, price: document.getElementById('p-price').value, img: document.getElementById('p-img').value }); alert("تم!"); }
+
         function openForm(type) {
             if(!user) return alert("سجل دخولك أولاً!");
             document.getElementById('apply-type').value = type;
             document.getElementById('form-title').innerText = "تقديم " + type;
             const extra = document.getElementById('extra-questions');
-            extra.innerHTML = (type === 'إدارة' || type === 'شرطة') ? 
-                `<select id="f-prev"><option value="نعم">كنت سابقاً في سيرفر آخر</option><option value="لا">لم أكن سابقاً</option></select>` : "";
+            extra.innerHTML = (type === 'إدارة' || type === 'شرطة') ? `<select id="f-prev"><option value="نعم">كنت سابقاً في سيرفر آخر</option><option value="لا">لا، لم أكن سابقاً</option></select>` : "";
             showSection('apply-form-section');
         }
 
         document.getElementById('mainApplyForm').onsubmit = async function(e) {
             e.preventDefault();
-            const data = {
-                type: document.getElementById('apply-type').value,
-                name: document.getElementById('f-name').value,
-                age: document.getElementById('f-age').value,
-                exp: document.getElementById('f-exp').value,
-                prev: document.getElementById('f-prev')?.value
-            };
-            await sendToDiscord(data);
+            await sendToDiscord({ type: document.getElementById('apply-type').value, name: document.getElementById('f-name').value, age: document.getElementById('f-age').value, exp: document.getElementById('f-exp').value, prev: document.getElementById('f-prev')?.value });
             showSection('home');
         };
 
-        function openAdmin() {
-            if(prompt("رمز الدخول:") === "663567M") showSection('admin-panel');
+        async function buyItem(pn) {
+            if(!user) return alert("سجل دخولك!");
+            await fetch(WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: `🛒 **طلب شراء**\n👤 المشتري: <@${user.id}>\n📦 المنتج: ${pn}` }) });
+            alert("تم إرسال الطلب!");
         }
     </script>
 </body>
