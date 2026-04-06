@@ -3,297 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDEAL TOWN | النظام المتكامل</title>
-    
+    <title>IDEAL TOWN | النظام الشامل</title>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    
     <style>
-        :root { 
-            --dark-blue: #0a192f; 
-            --btn-blue: linear-gradient(135.5deg, rgb(17, 58, 107) 0%, rgb(36, 154, 233) 100%);
-            --accent: #349ae9;
-            --glass: rgba(255, 255, 255, 0.05);
-            --danger: #ff4d4d;
-            --success: #2ecc71;
-        }
+        :root { --accent: #349ae9; --glass: rgba(255, 255, 255, 0.05); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: #0d1b2a; color: white; line-height: 1.6; overflow-x: hidden; }
-        
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
-
-        .section { display: none; padding: 120px 5% 50px; text-align: center; animation: fadeIn 0.5s ease; }
+        body { background: #0d1b2a; color: white; overflow-x: hidden; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; cursor: pointer; }
+        .section { display: none; padding: 120px 5% 50px; text-align: center; }
         .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .hero-title { font-size: 4.5rem; font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(52,154,233,0.5); }
-        .card { background: var(--glass); padding: 30px; border-radius: 20px; max-width: 900px; margin: auto; text-align: right; border: 1px solid rgba(255,255,255,0.1); }
-        
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 10px; text-align: right; }
-        
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; margin: 5px; }
-        .btn:hover { transform: scale(1.05); }
-        .btn-danger { background: var(--danger); }
-        .btn-edit { background: var(--success); }
-
-        /* قوانين */
-        .law-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .law-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border-right: 5px solid var(--accent); margin-bottom: 10px; text-align: right; }
-
-        /* متجر */
-        .p-card { background: var(--glass); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-        .p-img { width: 100%; height: 180px; object-fit: cover; }
-
-        /* الإدارة */
-        .admin-list-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 10px; margin: 5px 0; border-radius: 8px; }
-
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
-        .modal-content { background: #0d1b2a; padding: 30px; border-radius: 20px; border: 2px solid var(--accent); width: 350px; text-align: center; }
+        .hero-title { font-size: 4rem; font-weight: 900; color: var(--accent); }
+        .card { background: var(--glass); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); margin: 10px auto; max-width: 900px; text-align: right; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 30px 0; }
+        .stat-card { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid var(--accent); }
+        .btn { background: linear-gradient(135deg, #113a6b, #249ae9); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 10px; text-align: right; }
+        .user-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="font-weight: 900; font-size: 1.8rem; color: var(--accent);">IDEAL TOWN</div>
+        <div style="font-weight: 900; font-size: 1.5rem; color: var(--accent);">IDEAL TOWN</div>
         <div class="nav-links">
             <a onclick="showSection('home')">الرئيسية</a>
             <a onclick="showSection('store')">المتجر</a>
             <a onclick="showSection('laws-page')">القوانين</a>
             <a onclick="showSection('apply-hub')">التقديمات</a>
         </div>
-        <button class="btn" onclick="showAdminLoginModal()">الادارة</button>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <div class="user-circle" id="login-btn" onclick="loginWithDiscord()">
+                <i class="fas fa-user-plus" id="user-icon"></i>
+                <img id="user-avatar" style="display:none; width:100%;">
+            </div>
+            <button class="btn" onclick="showAdminModal()">الإدارة</button>
+        </div>
     </nav>
 
     <div id="home" class="section active">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <p>أهلاً بك في مدينة المثالية! النظام المتطور لإدارة المجتمع.</p>
+        <div class="stats-grid">
+            <div class="stat-card"><h2 id="total-reg">0</h2><p>عضو مسجل</p></div>
+            <div class="stat-card"><h2 id="online-now">0</h2><p>لاعب متصل</p></div>
+            <div class="stat-card"><h2 id="scripts-count">0</h2><p>سكربت حصري</p></div>
+            <div class="stat-card"><h2 id="srv-status">...</h2><p>حالة السيرفر</p></div>
+        </div>
+        <a id="dc-link" href="#" class="btn" style="background:#5865F2">دخول الديسكورد</a>
     </div>
 
     <div id="laws-page" class="section">
         <h1>قوانين المدينة</h1>
-        <div class="law-tabs">
-            <button class="btn" onclick="filterLaws('عامة')">القوانين العامة</button>
-            <button class="btn" onclick="filterLaws('شرطة')">قوانين الشرطة</button>
-            <button class="btn" onclick="filterLaws('إجرام')">قوانين الإجرام</button>
-        </div>
-        <div class="card" id="laws-display">
-            </div>
+        <div id="laws-cats" style="margin-bottom:20px;"></div>
+        <div class="card" id="laws-content">اختر قسم القوانين...</div>
     </div>
 
-    <div id="store" class="section">
-        <h1>متجر المدينة</h1>
-        <div id="store-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:20px;"></div>
+    <div id="apply-hub" class="section">
+        <h1>مركز التقديمات</h1>
+        <div id="apply-btns" style="margin-top:20px;">
+            <button class="btn" onclick="openApply('إدارة')">تقديم إدارة</button>
+            <button class="btn" onclick="openApply('شرطة')">تقديم شرطة</button>
+            <button class="btn" onclick="openApply('إسعاف')">تقديم إسعاف</button>
+        </div>
+        <div id="apply-form" class="card" style="display:none; margin-top:20px;">
+            <h3 id="apply-title"></h3>
+            <input type="text" id="ap-name" placeholder="الاسم الكامل">
+            <input type="number" id="ap-age" placeholder="العمر">
+            <textarea id="ap-exp" placeholder="خبراتك السابقة"></textarea>
+            <button class="btn" onclick="submitApply()">إرسال الطلب</button>
+        </div>
     </div>
 
     <div id="admin-panel" class="section">
-        <h1>لوحة تحكم الإدارة العليا</h1>
-        
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:20px;">
-            <div class="card">
-                <h3>إدارة القوانين</h3>
-                <input type="hidden" id="edit-law-id">
-                <input type="text" id="law-title" placeholder="عنوان القانون">
-                <select id="law-category">
-                    <option value="عامة">قوانين عامة</option>
-                    <option value="شرطة">قوانين شرطة</option>
-                    <option value="إجرام">قوانين إجرام</option>
-                </select>
-                <textarea id="law-desc" placeholder="شرح القانون"></textarea>
-                <button class="btn" id="btn-save-law" onclick="addOrUpdateLaw()">إضافة / حفظ القانون</button>
-                <hr style="margin:20px 0; opacity:0.1;">
-                <div id="admin-laws-list"></div>
-            </div>
-
-            <div class="card">
-                <h3>إدارة المنتجات</h3>
-                <input type="hidden" id="edit-prod-id">
-                <input type="text" id="p-name" placeholder="اسم المنتج">
-                <input type="text" id="p-price" placeholder="السعر">
-                <input type="text" id="p-img" placeholder="رابط الصورة">
-                <button class="btn" id="btn-save-prod" onclick="addOrUpdateProduct()">إضافة / حفظ المنتج</button>
-                <hr style="margin:20px 0; opacity:0.1;">
-                <div id="admin-prods-list"></div>
-            </div>
+        <h1>لوحة تحكم الإدارة</h1>
+        <div class="card">
+            <h3>إحصائيات السيرفر</h3>
+            <input type="number" id="set-online" placeholder="اللاعبين المتصلين">
+            <input type="number" id="set-scripts" placeholder="عدد السكربتات">
+            <select id="set-status"><option value="متصل 🟢">متصل</option><option value="صيانة 🟠">صيانة</option></select>
+            <input type="text" id="set-dc" placeholder="رابط الديسكورد">
+            <button class="btn" onclick="saveStats()">حفظ الإحصائيات</button>
+        </div>
+        <div class="card">
+            <h3>إضافة/تعديل قوانين</h3>
+            <input type="text" id="law-cat" placeholder="الفئة (مثال: قوانين عامة)">
+            <input type="text" id="law-title" placeholder="عنوان القانون">
+            <textarea id="law-text" placeholder="نص القانون"></textarea>
+            <button class="btn" onclick="addLaw()">حفظ القانون</button>
+            <div id="admin-laws-list"></div>
         </div>
     </div>
 
-    <div id="adminModal" class="modal">
-        <div class="modal-content">
-            <h2>دخول الإدارة</h2>
-            <input type="password" id="admin-pass" placeholder="الرمز السري">
-            <button class="btn" style="width:100%" onclick="checkAdmin()">دخول</button>
-        </div>
+    <div id="adminModal" style="display:none;" class="card">
+        <h2>دخول الإدارة</h2>
+        <input type="password" id="admin-pass" placeholder="الرمز">
+        <button class="btn" onclick="checkAdmin()">دخول</button>
     </div>
 
     <script>
-        // تكوين Firebase (نفس اللي كان عندك)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
-            authDomain: "ideal-town.firebaseapp.com",
-            databaseURL: "https://ideal-town-default-rtdb.firebaseio.com",
-            projectId: "ideal-town"
-        };
+        const firebaseConfig = { apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k", databaseURL: "https://ideal-town-default-rtdb.firebaseio.com" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
+        const WEBHOOK = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
 
-        // وظائف التنقل
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+        let currentUser = JSON.parse(localStorage.getItem('user'));
+
+        function loginWithDiscord() {
+            const clientID = "1490563807834275972";
+            const redirect = encodeURIComponent(window.location.href.split('#')[0]);
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&scope=identify`;
         }
 
-        function showAdminLoginModal() { document.getElementById('adminModal').style.display = 'flex'; }
-        function checkAdmin() {
-            if(document.getElementById('admin-pass').value === "663567M") {
-                document.getElementById('adminModal').style.display = 'none';
-                showSection('admin-panel');
-            } else { alert("رمز خاطئ!"); }
+        window.onload = () => {
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            if (fragment.has('access_token')) {
+                fetch('https://discord.com/api/users/@me', { headers: { Authorization: `Bearer ${fragment.get('access_token')}` } })
+                .then(res => res.json()).then(user => {
+                    localStorage.setItem('user', JSON.stringify(user));
+                    db.ref('users/' + user.id).set(user);
+                    location.hash = ""; location.reload();
+                });
+            }
+            if(currentUser) {
+                document.getElementById('user-icon').style.display='none';
+                document.getElementById('user-avatar').style.display='block';
+                document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${currentUser.id}/${currentUser.avatar}.png`;
+            }
+            loadData();
+        };
+
+        function loadData() {
+            db.ref('settings').on('value', s => {
+                const d = s.val() || {};
+                document.getElementById('online-now').innerText = d.online || 0;
+                document.getElementById('scripts-count').innerText = d.scripts || 0;
+                document.getElementById('srv-status').innerText = d.status || "متصل 🟢";
+                document.getElementById('dc-link').href = d.dc_link || "#";
+            });
+            db.ref('users').on('value', s => { document.getElementById('total-reg').innerText = s.numChildren(); });
+            db.ref('laws').on('value', s => {
+                const laws = s.val();
+                const catsDiv = document.getElementById('laws-cats');
+                catsDiv.innerHTML = "";
+                const uniqueCats = [...new Set(Object.values(laws || {}).map(l => l.cat))];
+                uniqueCats.forEach(c => {
+                    catsDiv.innerHTML += `<button class="btn" onclick="viewLawCat('${c}')">${c}</button> `;
+                });
+            });
         }
 
-        // --- إدارة القوانين ---
-        function addOrUpdateLaw() {
-            const id = document.getElementById('edit-law-id').value;
-            const data = {
+        function viewLawCat(cat) {
+            db.ref('laws').once('value', s => {
+                const laws = s.val();
+                let html = `<h2>${cat}</h2>`;
+                for(let id in laws) if(laws[id].cat === cat) html += `<div class="card"><h4>${laws[id].title}</h4><p>${laws[id].text}</p></div>`;
+                document.getElementById('laws-content').innerHTML = html;
+            });
+        }
+
+        function saveStats() {
+            db.ref('settings').update({ 
+                online: document.getElementById('set-online').value,
+                scripts: document.getElementById('set-scripts').value,
+                status: document.getElementById('set-status').value,
+                dc_link: document.getElementById('set-dc').value
+            });
+            alert("تم الحفظ");
+        }
+
+        function addLaw() {
+            db.ref('laws').push({
+                cat: document.getElementById('law-cat').value,
                 title: document.getElementById('law-title').value,
-                cat: document.getElementById('law-category').value,
-                desc: document.getElementById('law-desc').value
-            };
-            if(id) db.ref('laws/' + id).set(data);
-            else db.ref('laws').push(data);
-            
-            resetLawForm();
+                text: document.getElementById('law-text').value
+            });
+            alert("تم إضافة القانون");
         }
 
-        function resetLawForm() {
-            document.getElementById('edit-law-id').value = "";
-            document.getElementById('law-title').value = "";
-            document.getElementById('law-desc').value = "";
-        }
-
-        function editLaw(id, title, cat, desc) {
-            document.getElementById('edit-law-id').value = id;
-            document.getElementById('law-title').value = title;
-            document.getElementById('law-category').value = cat;
-            document.getElementById('law-desc').value = desc;
-            window.scrollTo(0,0);
-        }
-
-        function deleteLaw(id) { if(confirm("حذف القانون؟")) db.ref('laws/' + id).remove(); }
-
-        // --- إدارة المنتجات ---
-        function addOrUpdateProduct() {
-            const id = document.getElementById('edit-prod-id').value;
+        async function submitApply() {
             const data = {
-                name: document.getElementById('p-name').value,
-                price: document.getElementById('p-price').value,
-                img: document.getElementById('p-img').value
+                content: `📝 **تقديم جديد: ${document.getElementById('apply-title').innerText}**\n👤 المتقدم: <@${currentUser.id}>\n📛 الاسم: ${document.getElementById('ap-name').value}\n🎂 العمر: ${document.getElementById('ap-age').value}\n📜 الخبرات: ${document.getElementById('ap-exp').value}`
             };
-            if(id) db.ref('products/' + id).set(data);
-            else db.ref('products').push(data);
-            
-            resetProdForm();
+            await fetch(WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
+            alert("تم الإرسال!");
         }
 
-        function resetProdForm() {
-            document.getElementById('edit-prod-id').value = "";
-            document.getElementById('p-name').value = "";
-            document.getElementById('p-price').value = "";
-            document.getElementById('p-img').value = "";
-        }
-
-        function editProd(id, name, price, img) {
-            document.getElementById('edit-prod-id').value = id;
-            document.getElementById('p-name').value = name;
-            document.getElementById('p-price').value = price;
-            document.getElementById('p-img').value = img;
-        }
-
-        function deleteProd(id) { if(confirm("حذف المنتج؟")) db.ref('products/' + id).remove(); }
-
-        // --- جلب البيانات وعرضها ---
-        db.ref('laws').on('value', snap => {
-            const laws = snap.val();
-            const adminList = document.getElementById('admin-laws-list');
-            adminList.innerHTML = "";
-            
-            for(let id in laws) {
-                adminList.innerHTML += `
-                <div class="admin-list-item">
-                    <span>${laws[id].title} (${laws[id].cat})</span>
-                    <div>
-                        <button class="btn btn-edit" onclick="editLaw('${id}', '${laws[id].title}', '${laws[id].cat}', '${laws[id].desc}')">تعديل</button>
-                        <button class="btn btn-danger" onclick="deleteLaw('${id}')">حذف</button>
-                    </div>
-                </div>`;
-            }
-            filterLaws('عامة'); // العرض الافتراضي
-        });
-
-        function filterLaws(category) {
-            db.ref('laws').once('value', snap => {
-                const laws = snap.val();
-                const display = document.getElementById('laws-display');
-                display.innerHTML = `<h2>قوانين قسم: ${category}</h2><br>`;
-                for(let id in laws) {
-                    if(laws[id].cat === category) {
-                        display.innerHTML += `<div class="law-item"><h3>${laws[id].title}</h3><p>${laws[id].desc}</p></div>`;
-                    }
-                }
-            });
-        }
-
-        db.ref('products').on('value', snap => {
-            const prods = snap.val();
-            const adminList = document.getElementById('admin-prods-list');
-            const storeList = document.getElementById('store-list');
-            adminList.innerHTML = "";
-            storeList.innerHTML = "";
-
-            for(let id in prods) {
-                // للداش بورد
-                adminList.innerHTML += `
-                <div class="admin-list-item">
-                    <span>${prods[id].name}</span>
-                    <div>
-                        <button class="btn btn-edit" onclick="editProd('${id}', '${prods[id].name}', '${prods[id].price}', '${prods[id].img}')">تعديل</button>
-                        <button class="btn btn-danger" onclick="deleteProd('${id}')">حذف</button>
-                    </div>
-                </div>`;
-                
-                // للمتجر
-                storeList.innerHTML += `
-                <div class="p-card">
-                    <img src="${prods[id].img}" class="p-img">
-                    <div style="padding:15px;">
-                        <h3>${prods[id].name}</h3>
-                        <p style="color:var(--accent); font-weight:bold;">السعر: ${prods[id].price}</p>
-                        <button class="btn" onclick="buyItem('${prods[id].name}')">طلب شراء</button>
-                    </div>
-                </div>`;
-            }
-        });
-
-        // --- إرسال للديسكورد (عشان الأزرار تشتغل) ---
-        async function buyItem(itemName) {
-            const userTown = JSON.parse(localStorage.getItem('user_town'));
-            if(!userTown) return alert("يرجى تسجيل الدخول عن طريق الديسكورد أولاً!");
-            
-            const payload = {
-                content: `🛒 **طلب شراء جديد**\n👤 المشتري: <@${userTown.id}>\n📦 المنتج: ${itemName}`
-            };
-
-            await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            alert("تم إرسال طلب الشراء! سيقوم البوت بإضافة أزرار التحكم في السيرفر.");
-        }
+        function showSection(id) { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+        function showAdminModal() { document.getElementById('adminModal').style.display='block'; }
+        function checkAdmin() { if(document.getElementById('admin-pass').value === "663567M") showSection('admin-panel'); }
+        function openApply(t) { if(!currentUser) return alert("سجل دخولك!"); document.getElementById('apply-title').innerText = t; document.getElementById('apply-form').style.display='block'; }
     </script>
 </body>
 </html>
