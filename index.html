@@ -3,198 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDEAL TOWN | النظام الشامل</title>
+    <title>IDEAL TOWN | الموقع الرسمي المتكامل</title>
+    
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --accent: #349ae9; --glass: rgba(255, 255, 255, 0.05); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background: #0d1b2a; color: white; overflow-x: hidden; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.95); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; cursor: pointer; }
-        .section { display: none; padding: 120px 5% 50px; text-align: center; }
+        :root { 
+            --dark-blue: #0a192f; 
+            --btn-blue: linear-gradient(135.5deg, rgb(17, 58, 107) 0%, rgb(36, 154, 233) 100%);
+            --accent: #349ae9;
+            --glass: rgba(255, 255, 255, 0.05);
+            --danger: #ff4d4d;
+            --success: #2ecc71;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background: #0d1b2a; color: white; line-height: 1.6; overflow-x: hidden; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Sections Control */
+        .section { display: none; padding: 120px 5% 50px; text-align: center; animation: fadeIn 0.6s ease; }
         .active { display: block; }
-        .hero-title { font-size: 4rem; font-weight: 900; color: var(--accent); }
-        .card { background: var(--glass); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); margin: 10px auto; max-width: 900px; text-align: right; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 30px 0; }
-        .stat-card { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid var(--accent); }
-        .btn { background: linear-gradient(135deg, #113a6b, #249ae9); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 10px; text-align: right; }
-        .user-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Hero & Stats */
+        .hero-title { font-size: 4.5rem; font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(52,154,233,0.5); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 1100px; margin: 40px auto; }
+        .stat-card { background: var(--glass); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .stat-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .stat-card h2 { font-size: 3rem; color: var(--accent); font-weight: 900; }
+
+        /* Cards & Buttons */
+        .card { background: var(--glass); padding: 35px; border-radius: 25px; max-width: 900px; margin: auto; text-align: right; border: 1px solid rgba(255,255,255,0.1); }
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent); }
+        .btn-danger { background: var(--danger); }
+        
+        /* User Profile */
+        .user-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; background: var(--glass); }
+        .user-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Forms */
+        input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; background: rgba(0,0,0,0.5); border: 1px solid #1b4965; color: white; border-radius: 12px; text-align: right; font-size: 1rem; }
+        
+        /* Admin Dashboard Specific */
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px; }
+        .admin-item { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Store */
+        .p-card { background: var(--glass); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .p-price { position: absolute; top: 10px; right: 10px; background: var(--accent); padding: 5px 15px; border-radius: 8px; font-weight: 900; }
+        .p-img { width: 100%; height: 200px; object-fit: cover; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="font-weight: 900; font-size: 1.5rem; color: var(--accent);">IDEAL TOWN</div>
+        <div style="font-weight: 900; font-size: 2rem; color: var(--accent);">IDEAL TOWN</div>
         <div class="nav-links">
-            <a onclick="showSection('home')">الرئيسية</a>
-            <a onclick="showSection('store')">المتجر</a>
-            <a onclick="showSection('laws-page')">القوانين</a>
-            <a onclick="showSection('apply-hub')">التقديمات</a>
+            <a onclick="showSection('home')"><i class="fas fa-home"></i> الرئيسية</a>
+            <a onclick="showSection('store')"><i class="fas fa-shopping-cart"></i> المتجر</a>
+            <a onclick="showSection('laws-page')"><i class="fas fa-gavel"></i> القوانين</a>
+            <a onclick="showSection('apply-hub')"><i class="fas fa-edit"></i> التقديمات</a>
         </div>
-        <div style="display:flex; gap:10px; align-items:center;">
-            <div class="user-circle" id="login-btn" onclick="loginWithDiscord()">
-                <i class="fas fa-user-plus" id="user-icon"></i>
-                <img id="user-avatar" style="display:none; width:100%;">
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <div class="user-circle" id="auth-btn" onclick="toggleDiscordLogin()">
+                <i class="fas fa-user-plus" id="plus-icon"></i>
+                <img id="user-avatar" style="display:none;">
             </div>
-            <button class="btn" onclick="showAdminModal()">الإدارة</button>
+            <button class="btn" style="padding: 8px 15px;" onclick="openAdminModal()">الإدارة</button>
         </div>
     </nav>
 
     <div id="home" class="section active">
         <h1 class="hero-title">IDEAL TOWN</h1>
+        <p style="font-size: 1.3rem; color: #ccc;">أهلاً بك في مدينة المثالية، حيث نصنع الواقع الافتراضي الأجمل.</p>
+        
         <div class="stats-grid">
-            <div class="stat-card"><h2 id="total-reg">0</h2><p>عضو مسجل</p></div>
-            <div class="stat-card"><h2 id="online-now">0</h2><p>لاعب متصل</p></div>
-            <div class="stat-card"><h2 id="scripts-count">0</h2><p>سكربت حصري</p></div>
-            <div class="stat-card"><h2 id="srv-status">...</h2><p>حالة السيرفر</p></div>
+            <div class="stat-card"><h2 id="view-total">0</h2><p>عضو مسجل تلقائياً</p></div>
+            <div class="stat-card"><h2 id="view-online">0</h2><p>لاعب متصل الآن</p></div>
+            <div class="stat-card"><h2 id="view-scripts">0</h2><p>سكربت حصري</p></div>
+            <div class="stat-card"><h2 id="view-status">جاري الفحص...</h2><p>حالة السيرفر</p></div>
         </div>
-        <a id="dc-link" href="#" class="btn" style="background:#5865F2">دخول الديسكورد</a>
+
+        <a id="main-dc-link" href="#" target="_blank" class="btn" style="background: #5865F2; font-size: 1.3rem; padding: 15px 40px;">
+            <i class="fab fa-discord"></i> انضم لمجتمعنا
+        </a>
     </div>
 
     <div id="laws-page" class="section">
-        <h1>قوانين المدينة</h1>
-        <div id="laws-cats" style="margin-bottom:20px;"></div>
-        <div class="card" id="laws-content">اختر قسم القوانين...</div>
+        <h1 class="hero-title" style="font-size: 3rem;">قوانين المدينة</h1>
+        <div id="laws-categories-btns" style="margin: 20px 0;"></div>
+        <div class="card" id="laws-display-container">اختر قسم القوانين من الأعلى...</div>
+    </div>
+
+    <div id="store" class="section">
+        <h1 class="hero-title" style="font-size: 3rem;">متجر المدينة</h1>
+        <div id="store-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:25px; margin-top:30px;"></div>
     </div>
 
     <div id="apply-hub" class="section">
-        <h1>مركز التقديمات</h1>
-        <div id="apply-btns" style="margin-top:20px;">
-            <button class="btn" onclick="openApply('إدارة')">تقديم إدارة</button>
-            <button class="btn" onclick="openApply('شرطة')">تقديم شرطة</button>
-            <button class="btn" onclick="openApply('إسعاف')">تقديم إسعاف</button>
+        <h1 class="hero-title" style="font-size: 3rem;">مركز التقديمات</h1>
+        <div style="margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+            <button class="btn" onclick="setupApply('إدارة')">تقديم إدارة</button>
+            <button class="btn" onclick="setupApply('شرطة')">تقديم شرطة</button>
+            <button class="btn" onclick="setupApply('إسعاف')">تقديم إسعاف</button>
+            <button class="btn" onclick="setupApply('سوشل ميديا')">تقديم سوشل ميديا</button>
         </div>
-        <div id="apply-form" class="card" style="display:none; margin-top:20px;">
-            <h3 id="apply-title"></h3>
+        
+        <div id="apply-form-container" class="card" style="display:none; margin-top:30px;">
+            <h2 id="apply-title-display"></h2>
             <input type="text" id="ap-name" placeholder="الاسم الكامل">
             <input type="number" id="ap-age" placeholder="العمر">
-            <textarea id="ap-exp" placeholder="خبراتك السابقة"></textarea>
-            <button class="btn" onclick="submitApply()">إرسال الطلب</button>
+            <textarea id="ap-exp" placeholder="اذكر خبراتك بالتفصيل..."></textarea>
+            <button class="btn" style="width: 100%;" onclick="sendApplyToDiscord()">إرسال الطلب الآن</button>
         </div>
     </div>
 
     <div id="admin-panel" class="section">
-        <h1>لوحة تحكم الإدارة</h1>
-        <div class="card">
-            <h3>إحصائيات السيرفر</h3>
-            <input type="number" id="set-online" placeholder="اللاعبين المتصلين">
-            <input type="number" id="set-scripts" placeholder="عدد السكربتات">
-            <select id="set-status"><option value="متصل 🟢">متصل</option><option value="صيانة 🟠">صيانة</option></select>
-            <input type="text" id="set-dc" placeholder="رابط الديسكورد">
-            <button class="btn" onclick="saveStats()">حفظ الإحصائيات</button>
+        <h1 class="hero-title" style="font-size: 3rem;">لوحة التحكم الشاملة</h1>
+        
+        <div class="card" style="margin-bottom:30px;">
+            <h3><i class="fas fa-tools"></i> إعدادات السيرفر والإحصائيات</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                <input type="number" id="set-online" placeholder="عدد المتصلين حالياً">
+                <input type="number" id="set-scripts" placeholder="عدد السكربتات الحصرية">
+                <select id="set-status">
+                    <option value="متصل 🟢">متصل 🟢</option>
+                    <option value="صيانة 🟠">صيانة 🟠</option>
+                    <option value="مغلق 🔴">مغلق 🔴</option>
+                </select>
+                <input type="text" id="set-dc" placeholder="رابط الديسكورد الجديد">
+            </div>
+            <button class="btn" style="width:100%; margin-top:15px;" onclick="saveServerSettings()">حفظ إحصائيات السيرفر</button>
         </div>
-        <div class="card">
-            <h3>إضافة/تعديل قوانين</h3>
-            <input type="text" id="law-cat" placeholder="الفئة (مثال: قوانين عامة)">
-            <input type="text" id="law-title" placeholder="عنوان القانون">
-            <textarea id="law-text" placeholder="نص القانون"></textarea>
-            <button class="btn" onclick="addLaw()">حفظ القانون</button>
-            <div id="admin-laws-list"></div>
+
+        <div class="admin-grid">
+            <div class="card">
+                <h3><i class="fas fa-gavel"></i> إدارة القوانين والفئات</h3>
+                <input type="text" id="adm-law-cat" placeholder="اسم الفئة (مثلاً: قوانين الشرطة)">
+                <input type="text" id="adm-law-title" placeholder="عنوان القانون">
+                <textarea id="adm-law-text" placeholder="شرح القانون..."></textarea>
+                <button class="btn" onclick="addNewLaw()">إضافة / تحديث القانون</button>
+                <div id="admin-laws-list-view" style="margin-top:20px; max-height: 300px; overflow-y: auto;"></div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-box-open"></i> إدارة منتجات المتجر</h3>
+                <input type="text" id="adm-p-name" placeholder="اسم المنتج">
+                <input type="text" id="adm-p-price" placeholder="السعر">
+                <input type="text" id="adm-p-img" placeholder="رابط الصورة">
+                <button class="btn" onclick="addNewProduct()">إضافة / تحديث المنتج</button>
+                <div id="admin-prods-list-view" style="margin-top:20px; max-height: 300px; overflow-y: auto;"></div>
+            </div>
         </div>
     </div>
 
-    <div id="adminModal" style="display:none;" class="card">
-        <h2>دخول الإدارة</h2>
-        <input type="password" id="admin-pass" placeholder="الرمز">
-        <button class="btn" onclick="checkAdmin()">دخول</button>
+    <div id="admin-login-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; align-items:center; justify-content:center;">
+        <div class="card" style="width:350px; text-align:center;">
+            <h2>دخول الإدارة</h2>
+            <input type="password" id="adm-pass-input" placeholder="كلمة المرور">
+            <button class="btn" style="width:100%" onclick="verifyAdmin()">دخول</button>
+            <button class="btn btn-danger" style="width:100%; margin-top:10px;" onclick="closeAdminModal()">إلغاء</button>
+        </div>
     </div>
 
     <script>
-        const firebaseConfig = { apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k", databaseURL: "https://ideal-town-default-rtdb.firebaseio.com" };
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
+            authDomain: "ideal-town.firebaseapp.com",
+            databaseURL: "https://ideal-town-default-rtdb.firebaseio.com",
+            projectId: "ideal-town"
+        };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        const WEBHOOK = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
 
-        let currentUser = JSON.parse(localStorage.getItem('user'));
+        const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
+        let user = JSON.parse(localStorage.getItem('ideal_user')) || null;
 
-        function loginWithDiscord() {
+        // Discord OAuth System
+        function toggleDiscordLogin() {
+            if(user) { if(confirm("هل تريد تسجيل الخروج؟")) { localStorage.removeItem('ideal_user'); location.reload(); } return; }
             const clientID = "1490563807834275972";
             const redirect = encodeURIComponent(window.location.href.split('#')[0]);
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&scope=identify`;
         }
 
         window.onload = () => {
-            const fragment = new URLSearchParams(window.location.hash.slice(1));
-            if (fragment.has('access_token')) {
-                fetch('https://discord.com/api/users/@me', { headers: { Authorization: `Bearer ${fragment.get('access_token')}` } })
-                .then(res => res.json()).then(user => {
-                    localStorage.setItem('user', JSON.stringify(user));
-                    db.ref('users/' + user.id).set(user);
+            const params = new URLSearchParams(window.location.hash.slice(1));
+            if(params.has('access_token')) {
+                fetch('https://discord.com/api/users/@me', { headers: { Authorization: `Bearer ${params.get('access_token')}` } })
+                .then(r => r.json()).then(d => {
+                    localStorage.setItem('ideal_user', JSON.stringify(d));
+                    db.ref('users/' + d.id).set(d); // تسجيل المستخدم تلقائياً
                     location.hash = ""; location.reload();
                 });
             }
-            if(currentUser) {
-                document.getElementById('user-icon').style.display='none';
+            if(user) {
+                document.getElementById('plus-icon').style.display='none';
                 document.getElementById('user-avatar').style.display='block';
-                document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${currentUser.id}/${currentUser.avatar}.png`;
+                document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
             }
-            loadData();
+            syncData();
         };
 
-        function loadData() {
+        // UI Logic
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function openAdminModal() { document.getElementById('admin-login-modal').style.display='flex'; }
+        function closeAdminModal() { document.getElementById('admin-login-modal').style.display='none'; }
+        function verifyAdmin() {
+            if(document.getElementById('adm-pass-input').value === "663567M") {
+                closeAdminModal(); showSection('admin-panel');
+            } else { alert("الرمز خاطئ!"); }
+        }
+
+        // Data Sync (Firebase to UI)
+        function syncData() {
+            // Stats
             db.ref('settings').on('value', s => {
                 const d = s.val() || {};
-                document.getElementById('online-now').innerText = d.online || 0;
-                document.getElementById('scripts-count').innerText = d.scripts || 0;
-                document.getElementById('srv-status').innerText = d.status || "متصل 🟢";
-                document.getElementById('dc-link').href = d.dc_link || "#";
+                document.getElementById('view-online').innerText = d.online || 0;
+                document.getElementById('view-scripts').innerText = d.scripts || 0;
+                document.getElementById('view-status').innerText = d.status || "متصل 🟢";
+                document.getElementById('main-dc-link').href = d.dc_link || "#";
             });
-            db.ref('users').on('value', s => { document.getElementById('total-reg').innerText = s.numChildren(); });
+
+            // Total Registered Members (Auto)
+            db.ref('users').on('value', s => { document.getElementById('view-total').innerText = s.numChildren(); });
+
+            // Laws Loading
             db.ref('laws').on('value', s => {
                 const laws = s.val();
-                const catsDiv = document.getElementById('laws-cats');
-                catsDiv.innerHTML = "";
-                const uniqueCats = [...new Set(Object.values(laws || {}).map(l => l.cat))];
-                uniqueCats.forEach(c => {
-                    catsDiv.innerHTML += `<button class="btn" onclick="viewLawCat('${c}')">${c}</button> `;
+                const btnContainer = document.getElementById('laws-categories-btns');
+                const adminLawsList = document.getElementById('admin-laws-list-view');
+                btnContainer.innerHTML = ""; adminLawsList.innerHTML = "";
+                
+                const categories = [...new Set(Object.values(laws || {}).map(l => l.cat))];
+                categories.forEach(cat => {
+                    btnContainer.innerHTML += `<button class="btn" style="margin:5px" onclick="filterLawsDisplay('${cat}')">${cat}</button>`;
                 });
+
+                for(let id in laws) {
+                    adminLawsList.innerHTML += `<div class="admin-item"><span>${laws[id].title} (${laws[id].cat})</span>
+                        <div><button onclick="deleteData('laws/${id}')" class="btn btn-danger">حذف</button></div></div>`;
+                }
+            });
+
+            // Store Loading
+            db.ref('products').on('value', s => {
+                const prods = s.val();
+                const storeDiv = document.getElementById('store-list');
+                const adminProdsList = document.getElementById('admin-prods-list-view');
+                storeDiv.innerHTML = ""; adminProdsList.innerHTML = "";
+
+                for(let id in prods) {
+                    storeDiv.innerHTML += `
+                    <div class="p-card">
+                        <span class="p-price">${prods[id].price}</span>
+                        <img src="${prods[id].img}" class="p-img">
+                        <div style="padding:15px"><h3>${prods[id].name}</h3><button class="btn" onclick="buyItem('${prods[id].name}')">طلب شراء</button></div>
+                    </div>`;
+                    adminProdsList.innerHTML += `<div class="admin-item"><span>${prods[id].name}</span>
+                        <button onclick="deleteData('products/${id}')" class="btn btn-danger">حذف</button></div>`;
+                }
             });
         }
 
-        function viewLawCat(cat) {
-            db.ref('laws').once('value', s => {
-                const laws = s.val();
-                let html = `<h2>${cat}</h2>`;
-                for(let id in laws) if(laws[id].cat === cat) html += `<div class="card"><h4>${laws[id].title}</h4><p>${laws[id].text}</p></div>`;
-                document.getElementById('laws-content').innerHTML = html;
-            });
-        }
-
-        function saveStats() {
-            db.ref('settings').update({ 
+        // Admin Actions
+        function saveServerSettings() {
+            db.ref('settings').update({
                 online: document.getElementById('set-online').value,
                 scripts: document.getElementById('set-scripts').value,
                 status: document.getElementById('set-status').value,
                 dc_link: document.getElementById('set-dc').value
             });
-            alert("تم الحفظ");
+            alert("تم تحديث إحصائيات السيرفر!");
         }
 
-        function addLaw() {
-            db.ref('laws').push({
-                cat: document.getElementById('law-cat').value,
-                title: document.getElementById('law-title').value,
-                text: document.getElementById('law-text').value
+        function addNewLaw() {
+            const data = { cat: document.getElementById('adm-law-cat').value, title: document.getElementById('adm-law-title').value, text: document.getElementById('adm-law-text').value };
+            db.ref('laws').push(data); alert("تمت إضافة القانون الجديد!");
+        }
+
+        function addNewProduct() {
+            const data = { name: document.getElementById('adm-p-name').value, price: document.getElementById('adm-p-price').value, img: document.getElementById('adm-p-img').value };
+            db.ref('products').push(data); alert("تمت إضافة المنتج بنجاح!");
+        }
+
+        function deleteData(path) { if(confirm("هل أنت متأكد من الحذف؟")) db.ref(path).remove(); }
+
+        // Logic for Displaying Laws
+        function filterLawsDisplay(cat) {
+            db.ref('laws').once('value', s => {
+                const laws = s.val();
+                let html = `<h2>قوانين قسم: ${cat}</h2><br>`;
+                for(let id in laws) {
+                    if(laws[id].cat === cat) {
+                        html += `<div style="background:rgba(255,255,255,0.03); padding:15px; border-radius:10px; margin-bottom:10px; border-right:5px solid var(--accent);">
+                                    <h3>${laws[id].title}</h3><p>${laws[id].text}</p></div>`;
+                    }
+                }
+                document.getElementById('laws-display-container').innerHTML = html;
             });
-            alert("تم إضافة القانون");
         }
 
-        async function submitApply() {
-            const data = {
-                content: `📝 **تقديم جديد: ${document.getElementById('apply-title').innerText}**\n👤 المتقدم: <@${currentUser.id}>\n📛 الاسم: ${document.getElementById('ap-name').value}\n🎂 العمر: ${document.getElementById('ap-age').value}\n📜 الخبرات: ${document.getElementById('ap-exp').value}`
+        // Applying & Discord Webhooks
+        function setupApply(type) {
+            if(!user) return alert("يرجى تسجيل الدخول أولاً!");
+            document.getElementById('apply-title-display').innerText = "تقديم على قسم: " + type;
+            document.getElementById('apply-form-container').style.display = 'block';
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        async function sendApplyToDiscord() {
+            const msg = {
+                content: `📝 **تقديم جديد**\n👤 المتقدم: <@${user.id}>\n📛 الاسم: ${document.getElementById('ap-name').value}\n🎂 العمر: ${document.getElementById('ap-age').value}\n📜 القسم: ${document.getElementById('apply-title-display').innerText}\n💡 الخبرات: ${document.getElementById('ap-exp').value}`
             };
-            await fetch(WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
-            alert("تم الإرسال!");
+            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(msg) });
+            alert("تم إرسال طلبك بنجاح!");
+            document.getElementById('apply-form-container').style.display='none';
         }
 
-        function showSection(id) { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-        function showAdminModal() { document.getElementById('adminModal').style.display='block'; }
-        function checkAdmin() { if(document.getElementById('admin-pass').value === "663567M") showSection('admin-panel'); }
-        function openApply(t) { if(!currentUser) return alert("سجل دخولك!"); document.getElementById('apply-title').innerText = t; document.getElementById('apply-form').style.display='block'; }
+        async function buyItem(name) {
+            if(!user) return alert("سجل دخولك أولاً!");
+            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: `🛒 **طلب شراء**\n👤 المشتري: <@${user.id}>\n📦 المنتج: ${name}` }) });
+            alert("تم إرسال طلب الشراء، سيقوم البوت بالتواصل معك.");
+        }
     </script>
 </body>
 </html>
