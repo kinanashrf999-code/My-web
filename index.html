@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDEAL TOWN | الموقع الرسمي المتكامل</title>
+    <title>IDEAL TOWN | الموقع الرسمي</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -23,17 +23,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
         body { background: #0d1b2a; color: white; line-height: 1.6; overflow-x: hidden; }
 
-        /* Navigation */
+        /* القائمة العلوية */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); }
 
-        /* Sections */
+        /* الأقسام الأساسية */
         .section { display: none; padding: 120px 5% 50px; text-align: center; animation: fadeIn 0.6s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Hero & Cards */
+        /* العناوين والبطاقات */
         .hero-title { font-size: 4.5rem; font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(52,154,233,0.5); }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 1100px; margin: 40px auto; }
         .stat-card { background: var(--glass); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
@@ -44,18 +44,15 @@
         .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent); }
         .btn-danger { background: var(--danger); }
         
-        /* Auth UI */
+        /* أيقونة المستخدم */
         .user-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; background: var(--glass); }
         .user-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Forms */
+        /* المدخلات */
         input, select, textarea { width: 100%; padding: 14px; margin: 10px 0; background: rgba(0,0,0,0.5); border: 1px solid #1b4965; color: white; border-radius: 12px; text-align: right; font-size: 1rem; }
         
-        /* Admin Grid */
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px; }
-        .admin-item { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-
-        /* Store */
+        /* المتجر */
+        #store-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
         .p-card { background: var(--glass); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; }
         .p-price { position: absolute; top: 10px; right: 10px; background: var(--accent); padding: 5px 15px; border-radius: 8px; font-weight: 900; }
         .p-img { width: 100%; height: 200px; object-fit: cover; }
@@ -77,72 +74,43 @@
                 <i class="fas fa-user-plus" id="plus-icon"></i>
                 <img id="user-avatar" style="display:none;">
             </div>
-            <button class="btn" style="padding: 8px 15px;" onclick="openAdminModal()">الإدارة</button>
+            <button class="btn" style="padding: 8px 15px;" onclick="openAdminModal()">لوحة الإدارة</button>
         </div>
     </nav>
 
     <div id="home" class="section active">
         <h1 class="hero-title">IDEAL TOWN</h1>
-        <p style="font-size: 1.3rem; color: #ccc;">عالمك الافتراضي الأمثل، حيث نصنع المتعة والواقعية.</p>
+        <p style="font-size: 1.3rem; color: #ccc; margin-bottom: 30px;">عالمك الافتراضي الأمثل في FiveM، حيث تجتمع المتعة والاحترافية.</p>
         <div class="stats-grid">
             <div class="stat-card"><h2 id="view-total">0</h2><p>عضو مسجل</p></div>
             <div class="stat-card"><h2 id="view-online">0</h2><p>لاعب متصل</p></div>
             <div class="stat-card"><h2 id="view-status">فحص...</h2><p>حالة السيرفر</p></div>
         </div>
         <a id="main-dc-link" href="#" target="_blank" class="btn" style="background: #5865F2; padding: 15px 40px;">
-            <i class="fab fa-discord"></i> انضم لسيرفر الديسكورد
+            <i class="fab fa-discord"></i> دخول الديسكورد
         </a>
     </div>
 
     <div id="police-dept" class="section">
         <h1 class="hero-title" style="font-size: 3rem;">جهاز الشرطة</h1>
         <div class="card" style="margin-top: 30px;">
-            <p style="font-size: 1.3rem; margin-bottom: 25px;">مرحباً بك في البوابة الرسمية لمنسوبي جهاز الشرطة في مدينة المثالية.</p>
+            <i class="fas fa-shield-halved" style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"></i>
+            <p style="font-size: 1.3rem; margin-bottom: 25px;">مرحباً بك في البوابة الإلكترونية الموحدة لجميع منسوبي جهاز الشرطة.</p>
             <button class="btn" style="font-size: 1.5rem; padding: 25px 60px;" onclick="openPoliceSheet()">
                 <i class="fas fa-table"></i> فتح جدول المناوبات
             </button>
         </div>
     </div>
 
-    <div id="admin-panel" class="section">
-        <h1 class="hero-title" style="font-size: 3rem;">لوحة التحكم العليا</h1>
-        
-        <div class="card" style="margin-bottom:30px;">
-            <h3><i class="fas fa-cog"></i> إعدادات الروابط والشرطة</h3>
-            <p style="font-size: 0.9rem; color: #aaa;">ضع رابط الجدول هنا ليتم فتحه عند الضغط على زر الشرطة</p>
-            <input type="text" id="set-police-url" placeholder="رابط جدول الشرطة (مثلاً رابط Google Sheets)">
-            <input type="text" id="set-dc" placeholder="رابط الديسكورد">
-            <button class="btn" style="width:100%" onclick="saveServerLinks()">حفظ الروابط</button>
-        </div>
-
-        <div class="card" style="margin-bottom:30px;">
-            <h3><i class="fas fa-signal"></i> إحصائيات السيرفر</h3>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                <input type="number" id="set-online" placeholder="عدد المتصلين">
-                <select id="set-status">
-                    <option value="متصل 🟢">متصل 🟢</option>
-                    <option value="صيانة 🟠">صيانة 🟠</option>
-                    <option value="مغلق 🔴">مغلق 🔴</option>
-                </select>
-            </div>
-            <button class="btn" style="width:100%; margin-top:15px;" onclick="saveServerStats()">تحديث الإحصائيات</button>
-        </div>
-        
-        <div class="card">
-            <h3>إدارة المحتوى</h3>
-            <p>لإضافة القوانين أو منتجات المتجر، يرجى استخدام لوحة التحكم في Firebase لضمان الدقة الكاملة.</p>
-        </div>
-    </div>
-
     <div id="laws-page" class="section">
         <h1 class="hero-title" style="font-size: 3rem;">قوانين المدينة</h1>
         <div id="laws-categories-btns" style="margin: 20px 0;"></div>
-        <div class="card" id="laws-display-container">اختر قسم القوانين...</div>
+        <div class="card" id="laws-display-container">يرجى اختيار أحد الأقسام لمراجعة القوانين...</div>
     </div>
 
     <div id="store" class="section">
         <h1 class="hero-title" style="font-size: 3rem;">متجر المدينة</h1>
-        <div id="store-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:25px; margin-top:30px;"></div>
+        <div id="store-list"></div>
     </div>
 
     <div id="apply-hub" class="section">
@@ -156,24 +124,50 @@
             <h2 id="apply-title-display"></h2>
             <input type="text" id="ap-name" placeholder="الاسم الكامل">
             <input type="number" id="ap-age" placeholder="العمر">
-            <textarea id="ap-exp" placeholder="خبراتك السابقة..."></textarea>
-            <button class="btn" style="width: 100%;" onclick="sendApplyToDiscord()">إرسال الطلب</button>
+            <textarea id="ap-exp" rows="4" placeholder="اذكر خبراتك السابقة بالتفصيل..."></textarea>
+            <button class="btn" style="width: 100%;" onclick="sendApplyToDiscord()">إرسال الطلب الآن</button>
         </div>
     </div>
 
+    <div id="admin-panel" class="section">
+        <h1 class="hero-title" style="font-size: 3rem;">لوحة التحكم</h1>
+        
+        <div class="card" style="margin-bottom:30px;">
+            <h3><i class="fas fa-link"></i> إعدادات الروابط</h3>
+            <input type="text" id="set-police-url" placeholder="رابط جدول الشرطة الجديد">
+            <input type="text" id="set-dc" placeholder="رابط الديسكورد الجديد">
+            <button class="btn" style="width:100%" onclick="saveServerLinks()">حفظ الروابط</button>
+        </div>
+
+        <div class="card" style="margin-bottom:30px;">
+            <h3><i class="fas fa-chart-line"></i> إحصائيات السيرفر</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                <input type="number" id="set-online" placeholder="عدد المتصلين">
+                <select id="set-status">
+                    <option value="متصل 🟢">متصل 🟢</option>
+                    <option value="صيانة 🟠">صيانة 🟠</option>
+                    <option value="مغلق 🔴">مغلق 🔴</option>
+                </select>
+            </div>
+            <button class="btn" style="width:100%; margin-top:15px;" onclick="saveServerStats()">تحديث الحالة</button>
+        </div>
+        
+        <button class="btn btn-danger" onclick="location.reload()">تسجيل خروج من الإدارة</button>
+    </div>
+
     <div id="admin-login-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; align-items:center; justify-content:center;">
-        <div class="card" style="width:400px; text-align:center;">
-            <i class="fas fa-lock" style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;"></i>
-            <h2>دخول الإدارة</h2>
+        <div class="card" style="width:380px; text-align:center;">
+            <i class="fas fa-user-shield" style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;"></i>
+            <h2>دخول المسؤولين</h2>
             <input type="text" id="adm-user-input" placeholder="اسم المستخدم">
             <input type="password" id="adm-pass-input" placeholder="كلمة المرور">
-            <button class="btn" style="width:100%" onclick="verifyAdmin()">تسجيل الدخول</button>
+            <button class="btn" style="width:100%" onclick="verifyAdmin()">تحقق</button>
             <button class="btn btn-danger" style="width:100%; margin-top:10px;" onclick="closeAdminModal()">إلغاء</button>
         </div>
     </div>
 
     <script>
-        // Firebase Configuration
+        // إعدادات Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCej9aIee1xn8TsHzrBR7IEbHL7uI-xJ6k",
             authDomain: "ideal-town.firebaseapp.com",
@@ -183,11 +177,13 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
+        // ويب هوك الديسكورد
         const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1490340481672937749/i7Bp6IuN3D2a0DLxSCbXyecW09fRgeHzuXbH74ig8P5VIgkDyiSSeTHK0VDa3553quCT";
+        
         let user = JSON.parse(localStorage.getItem('ideal_user')) || null;
-        let policeLink = "";
+        let currentPoliceUrl = "";
 
-        // Admin Auth Logic
+        // نظام التحقق من الإدارة
         function openAdminModal() { document.getElementById('admin-login-modal').style.display='flex'; }
         function closeAdminModal() { document.getElementById('admin-login-modal').style.display='none'; }
         function verifyAdmin() {
@@ -196,49 +192,67 @@
             if(u === "IDEAL" && p === "663567M") {
                 closeAdminModal();
                 showSection('admin-panel');
-            } else { alert("اسم المستخدم أو الرمز سري خاطئ!"); }
+            } else {
+                alert("بيانات الدخول غير صحيحة!");
+            }
         }
 
-        // Police Link Logic
-        function openPoliceSheet() {
-            if(policeLink) { window.open(policeLink, '_blank'); }
-            else { alert("لم يتم تعيين رابط الجدول من قبل الإدارة بعد."); }
-        }
-
-        // Data Management
-        function syncData() {
+        // مزامنة البيانات مع Firebase
+        function syncAllData() {
+            // إعدادات السيرفر
             db.ref('settings').on('value', s => {
                 const d = s.val() || {};
                 document.getElementById('view-online').innerText = d.online || 0;
                 document.getElementById('view-status').innerText = d.status || "متصل 🟢";
                 document.getElementById('main-dc-link').href = d.dc_link || "#";
-                policeLink = d.police_url || "";
+                currentPoliceUrl = d.police_url || "";
                 
-                // تعبئة الحقول في الإدارة تلقائياً
-                document.getElementById('set-police-url').value = policeLink;
+                // تحديث حقول الإدارة تلقائياً
+                document.getElementById('set-police-url').value = currentPoliceUrl;
                 document.getElementById('set-dc').value = d.dc_link || "";
                 document.getElementById('set-online').value = d.online || 0;
                 document.getElementById('set-status').value = d.status || "متصل 🟢";
             });
 
-            db.ref('users').on('value', s => { document.getElementById('view-total').innerText = s.numChildren(); });
-
-            db.ref('laws').on('value', s => {
-                const laws = s.val();
-                const btns = document.getElementById('laws-categories-btns');
-                btns.innerHTML = "";
-                const cats = [...new Set(Object.values(laws || {}).map(l => l.cat))];
-                cats.forEach(c => btns.innerHTML += `<button class="btn" style="margin:5px" onclick="filterLaws('${c}')">${c}</button>`);
+            // عداد الأعضاء (يزيد تلقائياً مع كل تسجيل دخول ديسكورد)
+            db.ref('users').on('value', s => {
+                document.getElementById('view-total').innerText = s.numChildren();
             });
 
+            // المتجر
             db.ref('products').on('value', s => {
                 const prods = s.val();
                 const list = document.getElementById('store-list');
                 list.innerHTML = "";
                 for(let id in prods) {
-                    list.innerHTML += `<div class="p-card"><span class="p-price">${prods[id].price}</span><img src="${prods[id].img}" class="p-img"><div style="padding:15px"><h3>${prods[id].name}</h3><button class="btn" onclick="buyItem('${prods[id].name}')">طلب شراء</button></div></div>`;
+                    list.innerHTML += `
+                        <div class="p-card">
+                            <span class="p-price">${prods[id].price}</span>
+                            <img src="${prods[id].img}" class="p-img">
+                            <div style="padding:15px">
+                                <h3>${prods[id].name}</h3>
+                                <button class="btn" onclick="buyItem('${prods[id].name}')">طلب شراء</button>
+                            </div>
+                        </div>`;
                 }
             });
+
+            // القوانين
+            db.ref('laws').on('value', s => {
+                const laws = s.val();
+                const btnContainer = document.getElementById('laws-categories-btns');
+                btnContainer.innerHTML = "";
+                const categories = [...new Set(Object.values(laws || {}).map(l => l.cat))];
+                categories.forEach(cat => {
+                    btnContainer.innerHTML += `<button class="btn" style="margin:5px" onclick="filterLaws('${cat}')">${cat}</button>`;
+                });
+            });
+        }
+
+        // وظائف الأزرار
+        function openPoliceSheet() {
+            if(currentPoliceUrl) window.open(currentPoliceUrl, '_blank');
+            else alert("عذراً، لم يتم ضبط رابط الجدول من قبل الإدارة بعد.");
         }
 
         function saveServerLinks() {
@@ -246,7 +260,7 @@
                 police_url: document.getElementById('set-police-url').value,
                 dc_link: document.getElementById('set-dc').value
             });
-            alert("تم حفظ الروابط الجديدة!");
+            alert("تم حفظ الروابط بنجاح!");
         }
 
         function saveServerStats() {
@@ -254,12 +268,25 @@
                 online: document.getElementById('set-online').value,
                 status: document.getElementById('set-status').value
             });
-            alert("تم تحديث الإحصائيات بنجاح!");
+            alert("تم تحديث الإحصائيات!");
         }
 
-        // Discord OAuth
+        // دالة التبديل بين الأقسام
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // نظام تسجيل الدخول عبر ديسكورد
         function toggleDiscordLogin() {
-            if(user) { if(confirm("هل تريد الخروج؟")) { localStorage.removeItem('ideal_user'); location.reload(); } return; }
+            if(user) {
+                if(confirm("هل تود تسجيل الخروج؟")) {
+                    localStorage.removeItem('ideal_user');
+                    location.reload();
+                }
+                return;
+            }
             const clientID = "1490563807834275972";
             const redirect = encodeURIComponent(window.location.href.split('#')[0]);
             window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&scope=identify`;
@@ -268,11 +295,14 @@
         window.onload = () => {
             const params = new URLSearchParams(window.location.hash.slice(1));
             if(params.has('access_token')) {
-                fetch('https://discord.com/api/users/@me', { headers: { Authorization: `Bearer ${params.get('access_token')}` } })
+                fetch('https://discord.com/api/users/@me', {
+                    headers: { Authorization: `Bearer ${params.get('access_token')}` }
+                })
                 .then(r => r.json()).then(d => {
                     localStorage.setItem('ideal_user', JSON.stringify(d));
                     db.ref('users/' + d.id).set(d);
-                    location.hash = ""; location.reload();
+                    location.hash = "";
+                    location.reload();
                 });
             }
             if(user) {
@@ -280,40 +310,60 @@
                 document.getElementById('user-avatar').style.display='block';
                 document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
             }
-            syncData();
+            syncAllData();
         };
 
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+        // التقديمات
+        function setupApply(type) {
+            if(!user) return alert("يرجى تسجيل الدخول عبر الديسكورد أولاً!");
+            document.getElementById('apply-title-display').innerText = "نموذج تقديم: " + type;
+            document.getElementById('apply-form-container').style.display = 'block';
+        }
+
+        async function sendApplyToDiscord() {
+            const name = document.getElementById('ap-name').value;
+            const age = document.getElementById('ap-age').value;
+            const exp = document.getElementById('ap-exp').value;
+            const type = document.getElementById('apply-title-display').innerText;
+
+            if(!name || !age || !exp) return alert("يرجى تعبئة جميع الخانات!");
+
+            const payload = {
+                content: `📝 **طلب تقديم جديد**\n👤 المتقدم: <@${user.id}>\n📛 الاسم: ${name}\n🎂 العمر: ${age}\n📜 النوع: ${type}\n💡 الخبرات: ${exp}`
+            };
+
+            await fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            alert("تم إرسال طلبك بنجاح!");
+            document.getElementById('apply-form-container').style.display = 'none';
+        }
+
+        // الشراء
+        async function buyItem(itemName) {
+            if(!user) return alert("سجل دخولك أولاً!");
+            const payload = { content: `🛒 **طلب شراء**\n👤 المشتري: <@${user.id}>\n📦 المنتج: ${itemName}` };
+            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            alert("تم إرسال طلب الشراء إلى الإدارة!");
         }
 
         function filterLaws(cat) {
             db.ref('laws').once('value', s => {
                 const laws = s.val();
-                let html = `<h2>${cat}</h2><br>`;
-                for(let id in laws) { if(laws[id].cat === cat) html += `<div style="background:var(--glass); padding:15px; border-radius:10px; margin-bottom:10px; border-right:5px solid var(--accent); text-align:right;"><h3>${laws[id].title}</h3><p>${laws[id].text}</p></div>`; }
+                let html = `<h2>قسم: ${cat}</h2><br>`;
+                for(let id in laws) {
+                    if(laws[id].cat === cat) {
+                        html += `<div style="background:var(--glass); padding:15px; margin-bottom:10px; border-right:5px solid var(--accent); text-align:right;">
+                            <h3>${laws[id].title}</h3>
+                            <p>${laws[id].text}</p>
+                        </div>`;
+                    }
+                }
                 document.getElementById('laws-display-container').innerHTML = html;
             });
-        }
-
-        function setupApply(t) {
-            if(!user) return alert("يرجى تسجيل الدخول أولاً!");
-            document.getElementById('apply-title-display').innerText = t;
-            document.getElementById('apply-form-container').style.display = 'block';
-        }
-
-        async function sendApplyToDiscord() {
-            const msg = { content: `📝 **تقديم جديد**\n👤 المتقدم: <@${user.id}>\n📛 الاسم: ${document.getElementById('ap-name').value}\n📜 القسم: ${document.getElementById('apply-title-display').innerText}` };
-            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(msg) });
-            alert("تم إرسال طلبك!");
-            document.getElementById('apply-form-container').style.display='none';
-        }
-
-        async function buyItem(n) {
-            if(!user) return alert("سجل دخولك!");
-            await fetch(DISCORD_WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: `🛒 **طلب شراء**\n👤 المشتري: <@${user.id}>\n📦 المنتج: ${n}` }) });
-            alert("تم إرسال الطلب!");
         }
     </script>
 </body>
