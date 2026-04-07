@@ -42,20 +42,22 @@
         .stat-card h2 { font-size: 3rem; color: var(--accent); font-weight: 900; }
 
         .card { background: var(--glass); padding: 35px; border-radius: 25px; max-width: 900px; margin: auto; text-align: right; border: 1px solid rgba(255,255,255,0.1); }
-        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; border: 1px solid transparent; }
+        .btn { background: var(--btn-blue); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; border: 1px solid transparent; text-align: center;}
         .btn:hover { transform: scale(1.05); border-color: var(--accent); }
         .btn-danger { background: var(--danger); }
         
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; background: rgba(0,0,0,0.4); border: 1px solid #1b4965; color: white; border-radius: 10px; text-align: right; }
         
         .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
-        .p-card { background: var(--glass); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; }
-        .p-price { position: absolute; top: 10px; left: 10px; background: var(--accent); padding: 4px 12px; border-radius: 5px; font-weight: bold; }
+        .p-card { background: var(--glass); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); position: relative; display: flex; flex-direction: column; }
+        .p-price { position: absolute; top: 10px; left: 10px; background: var(--accent); padding: 4px 12px; border-radius: 5px; font-weight: bold; z-index: 10; }
         .p-img { width: 100%; height: 180px; object-fit: cover; }
+        .p-info { padding: 15px; text-align: right; flex-grow: 1; }
         
         .item-row { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px; border-right: 5px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }
         .user-circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .user-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .status-tag { padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; display: inline-block; }
     </style>
 </head>
 <body>
@@ -142,6 +144,17 @@
 
     <div id="admin-high" class="section">
         <h2 class="hero-title" style="font-size: 2.5rem;">لوحة الإدارة العليا (IDEAL)</h2>
+        
+        <div class="card" style="margin-bottom: 20px;">
+            <h3>إدارة المتجر</h3>
+            <input type="text" id="p-img" placeholder="رابط صورة المنتج">
+            <input type="text" id="p-name" placeholder="اسم المنتج">
+            <textarea id="p-desc" placeholder="وصف المنتج"></textarea>
+            <input type="text" id="p-price-val" placeholder="السعر (مثال: 50$)">
+            <button class="btn" id="p-save-btn" style="width:100%" onclick="addStoreItem()">حفظ المنتج</button>
+            <div id="admin-store-manage-list" style="margin-top:15px; border-top:1px solid #333; padding-top:10px;"></div>
+        </div>
+
         <div class="card" style="margin-bottom: 20px;">
             <h3>الإعدادات الرئيسية</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -153,12 +166,14 @@
             </div>
             <button class="btn" style="width:100%" onclick="saveHighSettings()">حفظ وتحديث السيرفر</button>
         </div>
+
         <div class="card" style="margin-bottom: 20px;">
-            <h3>إدارة أقسام القوانين (الخانات)</h3>
+            <h3>إدارة أقسام القوانين</h3>
             <input type="text" id="law-cat-name" placeholder="اسم الخانة الجديدة">
             <button class="btn" onclick="addLawCategory()">إضافة الخانة</button>
             <div id="admin-cat-list" style="margin-top:15px; border-top:1px solid #333; padding-top:10px;"></div>
         </div>
+
         <div class="card" style="margin-bottom: 20px;">
             <h3>إدارة القوانين</h3>
             <select id="law-cat-select"></select>
@@ -200,6 +215,7 @@
         let user = JSON.parse(localStorage.getItem('ideal_user')) || null;
         let loginTarget = "";
         let currentPoliceLink = "";
+        let currentEditStoreId = null;
 
         const creds = {
             'IDEAL_ADMIN': { u: 'IDEAL', p: '663567M', label: 'الإدارة العليا' },
@@ -214,6 +230,7 @@
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById('side-menu').classList.remove('active');
+            if(id === 'store') loadUserStore();
         }
 
         function openAdminModal(target) {
@@ -231,10 +248,114 @@
                 if(loginTarget === 'IDEAL_ADMIN') {
                     showSection('admin-high');
                     loadAdminLaws();
+                    loadAdminStore();
                 } else {
                     loadStaffDash(creds[loginTarget].type);
                 }
             } else { alert("البيانات غير صحيحة!"); }
+        }
+
+        // --- Store Management Logic ---
+        function addStoreItem() {
+            const data = {
+                img: document.getElementById('p-img').value,
+                name: document.getElementById('p-name').value,
+                desc: document.getElementById('p-desc').value,
+                price: document.getElementById('p-price-val').value
+            };
+            if(!data.name || !data.price) return alert("يرجى ملء الاسم والسعر!");
+
+            if(currentEditStoreId) {
+                db.ref('store_items/'+currentEditStoreId).update(data);
+                currentEditStoreId = null;
+                document.getElementById('p-save-btn').innerText = "حفظ المنتج";
+            } else {
+                db.ref('store_items').push(data);
+            }
+            clearStoreInputs();
+            alert("تم الحفظ بنجاح!");
+        }
+
+        function clearStoreInputs() {
+            document.getElementById('p-img').value = "";
+            document.getElementById('p-name').value = "";
+            document.getElementById('p-desc').value = "";
+            document.getElementById('p-price-val').value = "";
+        }
+
+        function loadAdminStore() {
+            db.ref('store_items').on('value', s => {
+                const items = s.val();
+                const list = document.getElementById('admin-store-manage-list');
+                list.innerHTML = "<b>قائمة المنتجات الحالية:</b><br>";
+                for(let id in items) {
+                    list.innerHTML += `
+                    <div class="item-row">
+                        <span>${items[id].name} (${items[id].price})</span>
+                        <div>
+                            <button class="btn" style="padding:5px 10px; background:orange" onclick="editStoreItem('${id}')">تعديل</button>
+                            <button class="btn btn-danger" style="padding:5px 10px" onclick="deleteStoreItem('${id}')">حذف</button>
+                        </div>
+                    </div>`;
+                }
+            });
+        }
+
+        function deleteStoreItem(id) { if(confirm("حذف المنتج؟")) db.ref('store_items/'+id).remove(); }
+
+        function editStoreItem(id) {
+            db.ref('store_items/'+id).once('value', s => {
+                const d = s.val();
+                document.getElementById('p-img').value = d.img;
+                document.getElementById('p-name').value = d.name;
+                document.getElementById('p-desc').value = d.desc;
+                document.getElementById('p-price-val').value = d.price;
+                currentEditStoreId = id;
+                document.getElementById('p-save-btn').innerText = "تحديث المنتج الآن";
+                window.scrollTo(0,0);
+            });
+        }
+
+        function loadUserStore() {
+            db.ref('store_items').on('value', s => {
+                const items = s.val();
+                const grid = document.getElementById('store-list');
+                grid.innerHTML = "";
+                for(let id in items) {
+                    grid.innerHTML += `
+                    <div class="p-card">
+                        <div class="p-price">${items[id].price}</div>
+                        <img src="${items[id].img || 'https://via.placeholder.com/180'}" class="p-img">
+                        <div class="p-info">
+                            <h3>${items[id].name}</h3>
+                            <p style="font-size:0.9rem; color:#ccc; margin:10px 0;">${items[id].desc}</p>
+                            <button class="btn" style="width:100%" onclick="orderProduct('${items[id].name}', '${items[id].price}')">طلب المنتج</button>
+                        </div>
+                    </div>`;
+                }
+            });
+        }
+
+        function orderProduct(name, price) {
+            if(!user) return alert("يرجى تسجيل الدخول عبر الديسكورد لتمكن من الطلب!");
+            
+            const msg = {
+                content: `📦 **طلب جديد من المتجر**`,
+                embeds: [{
+                    title: "بيانات الطلب",
+                    color: 3447003,
+                    fields: [
+                        { name: "العميل", value: `<@${user.id}> | ${user.username}`, inline: true },
+                        { name: "المنتج", value: name, inline: true },
+                        { name: "السعر", value: price, inline: true }
+                    ],
+                    footer: { text: "IDEAL TOWN Webhook System" }
+                }]
+            };
+
+            fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(msg) })
+            .then(() => alert("تم إرسال طلبك للإدارة بنجاح!"))
+            .catch(() => alert("فشل في إرسال الطلب، حاول لاحقاً"));
         }
 
         // --- Laws Logic ---
@@ -248,6 +369,7 @@
             const select = document.getElementById('law-cat-select');
             const btns = document.getElementById('laws-categories-btns');
             const adminCatList = document.getElementById('admin-cat-list');
+            if(!select || !btns) return;
             select.innerHTML = ""; btns.innerHTML = ""; adminCatList.innerHTML = "<b>حذف الخانات:</b><br>";
             for(let id in cats) {
                 select.innerHTML += `<option value="${cats[id]}">${cats[id]}</option>`;
@@ -314,7 +436,7 @@
             else alert("الرابط غير متوفر!");
         }
 
-        // --- Applications ---
+        // --- Applications Logic ---
         function setupApply(type) {
             if(!user) return alert("سجل دخول ديسكورد أولاً!");
             showSection('apply-hub');
@@ -343,18 +465,26 @@
                 const apps = s.val(); const div = document.getElementById('staff-apps-list'); div.innerHTML = "";
                 for(let id in apps) {
                     if(apps[id].type === type) {
-                        div.innerHTML += `<div class="item-row" style="flex-direction:column; align-items:start;">
+                        let color = "#aaa";
+                        if(apps[id].status === 'مقبول') color = "var(--success)";
+                        if(apps[id].status === 'مرفوض') color = "var(--danger)";
+
+                        div.innerHTML += `
+                        <div class="item-row" style="flex-direction:column; align-items:start;">
+                            <span class="status-tag" style="background:${color}">الحالة: ${apps[id].status}</span>
                             <p><b>المتقدم:</b> ${apps[id].dc}</p><p><b>الاسم:</b> ${apps[id].name}</p>
                             <p><b>العمر:</b> ${apps[id].age}</p><p><b>الخبرة:</b> ${apps[id].exp}</p>
-                            <div style="margin-top:10px; display:flex; gap:10px;">
-                                <button class="btn" style="background:#2ecc71" onclick="updateApp('${id}', 'مقبول')">قبول</button>
-                                <button class="btn btn-danger" onclick="updateApp('${id}', 'مرفوض')">رفض</button>
+                            <div style="margin-top:15px; display:flex; gap:10px; width:100%;">
+                                <button class="btn" style="background:#2ecc71; flex:1;" onclick="updateApp('${id}', 'مقبول')">قبول</button>
+                                <button class="btn btn-danger" style="flex:1;" onclick="updateApp('${id}', 'مرفوض')">رفض</button>
+                                <button class="btn" style="background:#444; width:50px;" onclick="deleteApp('${id}')"><i class="fas fa-trash"></i></button>
                             </div></div>`;
                     }
                 }
             });
         }
-        function updateApp(id, status) { db.ref('applications/'+id).update({status: status}); alert("تم التحديث!"); }
+        function updateApp(id, status) { db.ref('applications/'+id).update({status: status}); alert("تم تحديث الحالة!"); }
+        function deleteApp(id) { if(confirm("حذف التقديم نهائياً؟")) db.ref('applications/'+id).remove(); }
 
         // --- Discord Auth ---
         function toggleDiscordLogin() {
