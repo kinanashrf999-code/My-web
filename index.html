@@ -1,35 +1,64 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
     <style>
+        /* إعدادات الخلفية لتكون بيضاء تماماً */
         body {
-            background-color: #020617;
-            color: white;
+            background-color: #ffffff;
+            color: #000000;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif; /* خط بسيط كما في الصورة */
+            text-align: center;
         }
-        h1 {
+
+        /* صندوق المحتوى الرئيسي */
+        .error-container {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        /* تنسيق رقم 404 */
+        .error-code {
             font-size: 150px;
-            margin: 0;
-            background: linear-gradient(to bottom, #ffffff, #0ea5e9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 5px;
         }
-        p {
-            font-size: 24px;
-            opacity: 0.8;
+
+        /* تنسيق عبارة Not Found */
+        .error-message {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* تنسيق السطر التوضيحي باللون الرمادي */
+        .error-description {
+            font-size: 16px;
+            color: #666666; /* لون رمادي كما في الصورة */
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #cccccc; /* خط رمادي فاصل */
         }
     </style>
 </head>
 <body>
-    <h1>404</h1>
-    <p>الموقع متعطل حالياً</p>
+
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Not Found</div>
+        <div class="error-description">
+            The resource requested could not be found on this server!
+        </div>
+    </div>
+
 </body>
 </html>
