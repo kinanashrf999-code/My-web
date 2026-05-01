@@ -3,743 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDEAL TOWN | النظام المتكامل v3.0</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>IDEAL TOWN | الموقع الرسمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* =========================================================
-           تنسيق الواجهة والسمات الأساسية (CSS Variables)
-           ========================================================= */
+        /* CSS - التصميم المتكامل */
         :root {
-            --bg-deep: #020617;
-            --bg-light: #0f172a;
-            --primary-sky: #0ea5e9;
-            --accent-blue: #38bdf8;
-            --text-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --shadow-white: rgba(255, 255, 255, 0.15);
-            --error-red: #ff4444;
-            --success-green: #10b981;
-            --gold: #fbc02d;
+            --bg: #0a192f;
+            --nav: #001f3f;
+            --accent: #007bff;
+            --white: #ffffff;
+            --glow: rgba(0, 123, 255, 0.5);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-            scroll-behavior: smooth;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg); color: var(--white); overflow-x: hidden; cursor: none; }
+
+        /* تأثير الماوس اللحاقي */
+        .cursor-follower {
+            position: fixed; width: 25px; height: 25px; background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            box-shadow: 0 0 20px 10px white; transform: translate(-50%, -50%);
+            transition: transform 0.05s linear;
         }
 
-        body {
-            background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-light) 100%);
-            color: var(--text-white);
-            min-height: 100vh;
-            overflow-x: hidden;
-            cursor: none; 
+        /* البار العلوي */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: var(--nav); border-bottom: 2px solid var(--accent);
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        /* --- نظام الماوس والوهج --- */
-        #cursor-dot {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10001;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px #fff;
-        }
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
-        #cursor-glow {
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--shadow-white) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease-out, height 0.3s ease-out;
-        }
-
-        /* --- شريط التنقل العلوي --- */
-        .navbar {
-            height: 100px;
-            background: rgba(2, 6, 23, 0.9);
-            backdrop-filter: blur(25px);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 50px;
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
-
-        .nav-brand {
-            font-size: 32px;
-            font-weight: 900;
-            background: linear-gradient(to left, #ffffff, var(--primary-sky));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .nav-link {
-            color: var(--text-white);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            padding: 12px 18px;
-            border-radius: 12px;
-            transition: 0.3s;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary-sky);
-            background: rgba(14, 165, 233, 0.1);
-        }
-
-        /* --- القائمة الجانبية (Sidebar) --- */
+        /* القائمة الجانبية */
         .sidebar {
-            position: fixed;
-            top: 0;
-            right: -450px;
-            width: 400px;
-            height: 100vh;
-            background: var(--bg-deep);
-            border-left: 3px solid var(--primary-sky);
-            padding: 60px 30px;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2000;
-            box-shadow: -20px 0 50px rgba(0,0,0,0.8);
+            position: fixed; right: -280px; top: 0; width: 260px; height: 100%;
+            background: var(--nav); border-left: 2px solid var(--accent);
+            transition: 0.4s; padding: 20px; z-index: 1500;
         }
+        .sidebar.active { right: 0; }
+        .sidebar h3 { margin-bottom: 20px; text-align: center; border-bottom: 1px solid var(--accent); padding-bottom: 10px; }
+        .sidebar button { width: 100%; margin: 10px 0; text-align: right; background: none; border: none; color: white; cursor: pointer; font-size: 1.1rem; }
 
-        .sidebar.active {
-            right: 0;
-        }
+        /* القسم الرئيسي */
+        .hero { text-align: center; padding: 100px 20px; }
+        .main-title { font-size: 4rem; font-weight: 900; }
+        .blue-text { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
 
-        .close-btn {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            font-size: 28px;
-            color: var(--error-red);
-            cursor: pointer;
-            transition: 0.3s;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 68, 68, 0.1);
-        }
+        /* الإحصائيات */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; width: 85%; margin: 50px auto; }
+        .stat-card { background: rgba(0, 31, 63, 0.6); padding: 30px; border-radius: 15px; border: 1px solid var(--accent); text-align: center; transition: 0.3s; }
+        .stat-card:hover { transform: translateY(-10px); box-shadow: 0 0 20px var(--glow); }
 
-        .close-btn:hover {
-            transform: rotate(90deg) scale(1.1);
-            background: var(--error-red);
-            color: #fff;
-        }
-
-        .side-item {
-            background: var(--glass-bg);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: 0.4s;
-            border: 1px solid var(--glass-border);
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .side-item:hover {
-            border-color: var(--primary-sky);
-            background: rgba(14, 165, 233, 0.1);
-            transform: translateX(-10px);
-        }
-
-        /* --- تنسيق الصفحات والمحتوى --- */
-        .page {
-            display: none;
-            padding: 100px 8%;
-            animation: slideUp 0.8s ease forwards;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- صناديق البيانات والقوانين --- */
-        .content-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 30px;
-            backdrop-filter: blur(15px);
-            margin-bottom: 30px;
-            transition: 0.3s;
-        }
-
-        .content-card:hover {
-            border-color: var(--primary-sky);
-        }
-
-        .law-box {
-            padding: 20px;
-            border-right: 4px solid var(--primary-sky);
-            background: rgba(14, 165, 233, 0.05);
-            margin-bottom: 20px;
-            border-radius: 0 15px 15px 0;
-        }
-
-        .law-box h3 {
-            color: var(--primary-sky);
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-
-        .law-box p {
-            color: #cbd5e1;
-            line-height: 1.8;
-            font-size: 16px;
-        }
-
-        /* --- أزرار العمليات --- */
-        .btn-main {
-            background: var(--primary-sky);
-            color: white;
-            padding: 18px 40px;
-            border-radius: 15px;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 18px;
-            display: inline-block;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn-main:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
-        }
-
-        .btn-discord {
-            background: #5865f2;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 24px;
-            border-radius: 12px;
-            border: none;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-discord:hover {
-            background: #4752c4;
-            transform: scale(1.05);
-        }
-
-        /* --- المودالات --- */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 5000;
-        }
-
-        .modal-container {
-            background: var(--bg-deep);
-            padding: 50px;
-            border-radius: 30px;
-            width: 480px;
-            border: 2px solid var(--primary-sky);
-            position: relative;
-            text-align: center;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 18px;
-            background: #000;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: white;
-            margin-bottom: 20px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .input-field:focus {
-            border-color: var(--primary-sky);
-        }
-
-        /* --- الإحصائيات --- */
-        .stats-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .stat-item {
-            background: var(--glass-bg);
-            padding: 50px 30px;
-            border-radius: 25px;
-            text-align: center;
-            border: 1px solid var(--glass-border);
-            transition: 0.4s;
-        }
-
-        .stat-item:hover {
-            border-color: var(--primary-sky);
-            transform: translateY(-10px);
-        }
-
-        .stat-item span {
-            font-size: 50px;
-            font-weight: 900;
-            display: block;
-            margin: 15px 0;
-        }
-
-        /* --- التنبيهات --- */
-        #notification {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: var(--primary-sky);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 15px;
-            font-weight: 800;
-            transform: translateX(-250%);
-            transition: 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 99999;
-        }
-
-        #notification.active {
-            transform: translateX(0);
-        }
-
+        /* النوافذ المنبثقة (Modals) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--nav); padding: 30px; border-radius: 20px; border: 2px solid var(--accent); width: 100%; max-width: 500px; position: relative; }
+        
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #0a192f; color: white; border: 1px solid var(--accent); border-radius: 8px; outline: none; }
+        .btn-action { background: var(--nav); color: white; border: 1px solid var(--accent); padding: 12px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-action:hover { background: var(--accent); box-shadow: 0 0 15px var(--accent); }
     </style>
 </head>
 <body>
 
-    <div id="cursor-glow"></div>
-    <div id="cursor-dot"></div>
-    <div id="notification">تم تنفيذ الأمر بنجاح</div>
+    <div class="cursor-follower" id="cursor"></div>
 
-    <div id="authOverlay" class="modal">
-        <div class="modal-container">
-            <i class="fas fa-times close-btn" onclick="closeAuth()"></i>
-            <h2 id="authTitle" style="color: var(--primary-sky); margin-bottom: 40px; font-size: 28px;">دخول النظام الآمن</h2>
-            <input type="text" id="adminUser" placeholder="اسم المستخدم (ID)" class="input-field">
-            <input type="password" id="adminPass" placeholder="كلمة المرور المشفرة" class="input-field">
-            <button class="btn-main" style="width: 100%;" onclick="runAuthCheck()">تحقق ودخول</button>
-        </div>
-    </div>
-
-    <div id="sideNav" class="sidebar">
-        <i class="fas fa-times close-btn" onclick="toggleSideNav()"></i>
-        <h2 style="color:var(--primary-sky); margin-bottom:40px; text-align:center; font-size: 30px;">بوابة الإدارة</h2>
-        
-        <div class="side-item" onclick="openPanel('police')">
-            <i class="fas fa-shield-alt" style="font-size: 24px; color: var(--primary-sky);"></i>
-            <div>
-                <strong style="display:block;">جهاز الشرطة</strong>
-                <small style="color:#64748b;">إدارة المخالفات والتعاميم</small>
-            </div>
-        </div>
-
-        <div class="side-item" onclick="openPanel('ems')">
-            <i class="fas fa-ambulance" style="font-size: 24px; color: var(--primary-sky);"></i>
-            <div>
-                <strong style="display:block;">وزارة الصحة</strong>
-                <small style="color:#64748b;">سجلات المرضى والإصابات</small>
-            </div>
-        </div>
-
-        <div class="side-item" onclick="openPanel('justice')">
-            <i class="fas fa-gavel" style="font-size: 24px; color: var(--primary-sky);"></i>
-            <div>
-                <strong style="display:block;">وزارة العدل</strong>
-                <small style="color:#64748b;">المحاكم والقضايا الجنائية</small>
-            </div>
-        </div>
-
-        <div class="side-item" onclick="openPanel('admin')">
-            <i class="fas fa-user-shield" style="font-size: 24px; color: var(--primary-sky);"></i>
-            <div>
-                <strong style="display:block;">الإدارة العامة</strong>
-                <small style="color:#64748b;">التحكم بصلاحيات اللاعبين</small>
-            </div>
-        </div>
-
-        <div class="side-item" onclick="openPanel('social')">
-            <i class="fas fa-bullhorn" style="font-size: 24px; color: var(--primary-sky);"></i>
-            <div>
-                <strong style="display:block;">السوشل ميديا</strong>
-                <small style="color:#64748b;">نشر الأخبار والفعاليات</small>
-            </div>
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 25px 0;">
-
-        <div class="side-item" style="border-color: var(--gold);" onclick="openPanel('super')">
-            <i class="fas fa-crown" style="font-size: 24px; color: var(--gold);"></i>
-            <div>
-                <strong style="display:block; color: var(--gold);">الإدارة العليا</strong>
-                <small style="color:#64748b;">صلاحيات المؤسسين فقط</small>
-            </div>
-        </div>
-    </div>
-
-    <nav class="navbar">
-        <div class="nav-right">
-            <button onclick="toggleSideNav()" style="background:var(--glass-bg); color:var(--primary-sky); padding:12px 20px; border-radius:12px; border:1px solid var(--glass-border); cursor:pointer; font-weight: 800;">
-                <i class="fas fa-bars"></i> اللوحات
-            </button>
-        </div>
-
-        <div class="nav-links">
-            <button class="nav-link active" onclick="goToPage('home')">الرئيسية</button>
-            <button class="nav-link" onclick="goToPage('police_page')">مركز الشرطة</button>
-            <button class="nav-link" onclick="goToPage('laws_page')">القوانين</button>
-            <button class="nav-link" onclick="goToPage('store_page')">المتجر</button>
-            <button class="nav-link" onclick="goToPage('apply_page')">التقديمات</button>
-            <button class="nav-link" onclick="goToPage('news_page')">الأخبار</button>
-        </div>
-
+    <nav>
+        <div class="nav-right"><button class="btn-action" onclick="toggleSidebar()">☰ القائمة</button></div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showHome()">القائمة الرئيسية</a></li>
+            <li><a href="#" onclick="openPoliceSection()">قسم الشرطة</a></li>
+            <li><a href="#">القوانين</a></li>
+            <li><a href="#">المتجر</a></li>
+            <li><a href="#" onclick="openApplyCenter()">مركز التقديمات</a></li>
+            <li><a href="#">الأخبار</a></li>
+        </ul>
         <div class="nav-left">
-            <button class="btn-discord" id="loginBtn" onclick="discordAuth()">
-                <i class="fab fa-discord"></i> <span id="userDisplay">ربط الحساب</span>
-            </button>
+            <button class="btn-action" style="margin-left: 10px;" onclick="gate('Managidl')">الإدارة العليا</button>
+            <button class="btn-action" id="loginBtn" onclick="login()">تسجيل دخول</button>
         </div>
     </nav>
 
-    <section id="home" class="page active">
-        <div style="text-align: center; padding-top: 40px;">
-            <h1 style="font-size: 110px; font-weight: 900; background: linear-gradient(180deg, #fff, var(--primary-sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">IDEAL TOWN</h1>
-            <p style="font-size: 28px; color: #94a3b8; max-width: 800px; margin: 20px auto;">عالم من الواقعية اللامحدودة. انضم إلينا الآن في أكبر مجتمع FiveM عربي.</p>
+    <div class="sidebar" id="sidebar">
+        <h3>الداش بوردات</h3>
+        <button onclick="gate('PoliceIdel')">داش بورد الشرطة</button>
+        <button onclick="gate('Adminidl')">الإدارة العامة</button>
+        <button onclick="gate('medidel')">داش بورد الإسعاف</button>
+        <button onclick="gate('Lawidl')">داش بورد العدل</button>
+        <button onclick="gate('socialidel')">السوشل ميديا</button>
+        <button onclick="toggleSidebar()" style="color: red; margin-top: 20px;">إغلاق ×</button>
+    </div>
+
+    <main id="content">
+        <section class="hero">
+            <h1 class="main-title">IDEAL <span class="blue-text">TOWN</span></h1>
+            <p>مرحباً بك في السيرفر الأفضل والأجمل استمتع في تجربتك</p>
             
-            <div style="margin-top: 50px; display: flex; justify-content: center; gap: 20px;">
-                <a href="#" class="btn-main">دخول السيرفر</a>
-                <a href="#" class="btn-main" style="background: white; color: black;">قائمة الديسكورد</a>
+            <div class="stats-grid">
+                <div class="stat-card"><p>الأعضاء المسجلين</p><h2 id="regUsers">0</h2></div>
+                <div class="stat-card"><p>المتواجدون حالياً</p><h2 id="onlineNow">0</h2></div>
+                <div class="stat-card"><p>السكربتات الحصرية</p><h2 id="scriptCount">0</h2></div>
+                <div class="stat-card"><p>حالة السيرفر</p><h2 id="serverStatus">تحميل...</h2></div>
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:20px; margin-top: 30px;">
+                <button class="btn-action" id="joinDiscord">دخول الديسكورد</button>
+                <button class="btn-action" id="joinFivem">دخول السيرفر</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- نافذة تسجيل الدخول للأكواد -->
+    <div class="modal" id="gateModal">
+        <div class="modal-content">
+            <h2 id="gateTitle">دخول الإدارة</h2>
+            <input type="text" id="gUser" placeholder="الاسم الشخصي">
+            <input type="password" id="gPass" placeholder="كود الدخول">
+            <button class="btn-action" style="width: 100%;" onclick="verifyGate()">دخول</button>
+            <button class="btn-action" style="width: 100%; margin-top: 10px; border-color: red;" onclick="closeModal()">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة التقديمات -->
+    <div class="modal" id="applyModal">
+        <div class="modal-content">
+            <h2>مركز التقديمات</h2>
+            <div id="applyOptions">
+                <button class="btn-action" style="width: 100%; margin: 5px 0;" onclick="openForm('police')">تقديم شرطة</button>
+                <button class="btn-action" style="width: 100%; margin: 5px 0;" onclick="openForm('admin')">تقديم إدارة</button>
+                <button class="btn-action" style="width: 100%; margin: 5px 0;" onclick="openForm('ems')">تقديم إسعاف</button>
+                <button onclick="closeModal()" style="color: grey; background: none; border: none; cursor: pointer; margin-top: 10px;">إغلاق</button>
             </div>
         </div>
+    </div>
 
-        <div class="stats-wrapper">
-            <div class="stat-item">
-                <p style="color: var(--primary-sky); font-weight: 800;">إجمالي المواطنين</p>
-                <span id="stat_members">0</span>
-            </div>
-            <div class="stat-item">
-                <p style="color: var(--success-green); font-weight: 800;">المتواجدون حالياً</p>
-                <span id="stat_online">0</span>
-            </div>
-            <div class="stat-item">
-                <p style="color: var(--primary-sky); font-weight: 800;">السكربتات المخصصة</p>
-                <span>450+</span>
-            </div>
+    <!-- نموذج التقديم الفعلي -->
+    <div class="modal" id="formModal">
+        <div class="modal-content">
+            <h2 id="formHeader">تقديم جديد</h2>
+            <form id="realForm">
+                <input type="text" id="fDiscord" readonly>
+                <input type="text" id="fName" placeholder="الاسم في السيرفر" required>
+                <input type="number" id="fAge" placeholder="العمر الحقيقي" required>
+                <input type="text" id="fExp" placeholder="الخبرة السابقة" required>
+                <select id="fPast"><option value="نعم">هل كنت من قبل؟ نعم</option><option value="لا">لا</option></select>
+                <button type="submit" class="btn-action" style="width: 100%;">إرسال الطلب</button>
+            </form>
         </div>
-    </section>
+    </div>
 
-    <section id="laws_page" class="page">
-        <h1 style="text-align: center; font-size: 50px; margin-bottom: 50px;">دستور وقوانين مدينة ايديال</h1>
-        
-        <div class="content-card">
-            <div class="law-box">
-                <h3>القوانين الأساسية</h3>
-                <p>1.1 احترام جميع اللاعبين والطواقم الإدارية واجب، وأي إساءة تعرضك للباند النهائي.</p>
-                <p>1.2 يُمنع استخدام أي برامج غش أو استغلال ثغرات (Glitch) تحت أي ظرف.</p>
-                <p>1.3 المايكروفون شرط أساسي للعب، ويجب أن يكون ذا جودة مقبولة.</p>
-            </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+        import { getDatabase, ref, set, onValue, push, update } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
-            <div class="law-box">
-                <h3>قوانين الرول بلاي (Roleplay)</h3>
-                <p>2.1 الخروج من الشخصية (OOC) داخل اللعبة ممنوع، استخدم الشات المخصص لذلك.</p>
-                <p>2.2 يُمنع القتل العشوائي (RDM) بدون قصة أو سبب درامي قوي.</p>
-                <p>2.3 يُمنع دهس اللاعبين بالمركبات (VDM) بشكل متعمد.</p>
-                <p>2.4 الالتزام بقاعدة "الحياة الواحدة" عند الموت ونسيان السيناريو السابق.</p>
-            </div>
-
-            <div class="law-box">
-                <h3>قوانين السطو والجرائم</h3>
-                <p>3.1 يجب وجود عدد أدنى من الشرطة (4 أفراد) للبدء في سرقة البنك المركزي.</p>
-                <p>3.2 يُمنع خطف المسعفين أو موظفي الدولة أثناء تأدية واجبهم.</p>
-                <p>3.3 لا يجوز سرقة سيارات الشرطة أو الإسعاف واستخدامها في الجرائم.</p>
-            </div>
-
-            <div class="law-box">
-                <h3>قوانين المركبات والمرور</h3>
-                <p>4.1 القيادة بتهور داخل المدينة يعرضك للمخالفة وحجز المركبة.</p>
-                <p>4.2 يُمنع ركن الطائرات في الشوارع العامة أو فوق المباني السكنية.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="store_page" class="page">
-        <h1 style="text-align: center; font-size: 50px; margin-bottom: 50px;">متجر المدينة الرسمي</h1>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-            <div class="content-card" style="text-align: center;">
-                <h2 style="color: var(--gold); margin-bottom: 15px;">الباقة الماسية (VIP)</h2>
-                <ul style="list-style: none; color: #94a3b8; margin-bottom: 25px; line-height: 2;">
-                    <li>سيارة حصرية من اختيارك</li>
-                    <li>منزل خاص (فيلا) مع كراج</li>
-                    <li>سلاح ملون فريد</li>
-                    <li>أولوية الدخول (Queue Bypass)</li>
-                </ul>
-                <button class="btn-main">شراء (50$)</button>
-            </div>
-
-            <div class="content-card" style="text-align: center;">
-                <h2 style="color: silver; margin-bottom: 15px;">الباقة الذهبية</h2>
-                <ul style="list-style: none; color: #94a3b8; margin-bottom: 25px; line-height: 2;">
-                    <li>سيارة رياضية مميزة</li>
-                    <li>مبلغ 2,000,000$ داخل اللعبة</li>
-                    <li>رتبة ذهبية في الديسكورد</li>
-                </ul>
-                <button class="btn-main">شراء (30$)</button>
-            </div>
-
-            <div class="content-card" style="text-align: center;">
-                <h2 style="color: var(--primary-sky); margin-bottom: 15px;">باقة العصابات</h2>
-                <ul style="list-style: none; color: #94a3b8; margin-bottom: 25px; line-height: 2;">
-                    <li>تأسيس عصابة رسمية</li>
-                    <li>مقر خاص بالعصابة</li>
-                    <li>خزنة أسلحة مشتركة</li>
-                </ul>
-                <button class="btn-main">شراء (70$)</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="police_page" class="page">
-        <div class="content-card" style="text-align: center;">
-            <i class="fas fa-building-shield" style="font-size: 90px; color: var(--primary-sky); margin-bottom: 30px;"></i>
-            <h1>الإدارة العامة لجهاز الشرطة</h1>
-            <p style="margin-bottom: 40px;">نظام البلاغات والتعاميم الموحد لمواطني ايديال تاون.</p>
-            <div style="display: flex; justify-content: center; gap: 20px;">
-                <button class="btn-main">تقديم بلاغ إلكتروني</button>
-                <button class="btn-main" style="background: white; color: black;">قائمة المطلوبين</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="apply_page" class="page">
-        <h1 style="text-align: center; margin-bottom: 40px;">بوابة التوظيف الرسمية</h1>
-        <div class="content-card">
-            <p style="text-align: center; font-size: 20px;">التقديمات مفتوحة حالياً للقطاعات التالية:</p>
-            <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <button class="side-item" style="justify-content: center; font-weight: 800;">تقديم على الشرطة</button>
-                <button class="side-item" style="justify-content: center; font-weight: 800;">تقديم على الإسعاف</button>
-                <button class="side-item" style="justify-content: center; font-weight: 800;">تقديم على الميكانيك</button>
-                <button class="side-item" style="justify-content: center; font-weight: 800;">تقديم على الإدارة</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="news_page" class="page">
-        <h1 style="text-align: center; margin-bottom: 40px;">آخر أخبار وفعاليات المدينة</h1>
-        <div id="news_container">
-            <div class="content-card">
-                <h2 style="color: var(--primary-sky);">تحديث الموسم الثالث</h2>
-                <p>تم إضافة نظام عقارات جديد وسيارات موديل 2026..</p>
-                <small>نُشر قبل: 2 يوم</small>
-            </div>
-        </div>
-    </section>
-
-    <section id="dash_panel" class="page">
-        <h1 id="dash_main_title" style="color: var(--primary-sky); margin-bottom: 40px;">لوحة الإدارة</h1>
-        <div id="dash_content_render" class="content-card">
-            <p>مرحباً بك في النظام الإداري.. جاري تحميل البيانات الخاصة برتبتك.</p>
-        </div>
-    </section>
-
-    <script>
-        /* إعدادات الاتصال بـ Firebase */
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDL_7Txa6LNUjjcDCs-HzHoaoK9E5Epbrc",
-  authDomain: "idl-town.firebaseapp.com",
-  projectId: "idl-town",
-  storageBucket: "idl-town.firebasestorage.app",
-  messagingSenderId: "966237657125",
-  appId: "1:966237657125:web:9aef0a0d96fd447aff87cc"
- };
-        
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const fireAuth = firebase.auth();
-
-        /* قاعدة بيانات مفاتيح الدخول للإدارة */
-        const accessKeys = {
-            police:  { u: "PoliceIdel", p: "863926881P", label: "الشرطة" },
-            ems:     { u: "medidel", p: "8258261994M", label: "الإسعاف" },
-            social:  { u: "socialidel", p: "2826815747S", label: "السوشل ميديا" },
-            justice: { u: "Lawidl", p: "8257168915791L", label: "العدل" },
-            admin:   { u: "Adminidl", p: "90716893519Ad", label: "الإدارة العامة" },
-            super:   { u: "Managidl", p: "0868185846728Ad", label: "الإدارة العليا" }
+        // إعدادات الفايربيس الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyDDIjZKeWikH2-vphDO9OaxZ6rfT0jbk4E",
+            databaseURL: "https://ideal124-default-rtdb.firebaseio.com",
+            projectId: "ideal124",
+            appId: "1:114614295641:web:37ec1565a97a238b102548"
         };
 
-        let activeAuthSession = "";
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-        /* --- منطق الماوس التفاعلي --- */
-        document.addEventListener('mousemove', (e) => {
-            const glow = document.getElementById('cursor-glow');
-            const dot = document.getElementById('cursor-dot');
-            
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-            
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
+        // نظام الأكواد السرية
+        const codes = {
+            "PoliceIdel": "863926881P",
+            "medidel": "8258261994M",
+            "socialidel": "2826815747S",
+            "Lawidl": "8257168915791L",
+            "Adminidl": "90716893519Ad",
+            "Managidl": "0868185846728Ad"
+        };
+
+        let target = "";
+        const cursor = document.getElementById('cursor');
+
+        // حركة الماوس
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
 
-        /* --- نظام التنبيهات (Toast) --- */
-        function notifyUser(msg) {
-            const toast = document.getElementById('notification');
-            toast.innerText = msg;
-            toast.classList.add('active');
-            setTimeout(() => {
-                toast.classList.remove('active');
-            }, 5000);
-        }
+        // جلب الإعدادات المباشرة من الفايربيس
+        onValue(ref(db, 'settings'), (snap) => {
+            const val = snap.val() || {};
+            document.getElementById('serverStatus').innerText = val.status || "متصل";
+            document.getElementById('scriptCount').innerText = val.scripts || "0";
+            document.getElementById('joinDiscord').onclick = () => window.open(val.discordLink);
+            document.getElementById('joinFivem').onclick = () => window.open(val.fivemLink);
+        });
 
-        /* --- نظام التنقل بين الصفحات --- */
-        function goToPage(pageId) {
-            // إغلاق السايد بار فوراً
-            document.getElementById('sideNav').classList.remove('active');
-            
-            // إخفاء كل الصفحات وتفعيل المطلوبة
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            
-            // تحديث حالة أزرار الناف بار
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if(link.getAttribute('onclick').includes(pageId)) {
-                    link.classList.add('active');
-                }
-            });
-            
-            // العودة لأعلى الصفحة
-            window.scrollTo(0, 0);
-        }
+        // وظائف الداش بورد
+        window.gate = (t) => { target = t; document.getElementById('gateModal').style.display = 'flex'; };
+        window.verifyGate = () => {
+            const u = document.getElementById('gUser').value;
+            const p = document.getElementById('gPass').value;
+            if(codes[u] === p) { alert("مرحباً بك في " + u); closeModal(); } else { alert("بيانات خاطئة!"); }
+        };
 
-        /* --- التحكم في القائمة الجانبية --- */
-        function toggleSideNav() {
-            document.getElementById('sideNav').classList.toggle('active');
-        }
-
-        /* --- تسجيل دخول ديسكورد (Discord OAuth2) --- */
-        function discordAuth() {
-            const provider = new firebase.auth.OAuthProvider('discord.com');
-            provider.addScope('identify');
-            provider.addScope('email');
-
-            fireAuth.signInWithPopup(provider)
-                .then((result) => {
-                    const user = result.user;
-                    document.getElementById('userDisplay').innerText = user.displayName;
-                    notifyUser("أهلاً بك يا " + user.displayName);
-                    
-                    // تحديث قاعدة البيانات
-                    database.ref('site_members/' + user.uid).update({
-                        name: user.displayName,
-                        lastSeen: Date.now(),
-                        avatar: user.photoURL
-                    });
-                })
-                .catch((err) => {
-                    console.error(err);
-                    notifyUser("فشل الربط.. تأكد من الإعدادات!");
+        // التقديمات
+        window.openApplyCenter = () => document.getElementById('applyModal').style.display = 'flex';
+        window.openForm = (type) => {
+            const user = localStorage.getItem('dUser') || "GUEST_123"; // تجريبي
+            document.getElementById('applyModal').style.display = 'none';
+            document.getElementById('formModal').style.display = 'flex';
+            document.getElementById('fDiscord').value = user;
+            document.getElementById('realForm').onsubmit = (e) => {
+                e.preventDefault();
+                push(ref(db, 'apps/' + type), {
+                    user: user,
+                    name: document.getElementById('fName').value,
+                    age: document.getElementById('fAge').value,
+                    status: "pending"
                 });
-        }
+                alert("تم الإرسال!"); closeModal();
+            };
+        };
 
-        /* --- نظام لوحات التحكم الإدارية --- */
-        function openPanel(type) {
-            activeAuthSession = type;
-            document.getElementById('authTitle').innerText = "لوحة تحكم " + accessKeys[type].label;
-            document.getElementById('authOverlay').style.display = 'flex';
-        }
-
-        function closeAuth() {
-            document.getElementById('authOverlay').style.display = 'none';
-        }
-
-        function runAuthCheck() {
-            const u = document.getElementById('adminUser').value;
-            const p = document.getElementById('adminPass').value;
-            const target = accessKeys[activeAuthSession];
-
-            if(u === target.u && p === target.p) {
-                closeAuth();
-                notifyUser("تم التحقق بنجاح.. جاري الدخول");
-                
-                if(activeAuthSession === 'super') {
-                    goToPage('dash_panel');
-                    document.getElementById('dash_main_title').innerText = "مجلس الإدارة العليا";
-                } else {
-                    goToPage('dash_panel');
-                    document.getElementById('dash_main_title').innerText = "إدارة " + target.label;
-                }
-            } else {
-                alert("بيانات الدخول غير صحيحة! تم تسجيل محاولة الدخول.");
-            }
-        }
-
-        /* --- جلب البيانات الحية من Firebase --- */
-        database.ref('server_stats').on('value', (snapshot) => {
-            const data = snapshot.val() || {};
-            document.getElementById('stat_members').innerText = data.members || "2,840";
-            document.getElementById('stat_online').innerText = data.online || "152";
-        });
-
-        // رسالة ترحيبية في الكونسول لزيادة الاحترافية
-        console.log("%cIDEAL TOWN SYSTEM LOADED - 2026", "color: #0ea5e9; font-size: 25px; font-weight: bold;");
+        window.login = () => window.location.href = "https://discord.com/oauth2/authorize?client_id=1499794926529937479&response_type=code&redirect_uri=https%3A%2F%2Fkinanashrf999-code.github.io%2FMy-web%2F&scope=identify+email";
+        window.toggleSidebar = () => document.getElementById('sidebar').classList.toggle('active');
+        window.closeModal = () => document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
     </script>
 </body>
 </html>
