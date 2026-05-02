@@ -44,16 +44,27 @@
             line-height: 1.6;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep-black); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
+        /* تحسين مظهر شريط التمرير */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+        
+        ::-webkit-scrollbar-track { 
+            background: var(--bg-deep-black); 
+        }
+        
+        ::-webkit-scrollbar-thumb { 
+            background: var(--primary-blue); 
+            border-radius: 10px; 
+        }
 
         /* ============================================================
            3. نظام الماوس المتطور (Custom Cursor)
            ============================================================ */
         #cursor {
             position: fixed;
-            width: 12px; height: 12px;
+            width: 12px; 
+            height: 12px;
             background: var(--pure-white);
             border-radius: 50%;
             pointer-events: none;
@@ -64,7 +75,8 @@
 
         #cursor-aura {
             position: fixed;
-            width: 450px; height: 450px;
+            width: 450px; 
+            height: 450px;
             background: radial-gradient(circle, rgba(0, 123, 255, 0.12) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -84,7 +96,8 @@
             background: rgba(5, 10, 21, 0.96);
             backdrop-filter: blur(12px);
             position: fixed;
-            width: 100%; top: 0;
+            width: 100%; 
+            top: 0;
             z-index: 2500;
             border-bottom: 3px solid var(--primary-blue);
         }
@@ -121,7 +134,8 @@
             font-size: 0.9rem;
         }
 
-        .nav-center a:hover, .nav-center a.active {
+        .nav-center a:hover, 
+        .nav-center a.active {
             color: var(--pure-white);
             background: var(--primary-blue);
             box-shadow: var(--shadow-glow);
@@ -133,6 +147,9 @@
             align-items: center;
         }
 
+        /* ============================================================
+           5. الأزرار (Buttons)
+           ============================================================ */
         .btn-discord {
             background: var(--discord-color);
             color: white;
@@ -171,8 +188,12 @@
             font-weight: 900;
             border: none;
             transition: var(--transition-smooth);
+            cursor: none !important;
         }
 
+        /* ============================================================
+           6. الأقسام (Sections)
+           ============================================================ */
         section {
             display: none;
             padding: 140px 6% 60px 6%;
@@ -185,10 +206,17 @@
         }
 
         @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
+        /* الصفحة الرئيسية */
         .hero-container {
             text-align: center;
             height: 70vh;
@@ -210,6 +238,7 @@
             color: transparent;
         }
 
+        /* لوحات التحكم */
         .main-dashboard-wrap {
             display: flex;
             gap: 30px;
@@ -245,11 +274,13 @@
             transition: 0.3s;
         }
 
-        .menu-item.active, .menu-item:hover {
+        .menu-item.active, 
+        .menu-item:hover {
             background: var(--primary-blue);
             color: white;
         }
 
+        /* المتجر */
         .store-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -276,6 +307,7 @@
             border-bottom: 2px solid var(--border-blue);
         }
 
+        /* النوافذ المنبثقة */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -303,11 +335,32 @@
             border: 1px solid var(--border-blue);
             color: white;
             border-radius: 10px;
+            outline: none;
         }
 
-        .status-btn { padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; margin-left: 5px; font-weight: bold;}
-        .status-accept { background: #27ae60; color: white; }
-        .status-reject { background: #c0392b; color: white; }
+        .input-style:focus {
+            border-color: var(--primary-blue);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .status-btn { 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            border: none; 
+            cursor: none !important; 
+            margin-left: 5px; 
+            font-weight: bold;
+        }
+        
+        .status-accept { 
+            background: #27ae60; 
+            color: white; 
+        }
+        
+        .status-reject { 
+            background: #c0392b; 
+            color: white; 
+        }
 
     </style>
 </head>
@@ -407,10 +460,18 @@
         <div class="main-dashboard-wrap">
             <div class="side-menu">
                 <h2 style="color: var(--primary-blue); margin-bottom: 30px;">MASTER ADMIN</h2>
-                <a href="#" class="menu-item" onclick="loadAdminSection('settings')"><i class="fas fa-cog"></i> الإعدادات العامة</a>
-                <a href="#" class="menu-item" onclick="loadAdminSection('rules')"><i class="fas fa-book"></i> تعديل القوانين</a>
-                <a href="#" class="menu-item" onclick="loadAdminSection('store')"><i class="fas fa-shopping-cart"></i> إدارة المتجر</a>
-                <a href="#" class="menu-item" onclick="loadAdminSection('users')"><i class="fas fa-users"></i> قائمة المستخدمين</a>
+                <a href="#" class="menu-item" onclick="loadAdminSection('settings')">
+                    <i class="fas fa-cog"></i> الإعدادات العامة
+                </a>
+                <a href="#" class="menu-item" onclick="loadAdminSection('rules')">
+                    <i class="fas fa-book"></i> تعديل القوانين
+                </a>
+                <a href="#" class="menu-item" onclick="loadAdminSection('store')">
+                    <i class="fas fa-shopping-cart"></i> إدارة المتجر
+                </a>
+                <a href="#" class="menu-item" onclick="loadAdminSection('users')">
+                    <i class="fas fa-users"></i> قائمة المستخدمين
+                </a>
                 <button class="btn-login-trigger" style="width: 100%; margin-top: 50px; background: #c0392b;" onclick="navigate('home')">خروج</button>
             </div>
             <div class="content-area" id="admin-master-content">
@@ -422,19 +483,22 @@
     <div id="modal-auth" class="modal-overlay">
         <div class="modal-content">
             <h2 id="auth-title">تسجيل الدخول</h2>
+            
             <div id="auth-login-fields">
                 <input type="text" id="log-user" class="input-style" placeholder="اسم المستخدم">
                 <input type="password" id="log-pass" class="input-style" placeholder="كلمة المرور">
                 <button class="btn-login-trigger" style="width: 100%; margin-top: 20px;" onclick="handleLogin()">دخول</button>
-                <p style="margin-top: 15px; text-align: center; cursor: pointer; color: var(--text-gray);" onclick="toggleAuth(false)">لا تملك حساب؟ سجل الآن</p>
+                <p style="margin-top: 15px; text-align: center; cursor: none !important; color: var(--text-gray);" onclick="toggleAuth(false)">لا تملك حساب؟ سجل الآن</p>
             </div>
+
             <div id="auth-reg-fields" style="display: none;">
                 <input type="text" id="reg-real" class="input-style" placeholder="الاسم الحقيقي">
                 <input type="text" id="reg-rp" class="input-style" placeholder="اسم الرول بلاي">
                 <input type="password" id="reg-pass" class="input-style" placeholder="كلمة المرور">
                 <button class="btn-login-trigger" style="width: 100%; margin-top: 20px;" onclick="handleRegister()">إنشاء الحساب</button>
-                <p style="margin-top: 15px; text-align: center; cursor: pointer; color: var(--text-gray);" onclick="toggleAuth(true)">لديك حساب؟ سجل دخول</p>
+                <p style="margin-top: 15px; text-align: center; cursor: none !important; color: var(--text-gray);" onclick="toggleAuth(true)">لديك حساب؟ سجل دخول</p>
             </div>
+            
             <button onclick="closeModal('modal-auth')" style="background: none; border: none; color: white; margin-top: 10px; width: 100%;">إغلاق</button>
         </div>
     </div>
@@ -450,9 +514,19 @@
     </div>
 
     <script type="module">
+        // استيراد مكتبات Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-        import { getDatabase, ref, set, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+        import { 
+            getDatabase, 
+            ref, 
+            set, 
+            push, 
+            onValue, 
+            update, 
+            remove 
+        } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
+        // إعدادات Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDDIjZKeWikH2-vphDO9OaxZ6rfT0jbk4E",
             databaseURL: "https://ideal124-default-rtdb.firebaseio.com",
@@ -460,163 +534,438 @@
             appId: "1:114614295641:web:37ec1565a97a238b102548"
         };
 
+        // تهيئة التطبيق
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
+        // متغيرات الحالة العامة
         let currentUser = JSON.parse(localStorage.getItem('user_session'));
         let currentSector = "";
 
+        /* ============================================================
+           نظام الماوس (Mouse System)
+           ============================================================ */
         const cursor = document.getElementById('cursor');
         const aura = document.getElementById('cursor-aura');
+
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
+            
             aura.style.left = e.clientX + 'px';
             aura.style.top = e.clientY + 'px';
         });
 
+        /* ============================================================
+           نظام الملاحة (Navigation System)
+           ============================================================ */
         window.navigate = (id) => {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-center a').forEach(a => a.classList.remove('active'));
-            document.getElementById('page-' + id).classList.add('active');
-            if(document.getElementById('link-' + id)) document.getElementById('link-' + id).classList.add('active');
-            window.scrollTo(0,0);
+            // إخفاء كل السكاشن
+            const sections = document.querySelectorAll('section');
+            sections.forEach(s => {
+                s.classList.remove('active');
+            });
+
+            // إزالة الحالة النشطة من الروابط
+            const navLinks = document.querySelectorAll('.nav-center a');
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+            });
+
+            // تفعيل السكشن المطلوب
+            const targetSection = document.getElementById('page-' + id);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // تفعيل رابط الناف بار
+            const targetLink = document.getElementById('link-' + id);
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+
+            // العودة لأعلى الصفحة
+            window.scrollTo(0, 0);
         };
 
-        window.openModal = (id) => document.getElementById(id).style.display = 'flex';
-        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+        /* ============================================================
+           إدارة النوافذ (Modals Management)
+           ============================================================ */
+        window.openModal = (id) => {
+            const modal = document.getElementById(id);
+            modal.style.display = 'flex';
+        };
+
+        window.closeModal = (id) => {
+            const modal = document.getElementById(id);
+            modal.style.display = 'none';
+        };
         
         window.toggleAuth = (isLogin) => {
-            document.getElementById('auth-login-fields').style.display = isLogin ? 'block' : 'none';
-            document.getElementById('auth-reg-fields').style.display = isLogin ? 'none' : 'block';
-            document.getElementById('auth-title').innerText = isLogin ? 'تسجيل الدخول' : 'إنشاء حساب جديد';
+            const loginFields = document.getElementById('auth-login-fields');
+            const regFields = document.getElementById('auth-reg-fields');
+            const title = document.getElementById('auth-title');
+
+            if (isLogin) {
+                loginFields.style.display = 'block';
+                regFields.style.display = 'none';
+                title.innerText = 'تسجيل الدخول';
+            } else {
+                loginFields.style.display = 'none';
+                regFields.style.display = 'block';
+                title.innerText = 'إنشاء حساب جديد';
+            }
         };
 
+        /* ============================================================
+           نظام العضوية (Authentication System)
+           ============================================================ */
         window.handleRegister = () => {
             const real = document.getElementById('reg-real').value;
             const rp = document.getElementById('reg-rp').value;
             const pass = document.getElementById('reg-pass').value;
-            if(!real || !rp || !pass) return alert("املأ كل الخانات!");
-            set(ref(db, 'users/' + rp), { realName: real, rpName: rp, password: pass, rank: 'citizen' }).then(() => {
-                alert("تم التسجيل بنجاح!");
-                location.reload();
-            });
+
+            if (!real || !rp || !pass) {
+                return alert("يرجى ملأ جميع الخانات المطلوبة!");
+            }
+
+            const userRef = ref(db, 'users/' + rp);
+            const userData = {
+                realName: real,
+                rpName: rp,
+                password: pass,
+                rank: 'citizen'
+            };
+
+            set(userRef, userData)
+                .then(() => {
+                    alert("تم إنشاء الحساب بنجاح!");
+                    location.reload();
+                })
+                .catch((error) => {
+                    alert("خطأ في التسجيل: " + error.message);
+                });
         };
 
         window.handleLogin = () => {
             const user = document.getElementById('log-user').value;
             const pass = document.getElementById('log-pass').value;
-            onValue(ref(db, 'users/' + user), (snap) => {
+
+            const userRef = ref(db, 'users/' + user);
+            onValue(userRef, (snap) => {
                 const data = snap.val();
-                if(data && data.password === pass) {
+                if (data && data.password === pass) {
                     localStorage.setItem('user_session', JSON.stringify(data));
                     location.reload();
-                } else { alert("بيانات خاطئة!"); }
+                } else {
+                    alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+                }
             }, { onlyOnce: true });
         };
 
+        /* ============================================================
+           نظام الموظفين والإدارة (Staff System)
+           ============================================================ */
         window.handleStaffLogin = () => {
             const u = document.getElementById('staff-user').value;
             const p = document.getElementById('staff-pass').value;
-            const staffKeys = { "admin": "admin123", "police16": "29528991", "ems16": "ems123", "media16": "media123" };
-            if(staffKeys[u] === p) {
+
+            const staffKeys = { 
+                "admin": "admin123", 
+                "police16": "29528991", 
+                "ems16": "ems123", 
+                "media16": "media123" 
+            };
+
+            if (staffKeys[u] === p) {
                 closeModal('modal-dash-login');
-                if(u === 'admin') navigate('admin-master');
-                else { currentSector = u.replace('16', ''); loadSectorApps(); navigate('sector-dashboard'); }
-            } else { alert("صلاحيات غير كافية!"); }
+                if (u === 'admin') {
+                    navigate('admin-master');
+                } else {
+                    currentSector = u.replace('16', '');
+                    loadSectorApps();
+                    navigate('sector-dashboard');
+                }
+            } else {
+                alert("بيانات الموظف غير صحيحة أو صلاحياتك غير كافية!");
+            }
         };
 
+        /* ============================================================
+           نظام التقديمات (Applications System)
+           ============================================================ */
         window.updateApplyForm = () => {
-            if(!currentUser) { alert("سجل دخولك أولاً!"); document.getElementById('apply-sector').value = ""; return; }
+            if (!currentUser) {
+                alert("يجب عليك تسجيل الدخول أولاً للتمكن من التقديم!");
+                document.getElementById('apply-sector').value = "";
+                return;
+            }
+
             const sec = document.getElementById('apply-sector').value;
-            if(sec) { document.getElementById('apply-form-body').style.display = 'block'; document.getElementById('apply-name').value = currentUser.rpName; }
-            else { document.getElementById('apply-form-body').style.display = 'none'; }
+            const formBody = document.getElementById('apply-form-body');
+            const nameInput = document.getElementById('apply-name');
+
+            if (sec) {
+                formBody.style.display = 'block';
+                nameInput.value = currentUser.rpName;
+            } else {
+                formBody.style.display = 'none';
+            }
         };
 
         window.submitApplication = () => {
-            const payload = { sender: currentUser.rpName, sector: document.getElementById('apply-sector').value, desc: document.getElementById('apply-desc').value, status: 'pending', date: new Date().toLocaleString() };
-            push(ref(db, 'applications'), payload).then(() => { alert("تم إرسال طلبك!"); navigate('home'); });
+            const sector = document.getElementById('apply-sector').value;
+            const desc = document.getElementById('apply-desc').value;
+
+            if (!desc) return alert("يرجى كتابة وصف لطلبك!");
+
+            const payload = {
+                sender: currentUser.rpName,
+                sector: sector,
+                desc: desc,
+                status: 'pending',
+                date: new Date().toLocaleString()
+            };
+
+            const appRef = ref(db, 'applications');
+            push(appRef, payload).then(() => {
+                alert("تم إرسال طلبك بنجاح، سيتم الرد عليك قريباً!");
+                navigate('home');
+            });
         };
 
-        onValue(ref(db, 'settings/rules'), (s) => { document.getElementById('rules-content').innerText = s.val() || "لا توجد قوانين حالياً."; });
+        /* ============================================================
+           جلب البيانات العامة (Data Fetching)
+           ============================================================ */
         
-        onValue(ref(db, 'settings/general'), (s) => {
+        // جلب القوانين
+        const rulesRef = ref(db, 'settings/rules');
+        onValue(rulesRef, (s) => {
+            const content = document.getElementById('rules-content');
+            content.innerText = s.val() || "لا توجد قوانين مسجلة حالياً.";
+        });
+        
+        // جلب الإعدادات العامة (العنوان والروابط)
+        const generalRef = ref(db, 'settings/general');
+        onValue(generalRef, (s) => {
             const d = s.val();
-            if(d) {
-                if(d.title) document.getElementById('main-title-display').innerHTML = d.title.replace(" ", "<br><span>") + "</span>";
-                if(d.discord) document.getElementById('nav-discord-link').href = d.discord;
-                if(d.serverIp) document.getElementById('btn-connect-server').onclick = () => window.open(`fivem://connect/${d.serverIp}`);
+            if (d) {
+                if (d.title) {
+                    const titleDisplay = document.getElementById('main-title-display');
+                    titleDisplay.innerHTML = d.title.replace(" ", "<br><span>") + "</span>";
+                }
+                if (d.discord) {
+                    document.getElementById('nav-discord-link').href = d.discord;
+                }
+                if (d.serverIp) {
+                    const connectBtn = document.getElementById('btn-connect-server');
+                    connectBtn.onclick = () => {
+                        window.open(`fivem://connect/${d.serverIp}`);
+                    };
+                }
             }
         });
 
-        onValue(ref(db, 'products'), (snap) => {
+        // جلب منتجات المتجر
+        const productRef = ref(db, 'products');
+        onValue(productRef, (snap) => {
             const container = document.getElementById('store-items-container');
             container.innerHTML = "";
             snap.forEach(child => {
                 const p = child.val();
-                container.innerHTML += `<div class="product-card"><img src="${p.img}" class="product-img"><div style="padding: 25px;"><h3>${p.name}</h3><p style="color: var(--text-gray); margin: 10px 0;">${p.desc}</p><h2 style="color: var(--primary-blue);">${p.price}$</h2><button class="btn-login-trigger" style="width: 100%; margin-top: 15px;">شراء الآن</button></div></div>`;
+                container.innerHTML += `
+                    <div class="product-card">
+                        <img src="${p.img}" class="product-img">
+                        <div style="padding: 25px;">
+                            <h3>${p.name}</h3>
+                            <p style="color: var(--text-gray); margin: 10px 0;">${p.desc}</p>
+                            <h2 style="color: var(--primary-blue);">${p.price}$</h2>
+                            <button class="btn-login-trigger" style="width: 100%; margin-top: 15px;">شراء الآن</button>
+                        </div>
+                    </div>
+                `;
             });
         });
 
-        /* --- وظائف الإدارة العليا المحدثة --- */
+        /* ============================================================
+           وظائف الإدارة العليا (Master Admin Functions)
+           ============================================================ */
         window.loadAdminSection = (type) => {
             const area = document.getElementById('admin-master-content');
             
-            if(type === 'settings') {
-                area.innerHTML = `<h2>الإعدادات العامة للموقع</h2><div style="margin-top:20px;"><label>رابط الديسكورد:</label><input id="set-disc" class="input-style" placeholder="https://discord.gg/..."><label>رابط الاتصال (IP):</label><input id="set-ip" class="input-style" placeholder="127.0.0.1"><label>عنوان الموقع:</label><input id="set-title" class="input-style" placeholder="IDEAL TOWN"><button class="btn-login-trigger" style="margin-top:20px;" onclick="saveGeneralSettings()">حفظ التغييرات</button></div>`;
+            // 1. الإعدادات العامة
+            if (type === 'settings') {
+                area.innerHTML = `
+                    <h2>الإعدادات العامة للموقع</h2>
+                    <div style="margin-top:20px;">
+                        <label>رابط الديسكورد:</label>
+                        <input id="set-disc" class="input-style" placeholder="https://discord.gg/...">
+                        <label>رابط الاتصال بالسيرفر (IP):</label>
+                        <input id="set-ip" class="input-style" placeholder="127.0.0.1">
+                        <label>عنوان الموقع الرئيسي:</label>
+                        <input id="set-title" class="input-style" placeholder="IDEAL TOWN">
+                        <button class="btn-login-trigger" style="margin-top:20px;" onclick="saveGeneralSettings()">حفظ التغييرات</button>
+                    </div>
+                `;
                 onValue(ref(db, 'settings/general'), (s) => {
-                    const d = s.val(); if(d) { document.getElementById('set-disc').value = d.discord || ""; document.getElementById('set-ip').value = d.serverIp || ""; document.getElementById('set-title').value = d.title || ""; }
+                    const d = s.val();
+                    if (d) {
+                        document.getElementById('set-disc').value = d.discord || "";
+                        document.getElementById('set-ip').value = d.serverIp || "";
+                        document.getElementById('set-title').value = d.title || "";
+                    }
                 }, { onlyOnce: true });
 
-            } else if(type === 'users') {
-                area.innerHTML = `<h2>قائمة المستخدمين</h2><div id="users-list-render" style="margin-top:20px;">جاري التحميل...</div>`;
+            // 2. إدارة المستخدمين
+            } else if (type === 'users') {
+                area.innerHTML = `
+                    <h2>قائمة المستخدمين المسجلين</h2>
+                    <div id="users-list-render" style="margin-top:20px;">جاري تحميل البيانات...</div>
+                `;
                 onValue(ref(db, 'users'), (snap) => {
-                    const listArea = document.getElementById('users-list-render'); listArea.innerHTML = "";
+                    const listArea = document.getElementById('users-list-render');
+                    listArea.innerHTML = "";
                     snap.forEach(child => {
                         const user = child.val();
-                        listArea.innerHTML += `<div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;"><div><strong style="color:var(--primary-blue)">${user.rpName}</strong> <span style="font-size:0.8rem; color:#aaa;">(${user.realName})</span></div><button class="status-btn status-reject" onclick="deleteUser('${child.key}')">حذف</button></div>`;
+                        listArea.innerHTML += `
+                            <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <strong style="color:var(--primary-blue)">${user.rpName}</strong> 
+                                    <span style="font-size:0.8rem; color:#aaa; margin-right: 10px;">(${user.realName})</span>
+                                </div>
+                                <button class="status-btn status-reject" onclick="deleteUser('${child.key}')">حذف الحساب</button>
+                            </div>
+                        `;
                     });
                 });
 
-            } else if(type === 'rules') {
-                area.innerHTML = `<h2>تعديل القوانين</h2><textarea id="edit-rules-area" class="input-style" rows="15" style="margin-top:20px;"></textarea><button class="btn-login-trigger" onclick="saveRules()">حفظ</button>`;
-                onValue(ref(db, 'settings/rules'), s => document.getElementById('edit-rules-area').value = s.val());
+            // 3. تعديل القوانين
+            } else if (type === 'rules') {
+                area.innerHTML = `
+                    <h2>تعديل قوانين السيرفر</h2>
+                    <textarea id="edit-rules-area" class="input-style" rows="15" style="margin-top:20px;"></textarea>
+                    <button class="btn-login-trigger" onclick="saveRules()">حفظ القوانين</button>
+                `;
+                onValue(ref(db, 'settings/rules'), s => {
+                    document.getElementById('edit-rules-area').value = s.val();
+                });
 
-            } else if(type === 'store') {
-                area.innerHTML = `<h2>إدارة المتجر</h2><div style="background: #111; padding: 20px; border-radius: 15px;"><input id="p-name" class="input-style" placeholder="اسم المنتج"><input id="p-img" class="input-style" placeholder="رابط الصورة"><input id="p-price" class="input-style" placeholder="السعر"><textarea id="p-desc" class="input-style" placeholder="الوصف"></textarea><button class="btn-login-trigger" onclick="addProduct()">إضافة</button></div>`;
+            // 4. إضافة منتجات للمتجر
+            } else if (type === 'store') {
+                area.innerHTML = `
+                    <h2>إضافة منتج جديد للمتجر</h2>
+                    <div style="background: #111; padding: 20px; border-radius: 15px; margin-top: 20px;">
+                        <input id="p-name" class="input-style" placeholder="اسم المنتج">
+                        <input id="p-img" class="input-style" placeholder="رابط صورة المنتج">
+                        <input id="p-price" class="input-style" placeholder="السعر بالدولار">
+                        <textarea id="p-desc" class="input-style" placeholder="وصف المنتج بالتفصيل"></textarea>
+                        <button class="btn-login-trigger" style="width: 100%;" onclick="addProduct()">إضافة المنتج الآن</button>
+                    </div>
+                `;
             }
         };
 
+        // دوال الحفظ والمسح الخاصة بالإدارة
         window.saveGeneralSettings = () => {
-            const data = { discord: document.getElementById('set-disc').value, serverIp: document.getElementById('set-ip').value, title: document.getElementById('set-title').value };
-            set(ref(db, 'settings/general'), data).then(() => alert("تم الحفظ!"));
+            const data = { 
+                discord: document.getElementById('set-disc').value, 
+                serverIp: document.getElementById('set-ip').value, 
+                title: document.getElementById('set-title').value 
+            };
+            set(ref(db, 'settings/general'), data).then(() => {
+                alert("تم تحديث الإعدادات العامة بنجاح!");
+            });
         };
 
-        window.deleteUser = (userId) => { if(confirm("حذف المستخدم؟")) remove(ref(db, 'users/' + userId)); };
-        window.saveRules = () => { set(ref(db, 'settings/rules'), document.getElementById('edit-rules-area').value).then(() => alert("تم التحديث!")); };
+        window.deleteUser = (userId) => {
+            if (confirm("هل أنت متأكد من رغبتك في حذف هذا المستخدم نهائياً؟")) {
+                remove(ref(db, 'users/' + userId)).then(() => {
+                    alert("تم حذف المستخدم.");
+                });
+            }
+        };
+
+        window.saveRules = () => {
+            const txt = document.getElementById('edit-rules-area').value;
+            set(ref(db, 'settings/rules'), txt).then(() => {
+                alert("تم تحديث القوانين بنجاح!");
+            });
+        };
+
         window.addProduct = () => {
-            const p = { name: document.getElementById('p-name').value, img: document.getElementById('p-img').value, price: document.getElementById('p-price').value, desc: document.getElementById('p-desc').value };
-            push(ref(db, 'products'), p).then(() => alert("تمت الإضافة!"));
+            const name = document.getElementById('p-name').value;
+            const img = document.getElementById('p-img').value;
+            const price = document.getElementById('p-price').value;
+            const desc = document.getElementById('p-desc').value;
+
+            if (!name || !img || !price || !desc) {
+                return alert("يرجى إدخال جميع بيانات المنتج!");
+            }
+
+            const pData = { 
+                name: name, 
+                img: img, 
+                price: price, 
+                desc: desc 
+            };
+
+            push(ref(db, 'products'), pData).then(() => {
+                alert("تم إضافة المنتج للمتجر بنجاح!");
+                document.getElementById('p-name').value = "";
+                document.getElementById('p-img').value = "";
+                document.getElementById('p-price').value = "";
+                document.getElementById('p-desc').value = "";
+            });
         };
 
-        if(currentUser) document.getElementById('btn-auth-text').innerText = "حسابي: " + currentUser.rpName;
+        // التحقق من الجلسة عند فتح الموقع
+        if (currentUser) {
+            const authBtn = document.getElementById('btn-auth-text');
+            authBtn.innerText = "حسابي: " + currentUser.rpName;
+        }
 
+        /* ============================================================
+           لوحة تحكم القطاعات (Sector Dashboard)
+           ============================================================ */
         function loadSectorApps() {
             const area = document.getElementById('sector-content');
-            onValue(ref(db, 'applications'), (snap) => {
-                area.innerHTML = `<h1>طلبات قطاع ${currentSector}</h1>`;
+            const appRef = ref(db, 'applications');
+
+            onValue(appRef, (snap) => {
+                area.innerHTML = `<h1>طلبات الانضمام لقطاع: ${currentSector}</h1>`;
+                
                 snap.forEach(item => {
                     const data = item.val();
-                    if(data.sector === currentSector) {
-                        area.innerHTML += `<div style="background: #111; padding: 20px; border-radius: 10px; margin-top: 15px; border-right: 5px solid var(--primary-blue);"><h3>المرسل: ${data.sender}</h3><p>${data.desc}</p><div style="margin-top: 15px;"><button class="status-btn status-accept" onclick="processApp('${item.key}', 'مقبول', '${data.sender}')">قبول</button><button class="status-btn status-reject" onclick="processApp('${item.key}', 'مرفوض', '${data.sender}')">رفض</button></div></div>`;
+                    if (data.sector === currentSector) {
+                        area.innerHTML += `
+                            <div style="background: #111; padding: 20px; border-radius: 10px; margin-top: 15px; border-right: 5px solid var(--primary-blue);">
+                                <h3>المرسل: ${data.sender}</h3>
+                                <p style="margin: 10px 0;">${data.desc}</p>
+                                <div style="margin-top: 15px;">
+                                    <button class="status-btn status-accept" onclick="processApp('${item.key}', 'مقبول', '${data.sender}')">قبول الطلب</button>
+                                    <button class="status-btn status-reject" onclick="processApp('${item.key}', 'مرفوض', '${data.sender}')">رفض الطلب</button>
+                                </div>
+                            </div>
+                        `;
                     }
                 });
             });
         }
 
         window.processApp = (key, res, user) => {
-            push(ref(db, 'news'), { target: user, msg: `نتيجة طلبك لقطاع ${currentSector}: ${res}`, color: res === 'مقبول' ? '#27ae60' : '#c0392b', time: new Date().toLocaleTimeString() });
-            remove(ref(db, 'applications/' + key));
+            const newsRef = ref(db, 'news');
+            const resultMsg = { 
+                target: user, 
+                msg: `نتيجة طلبك لقطاع ${currentSector}: لقد تم الرد بـ ${res}`, 
+                color: res === 'مقبول' ? '#27ae60' : '#c0392b', 
+                time: new Date().toLocaleTimeString() 
+            };
+
+            push(newsRef, resultMsg).then(() => {
+                remove(ref(db, 'applications/' + key)).then(() => {
+                    alert("تمت معالجة الطلب وإرسال النتيجة للمستخدم.");
+                });
+            });
         };
 
     </script>
