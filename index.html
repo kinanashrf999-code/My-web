@@ -158,7 +158,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
         import { getDatabase, ref, set, onValue, push, update } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
 
-        // إعدادات الفايربيس
+        // إعدادات الفايربيس الخاصة بك
         const firebaseConfig = {
             apiKey: "AIzaSyDDIjZKeWikH2-vphDO9OaxZ6rfT0jbk4E",
             databaseURL: "https://ideal124-default-rtdb.firebaseio.com",
@@ -208,7 +208,7 @@
         // التقديمات
         window.openApplyCenter = () => document.getElementById('applyModal').style.display = 'flex';
         window.openForm = (type) => {
-            const user = localStorage.getItem('dUser') || "GUEST_123"; 
+            const user = localStorage.getItem('dUser') || "GUEST_123"; // تجريبي
             document.getElementById('applyModal').style.display = 'none';
             document.getElementById('formModal').style.display = 'flex';
             document.getElementById('fDiscord').value = user;
@@ -220,30 +220,13 @@
                     age: document.getElementById('fAge').value,
                     status: "pending"
                 });
-                alert("تم إرسال الطلب بنجاح!"); closeModal();
+                alert("تم الإرسال!"); closeModal();
             };
         };
 
-        // --- نظام تسجيل الدخول بـ Discord المدمج من الكود الأول ---
-        window.login = () => {
-            const clientID = "1499794926529937479"; 
-            const redirect = encodeURIComponent("https://kinanashrf999-code.github.io/My-web/");
-            window.location.href = `https://discord.com/oauth2/authorize?client_id=${clientID}&response_type=code&redirect_uri=${redirect}&scope=identify+email`;
-        };
-
-        // معالجة العودة من الديسكورد وحفظ البيانات
-        window.onload = () => {
-            const fragment = new URLSearchParams(window.location.search);
-            if (fragment.has("code")) {
-                // هنا يتم حفظ يوزر وهمي للتجربة أو المتابعة البرمجية كما في الكود الأول
-                localStorage.setItem('dUser', "المستخدم_المسجل"); 
-                document.getElementById('loginBtn').innerText = "تم تسجيل الدخول";
-            }
-        };
-
+        window.login = () => window.location.href = "https://discord.com/oauth2/authorize?client_id=1499794926529937479&response_type=code&redirect_uri=https%3A%2F%2Fkinanashrf999-code.github.io%2FMy-web%2F&scope=identify+email";
         window.toggleSidebar = () => document.getElementById('sidebar').classList.toggle('active');
         window.closeModal = () => document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-        window.showHome = () => { window.location.reload(); };
     </script>
 </body>
 </html>
