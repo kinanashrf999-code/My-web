@@ -685,40 +685,29 @@
         }
 
         window.processApp = (key, res, user) => {
-            // نظام الأخبار التلقائي
             const newsMsg = { 
                 title: "إشعار قبول جديد", 
                 body: `تم قبول المواطن [ ${user} ] في قطاع [ ${currentSector} ]، مبارك لك!`, 
                 date: new Date().toLocaleString() 
             };
             if(res === 'مقبول') push(ref(db, 'news_feed'), newsMsg);
-            
             remove(ref(db, 'applications/' + key)).then(() => alert("تمت المعالجة!"));
         };
 
-        // News Feed
         onValue(ref(db, 'news_feed'), (snap) => {
             const feed = document.getElementById('news-feed');
             feed.innerHTML = "";
             snap.forEach(child => {
                 const n = child.val();
-                feed.innerHTML += `
-                    <div class="news-card">
-                        <h3 style="color: var(--primary-blue)">${n.title}</h3>
-                        <p style="margin: 10px 0;">${n.body}</p>
-                        <small style="color: gray;">${n.date}</small>
-                    </div>
-                `;
+                feed.innerHTML += `<div class="news-card"><h3>${n.title}</h3><p>${n.body}</p><small>${n.date}</small></div>`;
             });
         });
 
-        // Rules System (Mubawwab)
         onValue(ref(db, 'rules_mubawwab'), (snap) => {
             const side = document.getElementById('rules-categories');
             side.innerHTML = "";
             snap.forEach(child => {
-                const cat = child.key;
-                side.innerHTML += `<div class="rule-tab" onclick="loadRulesFor('${cat}')">${cat}</div>`;
+                side.innerHTML += `<div class="rule-tab" onclick="loadRulesFor('${child.key}')">${child.key}</div>`;
             });
         });
 
@@ -727,47 +716,59 @@
             display.innerHTML = `<h2>${cat}</h2><br>`;
             onValue(ref(db, 'rules_mubawwab/' + cat), (snap) => {
                 snap.forEach(child => {
-                    const r = child.val();
-                    display.innerHTML += `
-                        <div style="margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                            <strong style="color: var(--primary-blue)">${r.title}</strong>
-                            <p style="margin-top: 5px; color: #ccc;">${r.text}</p>
-                        </div>
-                    `;
+                    display.innerHTML += `<div style="margin-bottom:20px"><strong>${child.val().title}</strong><p>${child.val().text}</p></div>`;
                 });
             });
         };
 
-        // Master Admin Section
+        // Master Admin Section (FULL INTEGRATION)
         window.loadAdminSection = (type) => {
             const area = document.getElementById('admin-master-content');
             if (type === 'rules') {
-                area.innerHTML = `
-                    <h2>إدارة أقسام وقوانين المدينة</h2>
-                    <input id="m-cat" class="input-style" placeholder="اسم القسم (مثال: قوانين عامة)">
-                    <input id="m-title" class="input-style" placeholder="عنوان القانون">
-                    <textarea id="m-text" class="input-style" placeholder="نص القانون"></textarea>
-                    <button class="btn-login-trigger" style="width: 100%;" onclick="saveRuleMaster()">إضافة القانون</button>
-                `;
+                area.innerHTML = `<h2>إدارة القوانين</h2><input id="m-cat" class="input-style" placeholder="القسم"><input id="m-title" class="input-style" placeholder="العنوان"><textarea id="m-text" class="input-style" placeholder="النص"></textarea><button class="btn-login-trigger" onclick="saveRuleMaster()">إضافة</button>`;
             } else if (type === 'settings') {
-                area.innerHTML = `
-                    <h2>إعدادات السيرفر</h2>
-                    <input id="s-ip" class="input-style" placeholder="IP السيرفر">
-                    <input id="s-disc" class="input-style" placeholder="رابط الديسكورد">
-                    <button class="btn-login-trigger" onclick="saveGeneral()">حفظ</button>
-                `;
+                area.innerHTML = `<h2>إعدادات</h2><input id="s-ip" class="input-style" placeholder="IP"><input id="s-disc" class="input-style" placeholder="ديسكورد"><button class="btn-login-trigger">حفظ</button>`;
+            } else if (type === 'users') {
+                area.innerHTML = `<h2>قائمة المستخدمين</h2><div id="admin-users-list">جاري التحميل...</div>`;
+                onValue(ref(db, 'users'), (snap) => {
+                    const list = document.getElementById('admin-users-list');
+                    list.innerHTML = "";
+                    snap.forEach(user => {
+                        list.innerHTML += `<div class="news-card">المواطن: ${user.key} | الاسم: ${user.val().realName}</div>`;
+                    });
+                });
+            } else if (type === 'store') {
+                area.innerHTML = `<h2>إدارة المتجر</h2><input id="p-name" class="input-style" placeholder="المنتج"><input id="p-price" class="input-style" placeholder="السعر"><input id="p-img" class="input-style" placeholder="رابط الصورة"><button class="btn-login-trigger" onclick="addProduct()">إضافة للمتجر</button><hr><div id="admin-store-list"></div>`;
+                onValue(ref(db, 'store'), (snap) => {
+                    const list = document.getElementById('admin-store-list');
+                    list.innerHTML = "";
+                    snap.forEach(p => {
+                        list.innerHTML += `<div class="news-card">${p.val().name} - ${p.val().price} <button onclick="remove(ref(db, 'store/${p.key}'))" class="status-btn status-reject">حذف</button></div>`;
+                    });
+                });
             }
         };
 
-        window.saveRuleMaster = () => {
-            const c = document.getElementById('m-cat').value;
-            const t = document.getElementById('m-title').value;
-            const x = document.getElementById('m-text').value;
-            push(ref(db, `rules_mubawwab/${c}`), { title: t, text: x }).then(() => alert("تم!"));
+        window.addProduct = () => {
+            push(ref(db, 'store'), { name: document.getElementById('p-name').value, price: document.getElementById('p-price').value, img: document.getElementById('p-img').value });
+            alert("تم!");
         };
 
-        if (currentUser) document.getElementById('btn-auth-text').innerText = "حسابي: " + currentUser.rpName;
+        window.saveRuleMaster = () => {
+            push(ref(db, `rules_mubawwab/${document.getElementById('m-cat').value}`), { title: document.getElementById('m-title').value, text: document.getElementById('m-text').value });
+            alert("تم!");
+        };
 
+        // Store Page Logic
+        onValue(ref(db, 'store'), (snap) => {
+            const container = document.getElementById('store-items-container');
+            container.innerHTML = "";
+            snap.forEach(p => {
+                container.innerHTML += `<div class="product-card"><img src="${p.val().img}" class="product-img"><div style="padding:20px"><h3>${p.val().name}</h3><p>${p.val().price}</p></div></div>`;
+            });
+        });
+
+        if (currentUser) document.getElementById('btn-auth-text').innerText = "حسابي: " + currentUser.rpName;
     </script>
 </body>
 </html>
