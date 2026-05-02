@@ -44,117 +44,374 @@
             line-height: 1.6;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep-black); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
+        /* تحسين مظهر شريط التمرير */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+        
+        ::-webkit-scrollbar-track { 
+            background: var(--bg-deep-black); 
+        }
+        
+        ::-webkit-scrollbar-thumb { 
+            background: var(--primary-blue); 
+            border-radius: 10px; 
+        }
 
         /* ============================================================
-           3. نظام الماوس (Custom Cursor)
+           3. نظام الماوس المتطور (Custom Cursor)
            ============================================================ */
         #cursor {
-            position: fixed; width: 12px; height: 12px; background: var(--pure-white);
-            border-radius: 50%; pointer-events: none; z-index: 10000;
-            box-shadow: 0 0 20px 5px var(--primary-blue); mix-blend-mode: difference;
+            position: fixed;
+            width: 12px; 
+            height: 12px;
+            background: var(--pure-white);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 20px 5px var(--primary-blue);
+            mix-blend-mode: difference;
         }
 
         #cursor-aura {
-            position: fixed; width: 450px; height: 450px;
+            position: fixed;
+            width: 450px; 
+            height: 450px;
             background: radial-gradient(circle, rgba(0, 123, 255, 0.12) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%); transition: 0.15s ease-out;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: 0.15s ease-out;
         }
 
         /* ============================================================
-           4. الهيدر (Navigation)
+           4. الهيدر والتنقل (Navigation)
            ============================================================ */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 6%; background: rgba(5, 10, 21, 0.96);
-            backdrop-filter: blur(12px); position: fixed; width: 100%; top: 0;
-            z-index: 2500; border-bottom: 3px solid var(--primary-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6%;
+            background: rgba(5, 10, 21, 0.96);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%; 
+            top: 0;
+            z-index: 2500;
+            border-bottom: 3px solid var(--primary-blue);
         }
 
-        .nav-brand { font-size: 2rem; font-weight: 900; color: var(--pure-white); text-decoration: none; }
-        .nav-brand span { color: var(--primary-blue); text-shadow: 0 0 10px var(--primary-glow); }
+        .nav-brand {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--pure-white);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-brand span {
+            color: var(--primary-blue);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
 
         .nav-center {
-            display: flex; gap: 10px; background: rgba(255, 255, 255, 0.04);
-            padding: 8px 20px; border-radius: 60px; border: 1px solid var(--border-blue);
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 8px 20px;
+            border-radius: 60px;
+            border: 1px solid var(--border-blue);
         }
 
         .nav-center a {
-            text-decoration: none; color: var(--text-gray); font-weight: 700;
-            padding: 10px 18px; transition: var(--transition-smooth); border-radius: 50px; font-size: 0.9rem;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 700;
+            padding: 10px 18px;
+            transition: var(--transition-smooth);
+            border-radius: 50px;
+            font-size: 0.9rem;
         }
 
-        .nav-center a:hover, .nav-center a.active { color: var(--pure-white); background: var(--primary-blue); box-shadow: var(--shadow-glow); }
+        .nav-center a:hover, 
+        .nav-center a.active {
+            color: var(--pure-white);
+            background: var(--primary-blue);
+            box-shadow: var(--shadow-glow);
+        }
 
-        .nav-right { display: flex; gap: 12px; align-items: center; }
+        .nav-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
 
         /* ============================================================
            5. الأزرار (Buttons)
            ============================================================ */
         .btn-discord {
-            background: var(--discord-color); color: white; padding: 12px 20px;
-            border-radius: 10px; text-decoration: none; font-weight: 800;
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+            background: var(--discord-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
         }
 
         .btn-dash-access {
-            background: #ff9800; padding: 12px 20px; border-radius: 10px;
-            color: white; font-weight: 800; border: none; transition: 0.3s;
+            background: #ff9800;
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            border: none;
+            transition: 0.3s;
         }
 
         .btn-login-trigger {
-            background: var(--primary-blue); color: white; padding: 12px 25px;
-            border-radius: 10px; font-weight: 900; border: none; transition: var(--transition-smooth);
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 900;
+            border: none;
+            transition: var(--transition-smooth);
+            cursor: none !important;
         }
 
         /* ============================================================
            6. الأقسام (Sections)
            ============================================================ */
-        section { display: none; padding: 140px 6% 60px 6%; min-height: 100vh; }
-        section.active { display: block; animation: fadeInPage 0.8s ease-out; }
-        @keyframes fadeInPage { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        section {
+            display: none;
+            padding: 140px 6% 60px 6%;
+            min-height: 100vh;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeInPage 0.8s ease-out;
+        }
+
+        @keyframes fadeInPage {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* الصفحة الرئيسية */
+        .hero-container {
+            text-align: center;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-container h1 {
+            font-size: 8rem;
+            font-weight: 950;
+            line-height: 0.8;
+            margin: 20px 0;
+        }
+
+        .hero-container h1 span {
+            -webkit-text-stroke: 2px var(--pure-white);
+            color: transparent;
+        }
+
+        /* نظام القوانين الجديد المبوب */
+        .rules-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .rules-sidebar {
+            background: var(--bg-card-blue);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border-blue);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rule-tab {
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            cursor: none !important;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .rule-tab:hover, .rule-tab.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .rules-content-box {
+            background: rgba(255,255,255,0.02);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid var(--border-blue);
+            min-height: 500px;
+        }
 
         /* لوحات التحكم */
-        .main-dashboard-wrap { display: flex; gap: 30px; min-height: 80vh; }
-        .side-menu { width: 300px; background: var(--bg-card-blue); border-radius: 20px; padding: 30px; border: 1px solid var(--border-blue); }
-        .content-area { flex: 1; background: rgba(255, 255, 255, 0.02); border-radius: 20px; padding: 40px; overflow-y: auto; border: 1px solid var(--border-blue); }
+        .main-dashboard-wrap {
+            display: flex;
+            gap: 30px;
+            height: 80vh;
+        }
+
+        .side-menu {
+            width: 300px;
+            background: var(--bg-card-blue);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--border-blue);
+        }
+
+        .content-area {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 40px;
+            overflow-y: auto;
+            border: 1px solid var(--border-blue);
+        }
 
         .menu-item {
-            display: flex; align-items: center; gap: 15px; padding: 15px;
-            color: var(--text-gray); text-decoration: none; border-radius: 12px;
-            margin-bottom: 10px; transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: 0.3s;
         }
-        .menu-item:hover, .menu-item.active { background: var(--primary-blue); color: white; }
 
-        /* نظام القوانين المبوب */
-        .rules-container { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
-        .rules-nav { display: flex; flex-direction: column; gap: 10px; }
-        .rule-cat-card {
-            padding: 20px; background: var(--bg-card-blue); border: 1px solid var(--border-blue);
-            border-radius: 15px; transition: 0.3s; text-align: center; font-weight: bold;
-        }
-        .rule-cat-card:hover { border-color: var(--primary-blue); transform: scale(1.02); }
-        .rule-item-box {
-            background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px;
-            margin-bottom: 20px; border-right: 5px solid var(--primary-blue);
+        .menu-item.active, 
+        .menu-item:hover {
+            background: var(--primary-blue);
+            color: white;
         }
 
         /* المتجر */
-        .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .product-card { background: var(--bg-card-blue); border-radius: 25px; overflow: hidden; border: 1px solid var(--border-blue); transition: 0.4s; }
-        .product-img { width: 100%; height: 250px; object-fit: cover; }
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--bg-card-blue);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid var(--border-blue);
+            transition: 0.4s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-blue);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--border-blue);
+        }
 
         /* النوافذ المنبثقة */
-        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
-        .modal-content { background: var(--bg-deep-black); width: 500px; padding: 50px; border-radius: 30px; border: 2px solid var(--primary-blue); }
-        .input-style { width: 100%; padding: 15px; margin: 10px 0; background: rgba(255,255,255,0.05); border: 1px solid var(--border-blue); color: white; border-radius: 10px; outline: none; }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 9000;
+            justify-content: center;
+            align-items: center;
+        }
 
-        .status-btn { padding: 8px 15px; border-radius: 8px; border: none; font-weight: bold; margin-left: 5px; }
+        .modal-content {
+            background: var(--bg-deep-black);
+            width: 500px;
+            padding: 50px;
+            border-radius: 30px;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 0 50px var(--primary-glow);
+        }
+
+        .input-style {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-blue);
+            color: white;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .input-style:focus {
+            border-color: var(--primary-blue);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .status-btn { 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            border: none; 
+            cursor: none !important; 
+            margin-left: 5px; 
+            font-weight: bold;
+        }
+        
         .status-accept { background: #27ae60; color: white; }
         .status-reject { background: #c0392b; color: white; }
+
+        .news-card {
+            background: var(--bg-card-blue);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-right: 5px solid var(--primary-blue);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
     </style>
 </head>
@@ -165,6 +422,7 @@
 
     <nav>
         <a href="#" class="nav-brand" onclick="navigate('home')">IDEAL <span>TOWN</span></a>
+        
         <div class="nav-center">
             <a href="#" id="link-home" class="active" onclick="navigate('home')">الرئيسية</a>
             <a href="#" id="link-rules" onclick="navigate('rules')">القوانين</a>
@@ -172,63 +430,88 @@
             <a href="#" id="link-apply" onclick="navigate('apply')">التقديمات</a>
             <a href="#" id="link-news" onclick="navigate('news')">الأخبار</a>
         </div>
+
         <div class="nav-right">
-            <button class="btn-dash-access" onclick="openModal('modal-dash-login')">الإدارة</button>
-            <button class="btn-login-trigger" id="btn-auth-text" onclick="openModal('modal-auth')">دخول / تسجيل</button>
+            <a href="https://discord.gg/yourlink" target="_blank" id="nav-discord-link" class="btn-discord">
+                <i class="fab fa-discord"></i> ديسكورد
+            </a>
+            <button class="btn-dash-access" onclick="openModal('modal-dash-login')">
+                <i class="fas fa-lock"></i> الإدارة
+            </button>
+            <button class="btn-login-trigger" id="btn-auth-text" onclick="openModal('modal-auth')">
+                دخول / تسجيل
+            </button>
         </div>
     </nav>
 
     <section id="page-home" class="active">
-        <div class="hero-container" style="text-align: center; margin-top: 50px;">
-            <h2 style="color: var(--primary-blue);">WELCOME TO THE REALITY</h2>
-            <h1 id="main-title-display" style="font-size: 7rem; font-weight: 900;">IDEAL<br><span>TOWN</span></h1>
-            <p style="font-size: 1.4rem; color: var(--text-gray); max-width: 800px; margin: 20px auto;">أفضل تجربة حياة واقعية بانتظارك</p>
+        <div class="hero-container">
+            <h2 style="letter-spacing: 5px; color: var(--primary-blue);">WELCOME TO THE REALITY</h2>
+            <h1 id="main-title-display">IDEAL<br><span>TOWN</span></h1>
+            <p style="max-width: 800px; color: var(--text-gray); font-size: 1.4rem; margin-bottom: 40px;">
+                اكتشف تجربة الحياة الواقعية في أضخم سيرفر عربي. مجتمع متكامل، اقتصاد متوازن، وأنظمة حصرية لم تراها من قبل.
+            </p>
+            <div style="display: flex; gap: 20px;">
+                <button class="btn-login-trigger" id="btn-connect-server" style="font-size: 1.2rem; padding: 15px 40px;" onclick="window.open('fivem://connect/IP_HERE')">ابدأ اللعب الآن</button>
+                <button class="btn-login-trigger" style="font-size: 1.2rem; padding: 15px 40px; background: transparent; border: 2px solid white;" onclick="navigate('apply')">انضم للطاقم</button>
+            </div>
         </div>
     </section>
 
     <section id="page-rules">
-        <h1 style="text-align: center; margin-bottom: 50px;">ميثاق المدينة والقوانين</h1>
-        <div class="rules-container">
-            <div id="rules-nav-list" class="rules-nav">
+        <h1 style="text-align: center; font-size: 3rem; margin-bottom: 50px;">ميثاق وأنظمة المدينة</h1>
+        <div class="rules-layout">
+            <div id="rules-categories" class="rules-sidebar">
                 </div>
-            <div id="rules-display-area" class="content-area">
-                <h2>اختر قسماً لعرض القوانين الخاصة به</h2>
+            <div id="rules-content-display" class="rules-content-box">
+                <h2 style="color: var(--primary-blue);">اختر قسماً لعرض القوانين</h2>
+                <p style="color: var(--text-gray); margin-top: 15px;">يرجى قراءة القوانين بعناية لتجنب المخالفات داخل السيرفر.</p>
             </div>
         </div>
     </section>
 
     <section id="page-apply">
-        <div style="max-width: 800px; margin: auto; background: var(--bg-card-blue); padding: 50px; border-radius: 30px; border: 1px solid var(--border-blue);">
-            <h2>بوابة التوظيف</h2>
-            <select id="apply-sector" class="input-style" onchange="updateApplyForm()">
-                <option value="">-- اختر الجهة --</option>
-                <option value="police">الشرطة</option>
-                <option value="ems">الإسعاف</option>
-                <option value="admin">الإدارة</option>
+        <div style="max-width: 900px; margin: auto; background: var(--bg-card-blue); padding: 50px; border-radius: 30px; border: 1px solid var(--border-blue);">
+            <h2>بوابة التوظيف الرسمية</h2>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">اختر الجهة التي ترغب بالانضمام إليها واملأ بياناتك بدقة.</p>
+            
+            <select id="apply-sector" class="input-style" style="height: 60px; font-size: 1.1rem;" onchange="updateApplyForm()">
+                <option value="">-- اختر القطاع --</option>
+                <option value="police">جهاز الشرطة</option>
+                <option value="ems">الإسعاف والطوارئ</option>
+                <option value="admin">الطاقم الإداري</option>
                 <option value="media">صناع المحتوى</option>
             </select>
-            <div id="apply-form-body" style="display: none;">
-                <input type="text" id="apply-name" class="input-style" readonly>
-                <textarea id="apply-desc" class="input-style" rows="5" placeholder="لماذا تريد الانضمام؟"></textarea>
-                <button class="btn-login-trigger" style="width: 100%; margin-top: 20px;" onclick="submitApplication()">إرسال الطلب</button>
+
+            <div id="apply-form-body" style="display: none; margin-top: 30px;">
+                <input type="text" id="apply-name" class="input-style" placeholder="الاسم الكامل" readonly>
+                <textarea id="apply-desc" class="input-style" rows="6" placeholder="لماذا تريد الانضمام؟ وما هي خبراتك السابقة؟"></textarea>
+                <button class="btn-login-trigger" style="width: 100%; padding: 20px; margin-top: 20px;" onclick="submitApplication()">إرسال الطلب</button>
             </div>
         </div>
     </section>
 
+    <section id="page-store">
+        <h1 style="text-align: center; font-size: 3.5rem; margin-bottom: 50px;">متجر ايديال الحصري</h1>
+        <div id="store-items-container" class="store-grid"></div>
+    </section>
+
     <section id="page-news">
-        <h1 style="text-align: center; margin-bottom: 40px;">شريط الأخبار والنتائج</h1>
-        <div id="news-feed-container" style="max-width: 900px; margin: auto;"></div>
+        <h1 style="margin-bottom: 40px; text-align: center;">شريط الأخبار والنتائج</h1>
+        <div id="news-feed" style="max-width: 800px; margin: auto;"></div>
     </section>
 
     <section id="page-sector-dashboard">
         <div class="main-dashboard-wrap">
             <div class="side-menu">
-                <h3 id="dashboard-title">Dashboard</h3>
-                <div id="sector-menu-items"></div>
+                <h2 id="sector-label" style="color: var(--primary-blue); margin-bottom: 30px;">اللوحة</h2>
+                <div id="sector-menu-items">
+                    <a href="#" class="menu-item active"><i class="fas fa-file-alt"></i> طلبات التوظيف</a>
+                </div>
                 <button class="btn-login-trigger" style="width: 100%; margin-top: 50px; background: #c0392b;" onclick="location.reload()">خروج</button>
             </div>
-            <div class="content-area" id="sector-content-area">
-                <h2>مرحباً بك في لوحة التحكم</h2>
+            <div class="content-area" id="sector-content">
+                <h2>جاري تحميل الطلبات...</h2>
             </div>
         </div>
     </section>
@@ -236,14 +519,15 @@
     <section id="page-admin-master">
         <div class="main-dashboard-wrap">
             <div class="side-menu">
-                <h2 style="color: var(--primary-blue);">MASTER ADMIN</h2>
-                <a href="#" class="menu-item" onclick="loadMasterSection('rules-manage')">إدارة القوانين والأقسام</a>
-                <a href="#" class="menu-item" onclick="loadMasterSection('store-manage')">إدارة المتجر</a>
-                <a href="#" class="menu-item" onclick="loadMasterSection('users-manage')">إدارة المستخدمين</a>
+                <h2 style="color: var(--primary-blue); margin-bottom: 30px;">MASTER ADMIN</h2>
+                <a href="#" class="menu-item" onclick="loadAdminSection('settings')"><i class="fas fa-cog"></i> الإعدادات</a>
+                <a href="#" class="menu-item" onclick="loadAdminSection('rules')"><i class="fas fa-book"></i> إدارة القوانين</a>
+                <a href="#" class="menu-item" onclick="loadAdminSection('store')"><i class="fas fa-shopping-cart"></i> إدارة المتجر</a>
+                <a href="#" class="menu-item" onclick="loadAdminSection('users')"><i class="fas fa-users"></i> المستخدمين</a>
                 <button class="btn-login-trigger" style="width: 100%; margin-top: 50px; background: #c0392b;" onclick="location.reload()">خروج</button>
             </div>
-            <div class="content-area" id="master-content-area">
-                <h1>لوحة التحكم العليا</h1>
+            <div class="content-area" id="admin-master-content">
+                <h1>مرحباً بك في لوحة الإدارة العليا</h1>
             </div>
         </div>
     </section>
@@ -254,19 +538,27 @@
             <div id="auth-login-fields">
                 <input type="text" id="log-user" class="input-style" placeholder="اسم المستخدم">
                 <input type="password" id="log-pass" class="input-style" placeholder="كلمة المرور">
-                <button class="btn-login-trigger" style="width: 100%;" onclick="handleLogin()">دخول</button>
+                <button class="btn-login-trigger" style="width: 100%; margin-top: 20px;" onclick="handleLogin()">دخول</button>
+                <p style="margin-top: 15px; text-align: center; color: var(--text-gray);" onclick="toggleAuth(false)">لا تملك حساب؟ سجل الآن</p>
             </div>
-            <button onclick="closeModal('modal-auth')" style="background: none; border: none; color: white; width: 100%; margin-top: 10px;">إغلاق</button>
+            <div id="auth-reg-fields" style="display: none;">
+                <input type="text" id="reg-real" class="input-style" placeholder="الاسم الحقيقي">
+                <input type="text" id="reg-rp" class="input-style" placeholder="اسم الرول بلاي">
+                <input type="password" id="reg-pass" class="input-style" placeholder="كلمة المرور">
+                <button class="btn-login-trigger" style="width: 100%; margin-top: 20px;" onclick="handleRegister()">إنشاء الحساب</button>
+                <p style="margin-top: 15px; text-align: center; color: var(--text-gray);" onclick="toggleAuth(true)">لديك حساب؟ سجل دخول</p>
+            </div>
+            <button onclick="closeModal('modal-auth')" style="background: none; border: none; color: white; margin-top: 10px; width: 100%;">إغلاق</button>
         </div>
     </div>
 
     <div id="modal-dash-login" class="modal-overlay">
         <div class="modal-content">
-            <h2>دخول الموظفين والإدارة</h2>
+            <h2>دخول الموظفين</h2>
             <input type="text" id="staff-user" class="input-style" placeholder="Staff ID">
             <input type="password" id="staff-pass" class="input-style" placeholder="Password">
-            <button class="btn-login-trigger" style="width: 100%;" onclick="handleStaffLogin()">تحقق ودخول</button>
-            <button onclick="closeModal('modal-dash-login')" style="background: none; border: none; color: white; width: 100%; margin-top: 10px;">إغلاق</button>
+            <button class="btn-login-trigger" style="width: 100%; margin-top: 20px;" onclick="handleStaffLogin()">تحقق ودخول</button>
+            <button onclick="closeModal('modal-dash-login')" style="background: none; border: none; color: white; margin-top: 10px; width: 100%;">إغلاق</button>
         </div>
     </div>
 
@@ -283,10 +575,11 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
         let currentUser = JSON.parse(localStorage.getItem('user_session'));
         let currentSector = "";
 
-        // Mouse Cursor Logic
+        // Cursor
         const cursor = document.getElementById('cursor');
         const aura = document.getElementById('cursor-aura');
         document.addEventListener('mousemove', (e) => {
@@ -300,55 +593,62 @@
             document.querySelectorAll('.nav-center a').forEach(a => a.classList.remove('active'));
             document.getElementById('page-' + id).classList.add('active');
             if(document.getElementById('link-' + id)) document.getElementById('link-' + id).classList.add('active');
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         };
 
         window.openModal = (id) => document.getElementById(id).style.display = 'flex';
         window.closeModal = (id) => document.getElementById(id).style.display = 'none';
 
+        window.toggleAuth = (isLogin) => {
+            document.getElementById('auth-login-fields').style.display = isLogin ? 'block' : 'none';
+            document.getElementById('auth-reg-fields').style.display = isLogin ? 'none' : 'block';
+            document.getElementById('auth-title').innerText = isLogin ? 'تسجيل الدخول' : 'إنشاء حساب جديد';
+        };
+
         // Auth
+        window.handleRegister = () => {
+            const real = document.getElementById('reg-real').value;
+            const rp = document.getElementById('reg-rp').value;
+            const pass = document.getElementById('reg-pass').value;
+            if (!real || !rp || !pass) return alert("املاً البيانات!");
+            set(ref(db, 'users/' + rp), { realName: real, rpName: rp, password: pass, rank: 'citizen' }).then(() => {
+                alert("تم التسجيل!"); location.reload();
+            });
+        };
+
         window.handleLogin = () => {
-            const u = document.getElementById('log-user').value;
-            const p = document.getElementById('log-pass').value;
-            onValue(ref(db, 'users/' + u), (snap) => {
+            const user = document.getElementById('log-user').value;
+            const pass = document.getElementById('log-pass').value;
+            onValue(ref(db, 'users/' + user), (snap) => {
                 const data = snap.val();
-                if (data && data.password === p) {
+                if (data && data.password === pass) {
                     localStorage.setItem('user_session', JSON.stringify(data));
                     location.reload();
-                } else alert("بيانات خاطئة!");
+                } else alert("خطأ!");
             }, { onlyOnce: true });
         };
 
-        // Staff Login & Sector Mapping
+        // Staff Login
         window.handleStaffLogin = () => {
             const u = document.getElementById('staff-user').value;
             const p = document.getElementById('staff-pass').value;
+            const keys = { "admin": "admin123", "police16": "29528991", "ems16": "ems123", "media16": "media123", "master": "master123" };
 
-            const accessKeys = {
-                "master": "master123",    // إدارة عليا
-                "admin": "admin123",      // إدارة عادية
-                "police16": "29528991",
-                "ems16": "ems123",
-                "media16": "media123"
-            };
-
-            if (accessKeys[u] === p) {
+            if (keys[u] === p) {
                 closeModal('modal-dash-login');
                 if (u === 'master') navigate('admin-master');
                 else {
-                    currentSector = (u === 'admin') ? "admin" : u.replace('16', '');
-                    document.getElementById('dashboard-title').innerText = "لوحة " + currentSector;
-                    loadSectorDashboard();
+                    currentSector = u.replace('16', '');
+                    document.getElementById('sector-label').innerText = "لوحة " + currentSector;
+                    loadSectorApps();
                     navigate('sector-dashboard');
                 }
-            } else alert("دخول غير مصرح!");
+            } else alert("بيانات خاطئة!");
         };
 
-        // ------------------------------------------------------------
-        // نظام التقديمات ومعالجة الطلبات
-        // ------------------------------------------------------------
+        // Applications
         window.updateApplyForm = () => {
-            if(!currentUser) { alert("سجل دخولك أولاً!"); document.getElementById('apply-sector').value = ""; return; }
+            if (!currentUser) { alert("سجل دخولك!"); document.getElementById('apply-sector').value = ""; return; }
             document.getElementById('apply-form-body').style.display = 'block';
             document.getElementById('apply-name').value = currentUser.rpName;
         };
@@ -356,30 +656,26 @@
         window.submitApplication = () => {
             const sector = document.getElementById('apply-sector').value;
             const desc = document.getElementById('apply-desc').value;
-            if(!desc) return alert("اكتب الوصف!");
-
-            push(ref(db, 'applications'), {
-                sender: currentUser.rpName,
-                sector: sector,
-                desc: desc,
-                time: new Date().toLocaleString()
-            }).then(() => { alert("تم الإرسال بنجاح!"); navigate('home'); });
+            if (!desc) return alert("اكتب الوصف!");
+            push(ref(db, 'applications'), { sender: currentUser.rpName, sector: sector, desc: desc, date: new Date().toLocaleString() }).then(() => {
+                alert("تم الإرسال!"); navigate('home');
+            });
         };
 
-        function loadSectorDashboard() {
-            const area = document.getElementById('sector-content-area');
+        function loadSectorApps() {
+            const area = document.getElementById('sector-content');
             onValue(ref(db, 'applications'), (snap) => {
-                area.innerHTML = `<h2>طلبات انضمام قطاع: ${currentSector}</h2><hr><br>`;
-                snap.forEach(child => {
-                    const d = child.val();
-                    if(d.sector === currentSector) {
+                area.innerHTML = `<h2>طلبات انضمام قطاع: ${currentSector}</h2><br>`;
+                snap.forEach(item => {
+                    const data = item.val();
+                    if (data.sector === currentSector) {
                         area.innerHTML += `
-                            <div class="rule-item-box">
-                                <h3>المرسل: ${d.sender}</h3>
-                                <p>${d.desc}</p>
-                                <div style="margin-top:15px;">
-                                    <button class="status-btn status-accept" onclick="processApp('${child.key}', 'مقبول', '${d.sender}', '${d.sector}')">قبول</button>
-                                    <button class="status-btn status-reject" onclick="processApp('${child.key}', 'مرفوض', '${d.sender}', '${d.sector}')">رفض</button>
+                            <div class="news-card">
+                                <h3>المرسل: ${data.sender}</h3>
+                                <p>${data.desc}</p>
+                                <div style="margin-top: 15px;">
+                                    <button class="status-btn status-accept" onclick="processApp('${item.key}', 'مقبول', '${data.sender}')">قبول</button>
+                                    <button class="status-btn status-reject" onclick="processApp('${item.key}', 'مرفوض', '${data.sender}')">رفض</button>
                                 </div>
                             </div>
                         `;
@@ -388,99 +684,89 @@
             });
         }
 
-        window.processApp = (key, status, user, sector) => {
-            if(status === 'مقبول') {
-                // إرسال لخانة الأخبار تلقائياً عند القبول
-                push(ref(db, 'news_feed'), {
-                    title: "إعلان قبول جديد",
-                    message: `تم قبول المواطن (${user}) في قطاع (${sector})، ننتظر إبداعك معنا!`,
-                    type: 'success',
-                    date: new Date().toLocaleString()
-                });
-            }
-            remove(ref(db, 'applications/' + key)).then(() => alert("تمت معالجة الطلب"));
+        window.processApp = (key, res, user) => {
+            // نظام الأخبار التلقائي
+            const newsMsg = { 
+                title: "إشعار قبول جديد", 
+                body: `تم قبول المواطن [ ${user} ] في قطاع [ ${currentSector} ]، مبارك لك!`, 
+                date: new Date().toLocaleString() 
+            };
+            if(res === 'مقبول') push(ref(db, 'news_feed'), newsMsg);
+            
+            remove(ref(db, 'applications/' + key)).then(() => alert("تمت المعالجة!"));
         };
 
-        // ------------------------------------------------------------
-        // نظام الأخبار (عرض)
-        // ------------------------------------------------------------
+        // News Feed
         onValue(ref(db, 'news_feed'), (snap) => {
-            const container = document.getElementById('news-feed-container');
-            container.innerHTML = "";
+            const feed = document.getElementById('news-feed');
+            feed.innerHTML = "";
             snap.forEach(child => {
                 const n = child.val();
-                container.innerHTML += `
-                    <div class="rule-item-box" style="border-right-color: ${n.type==='success'?'#27ae60':'#007bff'}">
-                        <h3>${n.title}</h3>
-                        <p>${n.message}</p>
-                        <small style="color:gray;">${n.date}</small>
+                feed.innerHTML += `
+                    <div class="news-card">
+                        <h3 style="color: var(--primary-blue)">${n.title}</h3>
+                        <p style="margin: 10px 0;">${n.body}</p>
+                        <small style="color: gray;">${n.date}</small>
                     </div>
                 `;
             });
         });
 
-        // ------------------------------------------------------------
-        // نظام القوانين (مبوب)
-        // ------------------------------------------------------------
-        onValue(ref(db, 'rules_system'), (snap) => {
-            const navList = document.getElementById('rules-nav-list');
-            navList.innerHTML = "";
+        // Rules System (Mubawwab)
+        onValue(ref(db, 'rules_mubawwab'), (snap) => {
+            const side = document.getElementById('rules-categories');
+            side.innerHTML = "";
             snap.forEach(child => {
-                const catName = child.key;
-                navList.innerHTML += `
-                    <div class="rule-cat-card" onclick="displayCategoryRules('${catName}')">
-                        ${catName}
-                    </div>
-                `;
+                const cat = child.key;
+                side.innerHTML += `<div class="rule-tab" onclick="loadRulesFor('${cat}')">${cat}</div>`;
             });
         });
 
-        window.displayCategoryRules = (catName) => {
-            const area = document.getElementById('rules-display-area');
-            area.innerHTML = `<h2>قوانين قسم: ${catName}</h2><br>`;
-            onValue(ref(db, `rules_system/${catName}`), (snap) => {
+        window.loadRulesFor = (cat) => {
+            const display = document.getElementById('rules-content-display');
+            display.innerHTML = `<h2>${cat}</h2><br>`;
+            onValue(ref(db, 'rules_mubawwab/' + cat), (snap) => {
                 snap.forEach(child => {
                     const r = child.val();
-                    area.innerHTML += `
-                        <div class="rule-item-box">
-                            <h4>${r.title}</h4>
-                            <p>${r.desc}</p>
+                    display.innerHTML += `
+                        <div style="margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                            <strong style="color: var(--primary-blue)">${r.title}</strong>
+                            <p style="margin-top: 5px; color: #ccc;">${r.text}</p>
                         </div>
                     `;
                 });
             });
         };
 
-        // ------------------------------------------------------------
-        // الإدارة العليا (إدارة القوانين)
-        // ------------------------------------------------------------
-        window.loadMasterSection = (type) => {
-            const area = document.getElementById('master-content-area');
-            if(type === 'rules-manage') {
+        // Master Admin Section
+        window.loadAdminSection = (type) => {
+            const area = document.getElementById('admin-master-content');
+            if (type === 'rules') {
                 area.innerHTML = `
                     <h2>إدارة أقسام وقوانين المدينة</h2>
-                    <div class="rule-item-box">
-                        <input id="new-cat-name" class="input-style" placeholder="اسم الخانة (مثال: قوانين الشرطة)">
-                        <input id="new-rule-title" class="input-style" placeholder="اسم القانون">
-                        <textarea id="new-rule-desc" class="input-style" placeholder="شرح القانون بالتفصيل"></textarea>
-                        <button class="btn-login-trigger" style="width:100%;" onclick="saveRuleToDb()">إضافة القانون للقسم</button>
-                    </div>
+                    <input id="m-cat" class="input-style" placeholder="اسم القسم (مثال: قوانين عامة)">
+                    <input id="m-title" class="input-style" placeholder="عنوان القانون">
+                    <textarea id="m-text" class="input-style" placeholder="نص القانون"></textarea>
+                    <button class="btn-login-trigger" style="width: 100%;" onclick="saveRuleMaster()">إضافة القانون</button>
+                `;
+            } else if (type === 'settings') {
+                area.innerHTML = `
+                    <h2>إعدادات السيرفر</h2>
+                    <input id="s-ip" class="input-style" placeholder="IP السيرفر">
+                    <input id="s-disc" class="input-style" placeholder="رابط الديسكورد">
+                    <button class="btn-login-trigger" onclick="saveGeneral()">حفظ</button>
                 `;
             }
         };
 
-        window.saveRuleToDb = () => {
-            const cat = document.getElementById('new-cat-name').value;
-            const title = document.getElementById('new-rule-title').value;
-            const desc = document.getElementById('new-rule-desc').value;
-            if(!cat || !title || !desc) return alert("أكمل البيانات!");
-
-            push(ref(db, `rules_system/${cat}`), { title, desc }).then(() => {
-                alert("تمت إضافة القانون للقسم بنجاح!");
-            });
+        window.saveRuleMaster = () => {
+            const c = document.getElementById('m-cat').value;
+            const t = document.getElementById('m-title').value;
+            const x = document.getElementById('m-text').value;
+            push(ref(db, `rules_mubawwab/${c}`), { title: t, text: x }).then(() => alert("تم!"));
         };
 
-        if(currentUser) document.getElementById('btn-auth-text').innerText = "حسابي: " + currentUser.rpName;
+        if (currentUser) document.getElementById('btn-auth-text').innerText = "حسابي: " + currentUser.rpName;
 
     </script>
 </body>
