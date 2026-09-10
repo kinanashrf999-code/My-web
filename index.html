@@ -756,7 +756,7 @@
           <div>
             <span class="eyebrow">Welcome back</span>
             <h1 id="greeting">Ready for a focused session?</h1>
-            <p class="sub">Everything for your studies lives here — videos, notes, plans, images and links, all saved right in this browser.</p>
+            <p class="sub">Everything for your studies lives here — videos, notes, plans, images and links, connected live to Firebase.</p>
           </div>
           <div class="clock">
             <div class="time" id="clockTime">--:--</div>
@@ -771,158 +771,132 @@
             <p>Lectures, tutorials and recordings, embedded and ready to watch.</p>
             <div class="portal-count"><b id="count-videos">0</b> saved</div>
           </div>
+
           <div class="portal-card" onclick="goTo('notes')" tabindex="0">
             <div class="portal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></div>
-            <h3>Notes</h3>
-            <p>Write, revise and keep every subject's notes organized.</p>
+            <h3>Notes & Summaries</h3>
+            <p>Quick references, lecture notes and thoughts organized cleanly.</p>
             <div class="portal-count"><b id="count-notes">0</b> saved</div>
           </div>
+
           <div class="portal-card" onclick="goTo('plans')" tabindex="0">
-            <div class="portal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></div>
+            <div class="portal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
             <h3>Study Plans</h3>
-            <p>Schedules, goals and tasks — track what's next and what's done.</p>
-            <div class="portal-count"><b id="count-plans">0</b> tasks</div>
+            <p>Milestones, to-do items and upcoming deadline goals.</p>
+            <div class="portal-count"><b id="count-plans">0</b> saved</div>
           </div>
+
           <div class="portal-card" onclick="goTo('gallery')" tabindex="0">
-            <div class="portal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
-            <h3>Image Gallery</h3>
-            <p>Charts, mind maps and diagrams, all in one visual space.</p>
-            <div class="portal-count"><b id="count-gallery">0</b> images</div>
+            <div class="portal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+            <h3>Gallery</h3>
+            <p>Diagrams, mind maps, cheat sheets and visual references.</p>
+            <div class="portal-count"><b id="count-gallery">0</b> saved</div>
           </div>
+
           <div class="portal-card" onclick="goTo('links')" tabindex="0">
             <div class="portal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
-            <h3>Links Hub</h3>
-            <p>Class links and tools, one click away, always up to date.</p>
+            <h3>Resource Links</h3>
+            <p>Bookmarked articles, docs, tools and external sites.</p>
             <div class="portal-count"><b id="count-links">0</b> saved</div>
           </div>
-          <div class="portal-card" onclick="goTo('control')" tabindex="0">
-            <div class="portal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
-            <h3>Control Room</h3>
-            <p>Add new content and manage everything you've saved.</p>
-            <div class="portal-count">Manage everything →</div>
-          </div>
         </div>
 
         <div class="dash-lower">
+          <div class="panel">
+            <h3>Recent Items</h3>
+            <div id="dash-recents"><div class="empty-inline">No items added yet. Click "Control Room" to get started!</div></div>
+          </div>
           <div class="panel focus-panel">
-            <h3>⏱ Focus Timer</h3>
-            <div class="focus-display" id="focusDisplay">25:00</div>
-            <div class="focus-mode" id="focusMode">Focus session</div>
+            <h3>Focus Timer</h3>
+            <div class="focus-display" id="focusTime">25:00</div>
+            <div class="focus-mode" id="focusModeLabel">Pomodoro Session</div>
             <div class="focus-controls">
-              <button class="btn btn-primary btn-sm" id="focusStartBtn" onclick="toggleFocusTimer()">Start</button>
-              <button class="btn btn-ghost btn-sm" onclick="resetFocusTimer()">Reset</button>
+              <button class="btn btn-sm" onclick="toggleFocusTimer()" id="focusStartBtn">Start</button>
+              <button class="btn btn-sm btn-ghost" onclick="resetFocusTimer()">Reset</button>
             </div>
-          </div>
-          <div class="panel">
-            <h3>🔥 Study Streak</h3>
+            <hr style="border:none; border-top:1px solid var(--border); margin:20px 0 16px;">
+            <h3>Study Streak</h3>
             <div class="streak-display">
-              <span class="streak-number" id="streakNumber">0</span>
-              <span class="streak-label">day<span id="streakPlural">s</span> in a row</span>
+              <span class="streak-number" id="streakNum">0</span>
+              <span class="streak-label">days active</span>
             </div>
-            <p class="empty-inline" id="streakSub">Open your study space daily to build a streak.</p>
-          </div>
-        </div>
-
-        <div class="dash-lower">
-          <div class="panel">
-            <h3>🎯 Up next in your plans</h3>
-            <div id="dashUpcoming"></div>
-          </div>
-          <div class="panel">
-            <h3>🕮 Recent notes</h3>
-            <div id="dashRecentNotes"></div>
           </div>
         </div>
       </section>
 
-      <!-- VIDEO HUB -->
+      <!-- VIDEOS VIEW -->
       <section class="view" id="view-videos">
         <div class="section-head">
-          <span class="eyebrow">Watch &amp; review</span>
+          <span class="eyebrow">Collection</span>
           <h1>Video Hub</h1>
-          <p class="sub">All your lecture recordings and tutorials in one place. Add new ones from the Control Room.</p>
+          <p class="sub">Embedded tutorials and lectures for instant watching.</p>
         </div>
-        <div class="toolbar">
-          <div></div>
-          <button class="btn btn-primary" onclick="goTo('control','videos')">+ Add a video</button>
-        </div>
-        <div class="tag-chip-row" id="videosTagChips"></div>
-        <div class="card-grid" id="videosGrid"></div>
+        <div class="tag-chip-row" id="tagChips-videos"></div>
+        <div class="card-grid" id="grid-videos"></div>
       </section>
 
-      <!-- NOTES -->
+      <!-- NOTES VIEW -->
       <section class="view" id="view-notes">
         <div class="section-head">
-          <span class="eyebrow">Write &amp; remember</span>
-          <h1>Notes</h1>
-          <p class="sub">Your written notes, organized by subject and always saved automatically.</p>
+          <span class="eyebrow">Collection</span>
+          <h1>Notes & Summaries</h1>
+          <p class="sub">Key concepts, definitions and quick study cheat sheets.</p>
         </div>
-        <div class="toolbar">
-          <div></div>
-          <button class="btn btn-primary" onclick="goTo('control','notes')">+ New note</button>
-        </div>
-        <div class="tag-chip-row" id="notesTagChips"></div>
-        <div class="card-grid" id="notesGrid"></div>
+        <div class="tag-chip-row" id="tagChips-notes"></div>
+        <div class="card-grid" id="grid-notes"></div>
       </section>
 
-      <!-- PLANS -->
+      <!-- PLANS VIEW -->
       <section class="view" id="view-plans">
         <div class="section-head">
-          <span class="eyebrow">Plan &amp; track</span>
-          <h1>Study Plans</h1>
-          <p class="sub">Schedules, goals and tasks. Tick a task off the moment it's done.</p>
-        </div>
-        <div class="panel" style="margin-bottom:24px;">
-          <h3>Overall progress</h3>
-          <div class="progress-track"><div class="progress-fill" id="planProgressFill" style="width:0%"></div></div>
-          <p class="empty-inline" id="planProgressLabel" style="padding-top:8px;">No tasks yet</p>
-        </div>
-        <div class="toolbar">
-          <div class="view-toggle">
-            <button id="plansViewListBtn" class="active" onclick="setPlansView('list')">List</button>
-            <button id="plansViewCalBtn" onclick="setPlansView('calendar')">Calendar</button>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+            <div>
+              <span class="eyebrow">Collection</span>
+              <h1>Study Plans</h1>
+              <p class="sub">Tasks, milestones and trackable study goals.</p>
+            </div>
+            <div class="view-toggle">
+              <button id="planViewListBtn" class="active" onclick="switchPlanView('list')">List View</button>
+              <button id="planViewCalBtn" onclick="switchPlanView('cal')">Calendar</button>
+            </div>
           </div>
-          <button class="btn btn-primary" onclick="goTo('control','plans')">+ Add a task</button>
         </div>
-        <div class="tag-chip-row" id="plansTagChips"></div>
-        <div class="card-grid" id="plansGrid"></div>
-        <div class="calendar-wrap" id="plansCalendarWrap">
+
+        <div id="planListView">
+          <div class="tag-chip-row" id="tagChips-plans"></div>
+          <div class="card-grid" id="grid-plans"></div>
+        </div>
+
+        <div id="planCalView" class="calendar-wrap">
           <div class="calendar-nav">
-            <button onclick="calendarShift(-1)">‹</button>
-            <div class="calendar-title" id="calendarTitle"></div>
-            <button onclick="calendarShift(1)">›</button>
+            <button onclick="changeCalMonth(-1)">&larr;</button>
+            <div class="calendar-title" id="calTitle">Month Year</div>
+            <button onclick="changeCalMonth(1)">&rarr;</button>
           </div>
-          <div class="calendar-grid" id="calendarGrid"></div>
+          <div class="calendar-grid" id="calGrid"></div>
         </div>
       </section>
 
-      <!-- GALLERY -->
+      <!-- GALLERY VIEW -->
       <section class="view" id="view-gallery">
         <div class="section-head">
-          <span class="eyebrow">Visual reference</span>
-          <h1>Image Gallery</h1>
-          <p class="sub">Charts, diagrams and mind maps — click any image to view it full size.</p>
+          <span class="eyebrow">Collection</span>
+          <h1>Gallery</h1>
+          <p class="sub">Visual aids, diagrams and reference photos.</p>
         </div>
-        <div class="toolbar">
-          <div></div>
-          <button class="btn btn-primary" onclick="goTo('control','gallery')">+ Add an image</button>
-        </div>
-        <div class="gallery-grid" id="galleryGrid"></div>
+        <div class="tag-chip-row" id="tagChips-gallery"></div>
+        <div class="gallery-grid" id="grid-gallery"></div>
       </section>
 
-      <!-- LINKS -->
+      <!-- LINKS VIEW -->
       <section class="view" id="view-links">
         <div class="section-head">
-          <span class="eyebrow">One click away</span>
-          <h1>Links Hub</h1>
-          <p class="sub">Zoom classes, tools and resources you use often.</p>
+          <span class="eyebrow">Collection</span>
+          <h1>Resource Links</h1>
+          <p class="sub">Useful documentation, articles and tools.</p>
         </div>
-        <div class="toolbar">
-          <div></div>
-          <button class="btn btn-primary" onclick="goTo('control','links')">+ Add a link</button>
-        </div>
-        <div class="tag-chip-row" id="linksTagChips"></div>
-        <div class="card-grid" id="linksGrid"></div>
+        <div class="tag-chip-row" id="tagChips-links"></div>
+        <div class="card-grid" id="grid-links"></div>
       </section>
 
       <!-- CONTROL ROOM -->
@@ -930,1156 +904,716 @@
         <div class="cr-banner">
           <div>
             <h2>Control Room</h2>
-            <p>Add new content of any kind and manage everything you've saved — rename or delete any item.</p>
+            <p>Add new items or manage existing ones. All changes sync directly to Firebase.</p>
           </div>
-          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-            <div id="crTotalBadge" class="due-badge">0 items total</div>
-            <button class="btn btn-ghost btn-sm" onclick="exportBackup()">⬇ Export backup</button>
-            <button class="btn btn-ghost btn-sm" onclick="document.getElementById('importFileInput').click()">⬆ Import backup</button>
-            <input type="file" id="importFileInput" accept="application/json" style="display:none" onchange="importBackup(this.files[0])">
-          </div>
+          <button class="btn btn-primary" onclick="toggleForm()">+ Add New Item</button>
         </div>
 
-        <div class="cr-tabs" id="crTabs">
-          <button class="cr-tab active" data-tab="videos" onclick="setCrTab('videos')">Videos</button>
-          <button class="cr-tab" data-tab="notes" onclick="setCrTab('notes')">Notes</button>
-          <button class="cr-tab" data-tab="plans" onclick="setCrTab('plans')">Study Plans</button>
-          <button class="cr-tab" data-tab="gallery" onclick="setCrTab('gallery')">Gallery</button>
-          <button class="cr-tab" data-tab="links" onclick="setCrTab('links')">Links</button>
-        </div>
-
-        <!-- Videos pane -->
-        <div class="cr-pane active" id="cr-videos">
-          <div class="toolbar"><h3 style="font-family:Inter;font-size:15px;">Add a video</h3>
-            <button class="btn btn-ghost btn-sm" onclick="toggleForm('form-video')">+ New</button>
-          </div>
-          <div class="form-card" id="form-video">
+        <!-- Add item form -->
+        <div class="form-card" id="addFormCard">
+          <h3 style="margin-bottom:16px;" id="formHeading">Add New Content</h3>
+          <form id="itemForm" onsubmit="handleFormSubmit(event)">
+            <input type="hidden" id="editItemId" value="">
             <div class="form-grid">
-              <div class="field"><label>Title</label><input type="text" id="video-title" placeholder="e.g. Photosynthesis explained"></div>
-              <div class="field"><label>Video URL (YouTube, Vimeo, or direct link)</label><input type="url" id="video-url" placeholder="https://..."></div>
-              <div class="field"><label>Subject / tag (optional)</label><input type="text" id="video-tag" placeholder="e.g. Biology"></div>
+              <div class="field">
+                <label for="itemType">Category / Type</label>
+                <select id="itemType" onchange="adjustFormFields(this.value)">
+                  <option value="videos">Video</option>
+                  <option value="notes">Note / Summary</option>
+                  <option value="plans">Study Plan / Task</option>
+                  <option value="gallery">Gallery Image</option>
+                  <option value="links">Resource Link</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="itemTitle">Title</label>
+                <input type="text" id="itemTitle" required placeholder="e.g. Chapter 4 Summary">
+              </div>
             </div>
+
+            <div class="form-grid" style="margin-top:14px;">
+              <div class="field" id="urlField">
+                <label for="itemUrl" id="urlLabel">URL / Embed Link</label>
+                <input type="url" id="itemUrl" placeholder="https://...">
+              </div>
+              <div class="field" id="tagField">
+                <label for="itemTag">Tag / Subject</label>
+                <input type="text" id="itemTag" placeholder="e.g. Math, Physics, Exam">
+              </div>
+            </div>
+
+            <div class="form-grid" style="margin-top:14px;" id="dateGrid">
+              <div class="field" id="dateField">
+                <label for="itemDate">Due Date / Target Date</label>
+                <input type="date" id="itemDate">
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:14px;" id="contentField">
+              <label for="itemContent" id="contentLabel">Content / Description (Markdown supported)</label>
+              <textarea id="itemContent" placeholder="Write details here..."></textarea>
+            </div>
+
             <div class="form-actions">
-              <button class="btn btn-ghost" onclick="toggleForm('form-video')">Cancel</button>
-              <button class="btn btn-primary" onclick="submitVideo()">Save video</button>
+              <button type="button" class="btn btn-ghost" onclick="toggleForm(false)">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Item</button>
             </div>
-          </div>
-          <div class="cr-list" id="cr-list-videos"></div>
+          </form>
         </div>
 
-        <!-- Notes pane -->
-        <div class="cr-pane" id="cr-notes">
-          <div class="toolbar"><h3 style="font-family:Inter;font-size:15px;">Add a note</h3>
-            <button class="btn btn-ghost btn-sm" onclick="toggleForm('form-note')">+ New</button>
-          </div>
-          <div class="form-card" id="form-note">
-            <div class="form-grid single">
-              <div class="field"><label>Title</label><input type="text" id="note-title" placeholder="e.g. Chapter 4 — Cell Biology"></div>
-              <div class="field"><label>Subject / tag (optional)</label><input type="text" id="note-tag" placeholder="e.g. Biology"></div>
-              <div class="field"><label>Content (supports **bold**, *italic*, `code`, # headers, - lists)</label><textarea id="note-content" placeholder="Write your notes here..."></textarea></div>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-ghost" onclick="toggleForm('form-note')">Cancel</button>
-              <button class="btn btn-primary" onclick="submitNote()">Save note</button>
-            </div>
-          </div>
-          <div class="cr-list" id="cr-list-notes"></div>
+        <!-- Control Room tabs -->
+        <div class="cr-tabs">
+          <button class="cr-tab active" onclick="switchCrTab('videos')" id="crtab-videos">Videos</button>
+          <button class="cr-tab" onclick="switchCrTab('notes')" id="crtab-notes">Notes</button>
+          <button class="cr-tab" onclick="switchCrTab('plans')" id="crtab-plans">Plans</button>
+          <button class="cr-tab" onclick="switchCrTab('gallery')" id="crtab-gallery">Gallery</button>
+          <button class="cr-tab" onclick="switchCrTab('links')" id="crtab-links">Links</button>
         </div>
 
-        <!-- Plans pane -->
-        <div class="cr-pane" id="cr-plans">
-          <div class="toolbar"><h3 style="font-family:Inter;font-size:15px;">Add a task or goal</h3>
-            <button class="btn btn-ghost btn-sm" onclick="toggleForm('form-plan')">+ New</button>
-          </div>
-          <div class="form-card" id="form-plan">
-            <div class="form-grid">
-              <div class="field"><label>Task / Goal</label><input type="text" id="plan-title" placeholder="e.g. Finish algebra worksheet"></div>
-              <div class="field"><label>Due date (optional)</label><input type="date" id="plan-due"></div>
-              <div class="field"><label>Subject / tag (optional)</label><input type="text" id="plan-tag" placeholder="e.g. Math"></div>
-              <div class="field" style="grid-column:1/-1;"><label>Details (optional)</label><textarea id="plan-desc" placeholder="Any extra details..."></textarea></div>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-ghost" onclick="toggleForm('form-plan')">Cancel</button>
-              <button class="btn btn-primary" onclick="submitPlan()">Save task</button>
-            </div>
-          </div>
-          <div class="cr-list" id="cr-list-plans"></div>
-        </div>
-
-        <!-- Gallery pane -->
-        <div class="cr-pane" id="cr-gallery">
-          <div class="toolbar"><h3 style="font-family:Inter;font-size:15px;">Add an image</h3>
-            <button class="btn btn-ghost btn-sm" onclick="toggleForm('form-image')">+ New</button>
-          </div>
-          <div class="form-card" id="form-image">
-            <div class="form-grid">
-              <div class="field"><label>Title</label><input type="text" id="image-title" placeholder="e.g. Mitosis diagram"></div>
-              <div class="field"><label>Image URL</label><input type="url" id="image-url" placeholder="https://..."></div>
-              <div class="field" style="grid-column:1/-1;"><label>...or upload a file</label><input type="file" id="image-file" accept="image/*"></div>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-ghost" onclick="toggleForm('form-image')">Cancel</button>
-              <button class="btn btn-primary" onclick="submitImage()">Save image</button>
-            </div>
-          </div>
-          <div class="cr-list" id="cr-list-gallery"></div>
-        </div>
-
-        <!-- Links pane -->
-        <div class="cr-pane" id="cr-links">
-          <div class="toolbar"><h3 style="font-family:Inter;font-size:15px;">Add a link</h3>
-            <button class="btn btn-ghost btn-sm" onclick="toggleForm('form-link')">+ New</button>
-          </div>
-          <div class="form-card" id="form-link">
-            <div class="form-grid">
-              <div class="field"><label>Title</label><input type="text" id="link-title" placeholder="e.g. Zoom — Chemistry class"></div>
-              <div class="field"><label>URL</label><input type="url" id="link-url" placeholder="https://..."></div>
-              <div class="field"><label>Subject / tag (optional)</label><input type="text" id="link-tag" placeholder="e.g. Chemistry"></div>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-ghost" onclick="toggleForm('form-link')">Cancel</button>
-              <button class="btn btn-primary" onclick="submitLink()">Save link</button>
-            </div>
-          </div>
-          <div class="cr-list" id="cr-list-links"></div>
-        </div>
-
+        <div class="cr-pane active" id="crpane-videos"><div class="cr-list" id="crlist-videos"></div></div>
+        <div class="cr-pane" id="crpane-notes"><div class="cr-list" id="crlist-notes"></div></div>
+        <div class="cr-pane" id="crpane-plans"><div class="cr-list" id="crlist-plans"></div></div>
+        <div class="cr-pane" id="crpane-gallery"><div class="cr-list" id="crlist-gallery"></div></div>
+        <div class="cr-pane" id="crpane-links"><div class="cr-list" id="crlist-links"></div></div>
       </section>
 
     </div>
   </main>
 
-  <footer>Your data stays saved in this browser, on this device.</footer>
+  <footer>
+    <p>My Study Space &bull; Connected with Firebase</p>
+  </footer>
 </div>
 
+<!-- Lightbox for Gallery -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+  <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
   <img id="lightboxImg" src="" alt="">
-  <div class="lightbox-caption" id="lightboxCaption"></div>
+  <div class="lightbox-caption" id="lightboxCap"></div>
 </div>
 
-<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg"></span></div>
+<!-- Toast notification -->
+<div class="toast" id="toast"><div class="dot"></div><span id="toastMsg">Action completed</span></div>
+
+<!-- Cursor follower -->
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- FIREBASE SDK & APP LOGIC -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { 
+    getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc 
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBkerMPRQ3sYvsQffGhPN0dFelvYOq5_m8",
+    authDomain: "school-rens.firebaseapp.com",
+    projectId: "school-rens",
+    storageBucket: "school-rens.firebasestorage.app",
+    messagingSenderId: "952202754207",
+    appId: "1:952202754207:web:41a1916ad293c9ee8d4aaa",
+    measurementId: "G-X2ZEQWRYM9"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Global State
+  window.db = db;
+  window.store = { videos:[], notes:[], plans:[], gallery:[], links:[] };
+  window.activeFilters = { videos:'all', notes:'all', plans:'all', gallery:'all', links:'all' };
+  window.calDate = new Date();
+
+  // Listen live to Firebase Collections
+  const collections = ['videos', 'notes', 'plans', 'gallery', 'links'];
+  
+  collections.forEach(colName => {
+    onSnapshot(collection(db, colName), (snapshot) => {
+      window.store[colName] = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      window.renderAll();
+    });
+  });
+
+  // Database helper functions
+  window.addItemToDB = async function(col, item) {
+    try {
+      await addDoc(collection(db, col), item);
+      window.showToast("Item added successfully!");
+    } catch(e) {
+      console.error(e);
+      window.showToast("Failed to save item.", true);
+    }
+  };
+
+  window.deleteItemFromDB = async function(col, id) {
+    if(!confirm("Are you sure you want to delete this item?")) return;
+    try {
+      await deleteDoc(doc(db, col, id));
+      window.showToast("Item deleted.");
+    } catch(e) {
+      window.showToast("Failed to delete.", true);
+    }
+  };
+
+  window.updateItemInDB = async function(col, id, data) {
+    try {
+      await updateDoc(doc(db, col, id), data);
+      window.showToast("Updated successfully.");
+    } catch(e) {
+      window.showToast("Failed to update.", true);
+    }
+  };
+</script>
 
 <script>
-/* ============================================================
-   STORAGE — IndexedDB. No accounts, no setup, no internet
-   needed. Data lives in this browser, on this device. Much
-   more room than localStorage (typically hundreds of MB+).
-   ============================================================ */
-const DB_NAME = 'study_space_db';
-const DB_STORE = 'study_space_store';
-const DB_RECORD_ID = 'main';
-const COLLECTIONS = ['videos', 'notes', 'plans', 'gallery', 'links'];
-
-let data = { videos: [], notes: [], plans: [], gallery: [], links: [] };
-let dbInstance = null;
-
-function openDatabase(){
-  return new Promise((resolve, reject) => {
-    if(!window.indexedDB){ reject(new Error('IndexedDB unsupported')); return; }
-    const req = indexedDB.open(DB_NAME, 1);
-    req.onupgradeneeded = () => { req.result.createObjectStore(DB_STORE, {keyPath:'id'}); };
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
-
-async function loadData(){
-  try{
-    dbInstance = await openDatabase();
-    const record = await new Promise((resolve, reject) => {
-      const tx = dbInstance.transaction(DB_STORE, 'readonly');
-      const req = tx.objectStore(DB_STORE).get(DB_RECORD_ID);
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error);
-    });
-    if(record && record.payload){
-      data = Object.assign({videos:[],notes:[],plans:[],gallery:[],links:[]}, record.payload);
-    }
-  }catch(e){
-    console.error('Could not load saved data.', e);
-  }
-}
-
-async function saveData(){
-  try{
-    if(!dbInstance) dbInstance = await openDatabase();
-    await new Promise((resolve, reject) => {
-      const tx = dbInstance.transaction(DB_STORE, 'readwrite');
-      tx.objectStore(DB_STORE).put({id:DB_RECORD_ID, payload:data});
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => reject(tx.error);
-    });
-  }catch(e){
-    console.error(e);
-    showToast('Storage is full or unavailable — could not save.', true);
-  }
-}
-
-function uid(){
-  return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8);
-}
-
-function escapeHtml(str){
-  if(str === undefined || str === null) return '';
-  return String(str)
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'",'&#039;');
-}
-
-function formatDate(ts){
-  if(!ts) return '';
-  const d = new Date(ts);
-  return d.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
-}
-
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
-function goTo(view, crTab){
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + view).classList.add('active');
-  document.querySelectorAll('.navlink').forEach(n => n.classList.toggle('active', n.dataset.view === view));
-  window.scrollTo({top:0, behavior:'smooth'});
-  if(view === 'control'){
-    setCrTab(crTab || currentCrTab || 'videos');
-  }
-  renderAll();
-}
-
-let currentCrTab = 'videos';
-function setCrTab(tab){
-  currentCrTab = tab;
-  document.querySelectorAll('.cr-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-  document.querySelectorAll('.cr-pane').forEach(p => p.classList.remove('active'));
-  document.getElementById('cr-' + tab).classList.add('active');
-}
-
-/* ============================================================
-   TAG FILTERING — per-section "subject" chips
-   ============================================================ */
-const activeTagFilter = {videos:null, notes:null, plans:null, links:null};
-
-function setTagFilter(type, tag){
-  activeTagFilter[type] = (activeTagFilter[type] === tag) ? null : tag;
-  renderAll();
-}
-
-function renderTagChips(type){
-  const el = document.getElementById(type + 'TagChips');
-  if(!el) return;
-  const tags = [...new Set(data[type].map(i => i.tag).filter(Boolean))].sort();
-  if(!tags.length){ el.innerHTML = ''; return; }
-  el.innerHTML = `<button class="tag-chip ${!activeTagFilter[type] ? 'active' : ''}" onclick="setTagFilter('${type}', null)">All</button>` +
-    tags.map(t => `<button class="tag-chip ${activeTagFilter[type] === t ? 'active' : ''}" onclick="setTagFilter('${type}', '${escapeHtml(t).replace(/'/g,"\\'")}')">${escapeHtml(t)}</button>`).join('');
-}
-
-function filteredItems(type){
-  const tag = activeTagFilter[type];
-  return tag ? data[type].filter(i => i.tag === tag) : data[type];
-}
-
-function toggleForm(id){
-  document.getElementById(id).classList.toggle('open');
-}
-
-/* ============================================================
-   FOCUS TIMER — simple Pomodoro-style 25/5 cycle. Runs locally
-   in this tab only (not synced), like any desk timer would.
-   ============================================================ */
-const FOCUS_MINUTES = 25, BREAK_MINUTES = 5;
-let focusSecondsLeft = FOCUS_MINUTES * 60;
-let focusIsBreak = false;
-let focusRunning = false;
-let focusInterval = null;
-
-function formatFocusTime(sec){
-  const m = Math.floor(sec / 60).toString().padStart(2,'0');
-  const s = (sec % 60).toString().padStart(2,'0');
-  return `${m}:${s}`;
-}
-
-function renderFocusDisplay(){
-  const disp = document.getElementById('focusDisplay');
-  const mode = document.getElementById('focusMode');
-  if(!disp) return;
-  disp.textContent = formatFocusTime(focusSecondsLeft);
-  mode.textContent = focusIsBreak ? 'Break time' : 'Focus session';
-}
-
-function toggleFocusTimer(){
-  const btn = document.getElementById('focusStartBtn');
-  if(focusRunning){
-    clearInterval(focusInterval);
-    focusRunning = false;
-    btn.textContent = 'Resume';
-  } else {
-    focusRunning = true;
-    btn.textContent = 'Pause';
-    focusInterval = setInterval(() => {
-      focusSecondsLeft--;
-      if(focusSecondsLeft <= 0){
-        focusIsBreak = !focusIsBreak;
-        focusSecondsLeft = (focusIsBreak ? BREAK_MINUTES : FOCUS_MINUTES) * 60;
-        showToast(focusIsBreak ? 'Focus session done — take a 5 minute break.' : 'Break\'s over — back to it.');
-      }
-      renderFocusDisplay();
-    }, 1000);
-  }
-}
-
-function resetFocusTimer(){
-  clearInterval(focusInterval);
-  focusRunning = false;
-  focusIsBreak = false;
-  focusSecondsLeft = FOCUS_MINUTES * 60;
-  document.getElementById('focusStartBtn').textContent = 'Start';
-  renderFocusDisplay();
-}
-
-/* ============================================================
-   TOAST
-   ============================================================ */
-let toastTimer;
-function showToast(msg, danger){
-  const t = document.getElementById('toast');
-  document.getElementById('toastMsg').textContent = msg;
-  t.classList.toggle('danger', !!danger);
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
-}
-
-/* ============================================================
-   VIDEO EMBED HELPER
-   ============================================================ */
-function getEmbedInfo(url){
-  try{
-    const u = new URL(url);
-    // YouTube
-    if(u.hostname.includes('youtube.com') && u.searchParams.get('v')){
-      return {type:'iframe', src:'https://www.youtube.com/embed/' + u.searchParams.get('v')};
-    }
-    if(u.hostname.includes('youtu.be')){
-      const id = u.pathname.replace('/','');
-      return {type:'iframe', src:'https://www.youtube.com/embed/' + id};
-    }
-    if(u.hostname.includes('youtube.com') && u.pathname.startsWith('/embed/')){
-      return {type:'iframe', src:url};
-    }
-    // Vimeo
-    if(u.hostname.includes('vimeo.com')){
-      const id = u.pathname.split('/').filter(Boolean).pop();
-      return {type:'iframe', src:'https://player.vimeo.com/video/' + id};
-    }
-    // Direct video file
-    if(/\.(mp4|webm|ogg)$/i.test(u.pathname)){
-      return {type:'video', src:url};
-    }
-    return {type:'link', src:url};
-  }catch(e){
-    return {type:'link', src:url};
-  }
-}
-
-/* ============================================================
-   ADD ITEM FUNCTIONS — write straight to Firestore. The
-   real-time listener above picks up the change automatically
-   and re-renders, on every device, so there's no need to touch
-   the local `data` array here.
-   ============================================================ */
-async function submitVideo(){
-  const title = document.getElementById('video-title').value.trim();
-  const url = document.getElementById('video-url').value.trim();
-  const tag = document.getElementById('video-tag').value.trim();
-  if(!title || !url){ showToast('Please add a title and a URL.', true); return; }
-  data.videos.unshift({id: uid(), title, url, tag: tag || null, createdAt: Date.now()});
-  await saveData();
-  document.getElementById('video-title').value = '';
-  document.getElementById('video-url').value = '';
-  document.getElementById('video-tag').value = '';
-  toggleForm('form-video');
-  renderAll();
-  showToast('Video saved.');
-}
-
-async function submitNote(){
-  const title = document.getElementById('note-title').value.trim();
-  const content = document.getElementById('note-content').value.trim();
-  const tag = document.getElementById('note-tag').value.trim();
-  if(!title){ showToast('Please give your note a title.', true); return; }
-  data.notes.unshift({id: uid(), title, content, tag: tag || null, createdAt: Date.now(), updatedAt: Date.now()});
-  await saveData();
-  document.getElementById('note-title').value = '';
-  document.getElementById('note-content').value = '';
-  document.getElementById('note-tag').value = '';
-  toggleForm('form-note');
-  renderAll();
-  showToast('Note saved.');
-}
-
-async function submitPlan(){
-  const title = document.getElementById('plan-title').value.trim();
-  const due = document.getElementById('plan-due').value;
-  const desc = document.getElementById('plan-desc').value.trim();
-  const tag = document.getElementById('plan-tag').value.trim();
-  if(!title){ showToast('Please name the task.', true); return; }
-  data.plans.unshift({id: uid(), title, due, desc, tag: tag || null, done:false, createdAt: Date.now()});
-  await saveData();
-  document.getElementById('plan-title').value = '';
-  document.getElementById('plan-due').value = '';
-  document.getElementById('plan-desc').value = '';
-  document.getElementById('plan-tag').value = '';
-  toggleForm('form-plan');
-  renderAll();
-  showToast('Task added.');
-}
-
-async function submitImage(){
-  const title = document.getElementById('image-title').value.trim();
-  const url = document.getElementById('image-url').value.trim();
-  const fileInput = document.getElementById('image-file');
-  if(!title){ showToast('Please give your image a title.', true); return; }
-
-  function finish(src){
-    data.gallery.unshift({id: uid(), title, src, createdAt: Date.now()});
-    saveData().then(() => {
-      document.getElementById('image-title').value = '';
-      document.getElementById('image-url').value = '';
-      fileInput.value = '';
-      toggleForm('form-image');
-      renderAll();
-      showToast('Image saved.');
+  // ---------- Custom Cursor ----------
+  const dot = document.getElementById('cursorDot');
+  const glow = document.getElementById('cursorGlow');
+  
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.body.classList.add('has-fine-pointer');
+    window.addEventListener('mousemove', (e) => {
+      dot.classList.add('visible');
+      glow.classList.add('visible');
+      dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+      glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
     });
   }
 
-  if(fileInput.files && fileInput.files[0]){
-    const reader = new FileReader();
-    reader.onload = e => finish(e.target.result); // stored as base64 in IndexedDB
-    reader.onerror = () => showToast('Could not read that file.', true);
-    reader.readAsDataURL(fileInput.files[0]);
-  } else if(url){
-    finish(url);
-  } else {
-    showToast('Add an image URL or upload a file.', true);
+  // ---------- Navigation ----------
+  function goTo(viewName) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.navlink').forEach(n => n.classList.remove('active'));
+
+    const targetView = document.getElementById('view-' + viewName);
+    if(targetView) targetView.classList.add('active');
+
+    const targetLink = document.querySelector(`.navlink[data-view="${viewName}"]`);
+    if(targetLink) targetLink.classList.add('active');
+
+    window.scrollTo({top:0, behavior:'smooth'});
   }
-}
 
-async function submitLink(){
-  const title = document.getElementById('link-title').value.trim();
-  const url = document.getElementById('link-url').value.trim();
-  const tag = document.getElementById('link-tag').value.trim();
-  if(!title || !url){ showToast('Please add a title and a URL.', true); return; }
-  data.links.unshift({id: uid(), title, url, tag: tag || null, createdAt: Date.now()});
-  await saveData();
-  document.getElementById('link-title').value = '';
-  document.getElementById('link-url').value = '';
-  document.getElementById('link-tag').value = '';
-  toggleForm('form-link');
-  renderAll();
-  showToast('Link saved.');
-}
-
-/* ============================================================
-   DELETE / RENAME (shared across sections & control room)
-   ============================================================ */
-async function deleteItem(type, id){
-  const item = data[type].find(i => i.id === id);
-  if(!item) return;
-  if(!confirm('Delete "' + item.title + '"? This cannot be undone.')) return;
-  data[type] = data[type].filter(i => i.id !== id);
-  await saveData();
-  renderAll();
-  showToast('Deleted.', true);
-}
-
-async function renameItem(type, id, inputEl){
-  const item = data[type].find(i => i.id === id);
-  if(!item) return;
-  const val = inputEl.value.trim();
-  if(!val){ showToast('Name cannot be empty.', true); return; }
-  item.title = val;
-  if(type === 'notes') item.updatedAt = Date.now();
-  await saveData();
-  renderAll();
-  showToast('Renamed.');
-}
-
-function startRename(type, id, btn){
-  const row = btn.closest('[data-item-row]');
-  const nameSpan = row.querySelector('.name-display');
-  if(!nameSpan) return;
-  const current = nameSpan.textContent;
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.className = 'rename-input';
-  input.value = current;
-  input.onkeydown = (e) => {
-    if(e.key === 'Enter'){ renameItem(type, id, input); }
-    if(e.key === 'Escape'){ renderAll(); }
-  };
-  nameSpan.replaceWith(input);
-  input.focus();
-  input.select();
-  btn.textContent = 'Save';
-  btn.setAttribute('onclick', `renameItem('${type}','${id}', this.closest('[data-item-row]').querySelector('.rename-input'))`);
-}
-
-async function togglePlanDone(id){
-  const item = data.plans.find(i => i.id === id);
-  if(!item) return;
-  item.done = !item.done;
-  await saveData();
-  renderAll();
-}
-
-/* ============================================================
-   RENDER: DASHBOARD
-   ============================================================ */
-function renderDashboard(){
-  document.getElementById('count-videos').textContent = data.videos.length;
-  document.getElementById('count-notes').textContent = data.notes.length;
-  document.getElementById('count-plans').textContent = data.plans.length;
-  document.getElementById('count-gallery').textContent = data.gallery.length;
-  document.getElementById('count-links').textContent = data.links.length;
-
-  const upcoming = data.plans.filter(p => !p.done).slice(0,4);
-  const upEl = document.getElementById('dashUpcoming');
-  upEl.innerHTML = upcoming.length ? upcoming.map(p => `
-    <div class="mini-row">
-      <span>${escapeHtml(p.title)}</span>
-      ${p.due ? `<span class="tag">${escapeHtml(p.due)}</span>` : `<span class="tag">no date</span>`}
-    </div>
-  `).join('') : `<p class="empty-inline">No tasks yet — add one in the Control Room.</p>`;
-
-  const recentNotes = [...data.notes].slice(0,4);
-  const rnEl = document.getElementById('dashRecentNotes');
-  rnEl.innerHTML = recentNotes.length ? recentNotes.map(n => `
-    <div class="mini-row">
-      <span>${escapeHtml(n.title)}</span>
-      <span class="tag">${formatDate(n.updatedAt || n.createdAt)}</span>
-    </div>
-  `).join('') : `<p class="empty-inline">No notes yet — write your first one.</p>`;
-}
-
-function updateClock(){
-  const now = new Date();
-  document.getElementById('clockTime').textContent = now.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'});
-  document.getElementById('clockDate').textContent = now.toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric'});
-  const hour = now.getHours();
-  let greet = 'Ready for a focused session?';
-  if(hour < 5) greet = 'Studying late? Stay steady.';
-  else if(hour < 12) greet = 'Good morning — let\'s get started.';
-  else if(hour < 17) greet = 'Good afternoon — keep the momentum.';
-  else if(hour < 21) greet = 'Good evening — time to review.';
-  else greet = 'Winding down? A little review goes a long way.';
-  document.getElementById('greeting').textContent = greet;
-}
-
-/* ============================================================
-   STUDY STREAK — one shared counter stored in Firestore, so it
-   reflects days you opened the site from ANY of your devices.
-   Runs once per page load.
-   ============================================================ */
-function dateStr(d){ return d.toISOString().slice(0,10); }
-
-async function updateStreak(){
-  try{
-    const today = dateStr(new Date());
-    const yesterday = dateStr(new Date(Date.now() - 86400000));
-    let saved = null;
-    try{ saved = JSON.parse(localStorage.getItem('studySpaceStreak') || 'null'); }catch(e){}
-
-    let streak = 1;
-    if(saved){
-      if(saved.lastDate === today){
-        streak = saved.streak || 1; // already counted today, don't double-count
-      } else if(saved.lastDate === yesterday){
-        streak = (saved.streak || 0) + 1; // consecutive day
-      } else {
-        streak = 1; // streak broken, restart
-      }
-    }
-    localStorage.setItem('studySpaceStreak', JSON.stringify({lastDate: today, streak}));
-    renderStreak(streak);
-  }catch(e){
-    console.error('Streak update failed', e);
-  }
-}
-
-function renderStreak(streak){
-  const numEl = document.getElementById('streakNumber');
-  const subEl = document.getElementById('streakSub');
-  const pluralEl = document.getElementById('streakPlural');
-  if(!numEl) return;
-  numEl.textContent = streak;
-  pluralEl.textContent = streak === 1 ? '' : 's';
-  subEl.textContent = streak >= 2 ? "You're on a roll — keep it going." : 'Open your study space daily to build a streak.';
-}
-
-/* ============================================================
-   RENDER: VIDEOS
-   ============================================================ */
-function renderVideos(){
-  renderTagChips('videos');
-  const grid = document.getElementById('videosGrid');
-  const items = filteredItems('videos');
-  if(!items.length){
-    grid.innerHTML = emptyState('🎬', data.videos.length ? 'No videos in this subject' : 'No videos yet', data.videos.length ? 'Try a different filter above.' : 'Add your first lecture or tutorial from the Control Room.');
-    return;
-  }
-  grid.innerHTML = items.map(v => {
-    const info = getEmbedInfo(v.url);
-    let frame = '';
-    if(info.type === 'iframe'){
-      frame = `<iframe src="${escapeHtml(info.src)}" title="${escapeHtml(v.title)}" allowfullscreen></iframe>`;
-    } else if(info.type === 'video'){
-      frame = `<video src="${escapeHtml(info.src)}" controls></video>`;
+  // ---------- Theme Switcher ----------
+  function toggleTheme() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if(isLight) {
+      document.documentElement.removeAttribute('data-theme');
     } else {
-      frame = `<div class="video-fallback">🔗 Preview not available<br><a href="${escapeHtml(v.url)}" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">Open video</a></div>`;
+      document.documentElement.setAttribute('data-theme', 'light');
     }
-    return `
-    <div class="item-card video-card">
-      <div class="video-frame-wrap">${frame}</div>
-      <div class="video-info">
-        ${v.tag ? `<span class="item-tag">${escapeHtml(v.tag)}</span>` : ''}
-        <h4>${escapeHtml(v.title)}</h4>
-        <div class="item-meta">Added ${formatDate(v.createdAt)}</div>
-        <div class="item-actions" style="margin-top:10px;">
-          <button class="btn btn-ghost btn-sm" onclick="quickRename('videos','${v.id}')">Edit Name</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteItem('videos','${v.id}')">Delete</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-/* ============================================================
-   RENDER: NOTES
-   ============================================================ */
-/* ============================================================
-   TINY MARKDOWN RENDERER — supports **bold**, *italic*, `code`,
-   # / ## / ### headers, and "- " bullet lists. Escapes HTML
-   first so nothing typed into a note can inject markup.
-   ============================================================ */
-function renderMarkdown(raw){
-  if(!raw) return '';
-  let html = escapeHtml(raw);
-
-  // Headers (must start the line)
-  html = html.replace(/^### (.*)$/gm, '<h3>$1</h3>')
-             .replace(/^## (.*)$/gm, '<h2>$1</h2>')
-             .replace(/^# (.*)$/gm, '<h1>$1</h1>');
-
-  // Bold, italic, inline code
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-             .replace(/\*(.+?)\*/g, '<em>$1</em>')
-             .replace(/`(.+?)`/g, '<code>$1</code>');
-
-  // Bullet lists: group consecutive "- " lines into one <ul>
-  html = html.replace(/(^|\n)((?:- .*(?:\n|$))+)/g, (match, lead, block) => {
-    const items = block.trim().split('\n').map(line => `<li>${line.replace(/^- /, '')}</li>`).join('');
-    return `${lead}<ul>${items}</ul>`;
-  });
-
-  // Remaining newlines become line breaks (skip right after a block element)
-  html = html.replace(/\n/g, '<br>');
-  return html;
-}
-
-function renderNotes(){
-  renderTagChips('notes');
-  const grid = document.getElementById('notesGrid');
-  const items = filteredItems('notes');
-  if(!items.length){
-    grid.innerHTML = emptyState('🕮', data.notes.length ? 'No notes in this subject' : 'No notes yet', data.notes.length ? 'Try a different filter above.' : 'Write your first note from the Control Room.');
-    return;
-  }
-  grid.innerHTML = items.map(n => `
-    <div class="item-card note-card">
-      ${n.tag ? `<span class="item-tag">${escapeHtml(n.tag)}</span>` : ''}
-      <h4>${escapeHtml(n.title)}</h4>
-      <div class="note-body" id="note-body-${n.id}">${n.content ? renderMarkdown(n.content) : '<span style="color:var(--text-faint)">No content written.</span>'}</div>
-      <button class="btn btn-ghost btn-sm" style="align-self:flex-start;" onclick="toggleNoteExpand('${n.id}', this)">Read more</button>
-      <div class="item-meta">Updated ${formatDate(n.updatedAt || n.createdAt)}</div>
-      <div class="item-actions">
-        <button class="btn btn-ghost btn-sm" onclick="quickRename('notes','${n.id}')">Edit Name</button>
-        <button class="btn btn-ghost btn-sm" onclick="editNoteContent('${n.id}')">Edit Content</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteItem('notes','${n.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function toggleNoteExpand(id, btn){
-  const body = document.getElementById('note-body-' + id);
-  body.classList.toggle('expanded');
-  btn.textContent = body.classList.contains('expanded') ? 'Show less' : 'Read more';
-}
-
-async function editNoteContent(id){
-  const item = data.notes.find(i => i.id === id);
-  if(!item) return;
-  const updated = prompt('Edit note content:', item.content || '');
-  if(updated === null) return;
-  item.content = updated;
-  item.updatedAt = Date.now();
-  await saveData();
-  renderAll();
-  showToast('Note updated.');
-}
-
-/* ============================================================
-   RENDER: PLANS
-   ============================================================ */
-function renderPlans(){
-  renderTagChips('plans');
-  const grid = document.getElementById('plansGrid');
-  const items = filteredItems('plans');
-  if(!items.length){
-    grid.innerHTML = emptyState('🎯', data.plans.length ? 'No tasks in this subject' : 'No tasks yet', data.plans.length ? 'Try a different filter above.' : 'Add a study goal or task from the Control Room.');
-  } else {
-    const sorted = [...items].sort((a,b) => (a.done - b.done) || ((a.due||'9999').localeCompare(b.due||'9999')));
-    grid.innerHTML = sorted.map(p => `
-      <div class="item-card plan-card ${p.done ? 'done' : ''}">
-        <div class="plan-top">
-          <div class="checkbox ${p.done ? 'checked' : ''}" onclick="togglePlanDone('${p.id}')"></div>
-          <div style="flex:1; min-width:0;">
-            ${p.tag ? `<span class="item-tag">${escapeHtml(p.tag)}</span>` : ''}
-            <h4>${escapeHtml(p.title)}</h4>
-            ${p.desc ? `<p style="font-size:13px; color:var(--text-dim); margin-top:4px;">${escapeHtml(p.desc)}</p>` : ''}
-          </div>
-        </div>
-        ${p.due ? `<span class="due-badge">Due ${escapeHtml(p.due)}</span>` : ''}
-        <div class="item-actions">
-          <button class="btn btn-ghost btn-sm" onclick="quickRename('plans','${p.id}')">Edit Name</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteItem('plans','${p.id}')">Delete</button>
-        </div>
-      </div>
-    `).join('');
   }
 
-  const doneCount = data.plans.filter(p => p.done).length;
-  const pct = data.plans.length ? Math.round((doneCount / data.plans.length) * 100) : 0;
-  document.getElementById('planProgressFill').style.width = pct + '%';
-  document.getElementById('planProgressLabel').textContent = data.plans.length ? `${doneCount} of ${data.plans.length} tasks complete (${pct}%)` : 'No tasks yet';
+  // ---------- Clock ----------
+  function updateClock() {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const dateStr = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+    document.getElementById('clockTime').textContent = timeStr;
+    document.getElementById('clockDate').textContent = dateStr;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
 
-  renderCalendar();
-}
+  // ---------- Focus Timer ----------
+  let timerInterval = null;
+  let timerSeconds = 25 * 60;
+  let isTimerRunning = false;
 
-/* ============================================================
-   PLANS: LIST / CALENDAR VIEW TOGGLE
-   ============================================================ */
-let plansView = 'list';
-function setPlansView(view){
-  plansView = view;
-  document.getElementById('plansViewListBtn').classList.toggle('active', view === 'list');
-  document.getElementById('plansViewCalBtn').classList.toggle('active', view === 'calendar');
-  document.getElementById('plansGrid').style.display = view === 'list' ? '' : 'none';
-  document.getElementById('plansCalendarWrap').classList.toggle('active', view === 'calendar');
-  if(view === 'calendar') renderCalendar();
-}
-
-let calendarCursor = new Date();
-function calendarShift(dir){
-  calendarCursor.setMonth(calendarCursor.getMonth() + dir);
-  renderCalendar();
-}
-
-function renderCalendar(){
-  const grid = document.getElementById('calendarGrid');
-  const titleEl = document.getElementById('calendarTitle');
-  if(!grid || plansView !== 'calendar') return;
-
-  const year = calendarCursor.getFullYear();
-  const month = calendarCursor.getMonth();
-  titleEl.textContent = calendarCursor.toLocaleDateString(undefined, {month:'long', year:'numeric'});
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const todayStr = new Date().toISOString().slice(0,10);
-
-  const dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  let html = dow.map(d => `<div class="calendar-dow">${d}</div>`).join('');
-
-  for(let i = 0; i < firstDay; i++) html += `<div class="calendar-cell empty"></div>`;
-
-  for(let day = 1; day <= daysInMonth; day++){
-    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-    const tasksToday = data.plans.filter(p => p.due === dateStr);
-    const isToday = dateStr === todayStr;
-    html += `<div class="calendar-cell ${isToday ? 'today' : ''}">
-      <div class="calendar-daynum">${day}</div>
-      ${tasksToday.slice(0,3).map(t => `<div class="calendar-task ${t.done ? 'done' : ''}" onclick="quickRename('plans','${t.id}')" title="${escapeHtml(t.title)}">${escapeHtml(t.title)}</div>`).join('')}
-      ${tasksToday.length > 3 ? `<div class="calendar-task">+${tasksToday.length - 3} more</div>` : ''}
-    </div>`;
+  function toggleFocusTimer() {
+    const btn = document.getElementById('focusStartBtn');
+    if(isTimerRunning) {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      btn.textContent = "Start";
+    } else {
+      isTimerRunning = true;
+      btn.textContent = "Pause";
+      timerInterval = setInterval(() => {
+        if(timerSeconds > 0) {
+          timerSeconds--;
+          renderTimer();
+        } else {
+          clearInterval(timerInterval);
+          isTimerRunning = false;
+          btn.textContent = "Start";
+          showToast("Focus session complete!");
+        }
+      }, 1000);
+    }
   }
 
-  grid.innerHTML = html;
-}
-
-/* ============================================================
-   RENDER: GALLERY
-   ============================================================ */
-function renderGallery(){
-  const grid = document.getElementById('galleryGrid');
-  if(!data.gallery.length){
-    grid.innerHTML = emptyState('🖼️', 'No images yet', 'Add a chart, diagram or mind map from the Control Room.');
-    return;
+  function resetFocusTimer() {
+    clearInterval(timerInterval);
+    isTimerRunning = false;
+    timerSeconds = 25 * 60;
+    document.getElementById('focusStartBtn').textContent = "Start";
+    renderTimer();
   }
-  grid.innerHTML = data.gallery.map(g => `
-    <div class="item-card gallery-card">
-      <div class="gallery-thumb-wrap" onclick="openLightbox('${g.id}')">
-        <img src="${escapeHtml(g.src)}" alt="${escapeHtml(g.title)}" loading="lazy">
-      </div>
-      <div class="gallery-info">
-        <h4>${escapeHtml(g.title)}</h4>
-        <div class="item-meta">Added ${formatDate(g.createdAt)}</div>
-        <div class="item-actions" style="margin-top:10px;">
-          <button class="btn btn-ghost btn-sm" onclick="quickRename('gallery','${g.id}')">Edit Name</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteItem('gallery','${g.id}')">Delete</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
 
-function openLightbox(id){
-  const item = data.gallery.find(i => i.id === id);
-  if(!item) return;
-  document.getElementById('lightboxImg').src = item.src;
-  document.getElementById('lightboxCaption').textContent = item.title;
-  document.getElementById('lightbox').classList.add('open');
-}
-function closeLightbox(e){
-  if(e) e.stopPropagation();
-  document.getElementById('lightbox').classList.remove('open');
-}
-
-/* ============================================================
-   RENDER: LINKS
-   ============================================================ */
-function renderLinks(){
-  renderTagChips('links');
-  const grid = document.getElementById('linksGrid');
-  const items = filteredItems('links');
-  if(!items.length){
-    grid.innerHTML = emptyState('🔗', data.links.length ? 'No links in this subject' : 'No links yet', data.links.length ? 'Try a different filter above.' : 'Add your class links and tools from the Control Room.');
-    return;
+  function renderTimer() {
+    const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+    const s = (timerSeconds % 60).toString().padStart(2, '0');
+    document.getElementById('focusTime').textContent = `${m}:${s}`;
   }
-  grid.innerHTML = items.map(l => `
-    <div class="item-card link-card">
-      ${l.tag ? `<span class="item-tag">${escapeHtml(l.tag)}</span>` : ''}
-      <h4>${escapeHtml(l.title)}</h4>
-      <div class="item-meta" style="word-break:break-all;">${escapeHtml(l.url)}</div>
-      <a class="link-open" href="${escapeHtml(l.url)}" target="_blank" rel="noopener">Open link ↗</a>
-      <div class="item-actions">
-        <button class="btn btn-ghost btn-sm" onclick="quickRename('links','${l.id}')">Edit Name</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteItem('links','${l.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
-}
 
-async function quickRename(type, id){
-  const item = data[type].find(i => i.id === id);
-  if(!item) return;
-  const updated = prompt('Edit name:', item.title);
-  if(updated === null) return;
-  const val = updated.trim();
-  if(!val){ showToast('Name cannot be empty.', true); return; }
-  item.title = val;
-  if(type === 'notes') item.updatedAt = Date.now();
-  await saveData();
-  renderAll();
-  showToast('Renamed.');
-}
-
-/* ============================================================
-   RENDER: CONTROL ROOM LISTS
-   ============================================================ */
-function renderControlLists(){
-  renderCrList('videos', v => `Added ${formatDate(v.createdAt)} · ${v.url}`);
-  renderCrList('notes', n => `Updated ${formatDate(n.updatedAt || n.createdAt)} · ${(n.content||'').slice(0,60)}${(n.content||'').length>60?'…':''}`);
-  renderCrList('plans', p => `${p.done ? 'Done' : 'Pending'}${p.due ? ' · Due ' + p.due : ''}`);
-  renderCrList('gallery', g => `Added ${formatDate(g.createdAt)}`);
-  renderCrList('links', l => `${l.url}`);
-
-  const total = data.videos.length + data.notes.length + data.plans.length + data.gallery.length + data.links.length;
-  document.getElementById('crTotalBadge').textContent = total + ' item' + (total === 1 ? '' : 's') + ' total';
-}
-
-function renderCrList(type, metaFn){
-  const el = document.getElementById('cr-list-' + type);
-  const items = data[type];
-  if(!items.length){
-    el.innerHTML = `<p class="empty-inline">Nothing saved here yet.</p>`;
-    return;
-  }
-  el.innerHTML = items.map(item => `
-    <div class="cr-row" data-item-row>
-      <div class="cr-row-main">
-        <span class="name name-display">${escapeHtml(item.title)}</span>
-        <span class="meta">${escapeHtml(metaFn(item))}</span>
-      </div>
-      <div class="cr-row-actions">
-        <button class="btn btn-ghost btn-sm" onclick="startRename('${type}','${item.id}', this)">Edit Name</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteItem('${type}','${item.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-/* ============================================================
-   EMPTY STATE HELPER
-   ============================================================ */
-function emptyState(glyph, title, sub){
-  return `<div class="empty-state" style="grid-column:1/-1;">
-    <span class="glyph">${glyph}</span>
-    <p style="font-weight:600; color:var(--text-dim); margin-bottom:6px;">${title}</p>
-    <p>${sub}</p>
-  </div>`;
-}
-
-/* ============================================================
-   GLOBAL SEARCH
-   ============================================================ */
-const SEARCH_TYPE_META = {
-  videos: {icon:'🎬', label:'Video'},
-  notes: {icon:'🕮', label:'Note'},
-  plans: {icon:'🎯', label:'Plan'},
-  gallery: {icon:'🖼️', label:'Image'},
-  links: {icon:'🔗', label:'Link'}
-};
-
-function handleGlobalSearch(query){
-  const box = document.getElementById('searchResults');
-  const q = query.trim().toLowerCase();
-  if(!q){ box.classList.remove('open'); box.innerHTML = ''; return; }
-
-  const results = [];
-  COLLECTIONS.forEach(type => {
-    data[type].forEach(item => {
-      const haystack = [item.title, item.tag, item.content, item.desc, item.url].filter(Boolean).join(' ').toLowerCase();
-      if(haystack.includes(q)) results.push({type, item});
-    });
-  });
-
-  if(!results.length){
-    box.innerHTML = `<div class="search-empty">No matches for "${escapeHtml(query)}"</div>`;
-  } else {
-    box.innerHTML = results.slice(0, 20).map(r => `
-      <div class="search-result-item" onclick="jumpToSearchResult('${r.type}')">
-        <span class="sr-title">${SEARCH_TYPE_META[r.type].icon} ${escapeHtml(r.item.title)}</span>
-        <span class="sr-meta">${SEARCH_TYPE_META[r.type].label}${r.item.tag ? ' · ' + escapeHtml(r.item.tag) : ''}</span>
-      </div>
-    `).join('');
-  }
-  box.classList.add('open');
-}
-
-function jumpToSearchResult(type){
-  document.getElementById('searchResults').classList.remove('open');
-  document.getElementById('globalSearch').value = '';
-  goTo(type);
-}
-
-document.addEventListener('click', (e) => {
-  const wrap = document.querySelector('.nav-search-wrap');
-  if(wrap && !wrap.contains(e.target)){
-    document.getElementById('searchResults').classList.remove('open');
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){
-    e.preventDefault();
-    document.getElementById('globalSearch').focus();
-  }
-});
-
-/* ============================================================
-   THEME TOGGLE — a plain display preference, stored locally
-   only (not synced), since it's about this screen, not your data.
-   ============================================================ */
-function toggleTheme(){
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  setTheme(isLight ? 'dark' : 'light');
-}
-function setTheme(theme){
-  if(theme === 'light'){
-    document.documentElement.setAttribute('data-theme', 'light');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-  }
-  try{ localStorage.setItem('studySpaceTheme', theme); }catch(e){}
-}
-(function initTheme(){
-  let saved = 'dark';
-  try{ saved = localStorage.getItem('studySpaceTheme') || 'dark'; }catch(e){}
-  setTheme(saved);
-})();
-
-/* ============================================================
-   EXPORT / IMPORT BACKUP
-   ============================================================ */
-function exportBackup(){
-  const payload = {
-    exportedAt: new Date().toISOString(),
-    videos: data.videos, notes: data.notes, plans: data.plans,
-    gallery: data.gallery.map(g => ({title:g.title, src:g.src, createdAt:g.createdAt, tag:g.tag||null})), // storagePath omitted, not portable
-    links: data.links
+  // ---------- Rendering Logic ----------
+  window.renderAll = function() {
+    renderCounts();
+    renderRecents();
+    renderVideos();
+    renderNotes();
+    renderPlans();
+    renderGallery();
+    renderLinks();
+    renderControlRoom();
   };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'study-space-backup-' + new Date().toISOString().slice(0,10) + '.json';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-  showToast('Backup downloaded.');
-}
 
-async function importBackup(file){
-  if(!file) return;
-  if(!confirm('This will add everything in this backup as new items — it won\'t remove or overwrite what you already have. Continue?')) {
-    document.getElementById('importFileInput').value = '';
-    return;
+  function renderCounts() {
+    document.getElementById('count-videos').textContent = window.store.videos.length;
+    document.getElementById('count-notes').textContent = window.store.notes.length;
+    document.getElementById('count-plans').textContent = window.store.plans.length;
+    document.getElementById('count-gallery').textContent = window.store.gallery.length;
+    document.getElementById('count-links').textContent = window.store.links.length;
   }
-  try{
-    const text = await file.text();
-    const parsed = JSON.parse(text);
-    let count = 0;
-    for(const type of COLLECTIONS){
-      const items = Array.isArray(parsed[type]) ? parsed[type] : [];
-      for(const item of items){
-        const clean = {...item};
-        delete clean.id;
-        await addDoc(collection(db, type), clean);
-        count++;
-      }
+
+  function renderRecents() {
+    const recentsDiv = document.getElementById('dash-recents');
+    let all = [];
+    Object.keys(window.store).forEach(type => {
+      window.store[type].forEach(item => {
+        all.push({...item, type});
+      });
+    });
+
+    if(all.length === 0) {
+      recentsDiv.innerHTML = `<div class="empty-inline">No items added yet. Click "Control Room" to get started!</div>`;
+      return;
     }
-    showToast(`Imported ${count} item${count === 1 ? '' : 's'}.`);
-  }catch(e){
-    console.error(e);
-    showToast('Could not read that backup file.', true);
+
+    all.sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+    const recent5 = all.slice(0, 5);
+
+    recentsDiv.innerHTML = recent5.map(item => `
+      <div class="mini-row">
+        <span>${escapeHtml(item.title)}</span>
+        <span class="tag">${item.type}</span>
+      </div>
+    `).join('');
   }
-  document.getElementById('importFileInput').value = '';
-}
 
-/* ============================================================
-   MASTER RENDER
-   ============================================================ */
-function renderAll(){
-  renderDashboard();
-  renderVideos();
-  renderNotes();
-  renderPlans();
-  renderGallery();
-  renderLinks();
-  renderControlLists();
-}
+  function renderTagChips(type, containerId) {
+    const items = window.store[type] || [];
+    const tags = ['all', ...new Set(items.map(i => i.tag).filter(Boolean))];
+    const container = document.getElementById(containerId);
+    if(!container) return;
 
-/* ============================================================
-   INIT
-   ============================================================ */
-// Clock starts immediately, independent of the cloud connection.
-updateClock();
-setInterval(updateClock, 30000);
-renderFocusDisplay();
-
-renderAll(); // draw empty state immediately, then Firestore fills it in
-
-// Sign in anonymously so Firestore/Storage rules can require
-// "must be signed in" without showing you a login screen — every
-// visitor (just you, across your devices) gets signed in silently.
-onAuthStateChanged(auth, user => {
-  if(user){
-    startRealtimeSync();
-    updateStreak();
+    container.innerHTML = tags.map(t => `
+      <button class="tag-chip ${window.activeFilters[type] === t ? 'active' : ''}" 
+              onclick="setFilter('${type}', '${escapeHtml(t)}')">
+        ${escapeHtml(t)}
+      </button>
+    `).join('');
   }
-});
-signInAnonymously(auth).catch(e => {
-  console.error(e);
-  showToast('Could not connect — check your internet connection.', true);
-});
 
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape') closeLightbox();
-});
+  function setFilter(type, tag) {
+    window.activeFilters[type] = tag;
+    window.renderAll();
+  }
 
-/* ============================================================
-   CUSTOM CURSOR — blue dot with a soft trailing glow
-   Only activates on devices with a real mouse (skipped on
-   touch-only phones/tablets, where a custom cursor makes no sense).
-   ============================================================ */
-(function initCustomCursor(){
-  if(!window.matchMedia('(pointer: fine)').matches) return;
+  // Render Videos
+  function renderVideos() {
+    renderTagChips('videos', 'tagChips-videos');
+    const grid = document.getElementById('grid-videos');
+    let items = window.store.videos;
 
-  document.body.classList.add('has-fine-pointer');
-
-  const dot = document.createElement('div');
-  dot.className = 'cursor-dot';
-  const glow = document.createElement('div');
-  glow.className = 'cursor-glow';
-  document.body.appendChild(glow);
-  document.body.appendChild(dot);
-
-  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-  let glowX = mouseX, glowY = mouseY;
-  let shown = false;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
-    if(!shown){
-      shown = true;
-      dot.classList.add('visible');
-      glow.classList.add('visible');
+    if(window.activeFilters.videos !== 'all') {
+      items = items.filter(i => i.tag === window.activeFilters.videos);
     }
-  });
 
-  document.addEventListener('mouseleave', () => {
-    dot.classList.remove('visible');
-    glow.classList.remove('visible');
-  });
-  document.addEventListener('mouseenter', () => {
-    if(shown){
-      dot.classList.add('visible');
-      glow.classList.add('visible');
+    if(items.length === 0) {
+      grid.innerHTML = emptyStateHTML("No videos added yet.");
+      return;
     }
-  });
 
-  function animateGlow(){
-    // Smoothly eases toward the cursor position for a soft trailing blend.
-    glowX += (mouseX - glowX) * 0.14;
-    glowY += (mouseY - glowY) * 0.14;
-    glow.style.transform = `translate(${glowX}px, ${glowY}px) translate(-50%,-50%)`;
-    requestAnimationFrame(animateGlow);
+    grid.innerHTML = items.map(v => `
+      <div class="item-card video-card">
+        <div class="video-frame-wrap">
+          ${v.url ? getEmbedIframe(v.url) : '<div class="video-fallback">No Video Source</div>'}
+        </div>
+        <div class="video-info">
+          ${v.tag ? `<span class="item-tag" style="margin-bottom:6px;">${escapeHtml(v.tag)}</span>` : ''}
+          <h4>${escapeHtml(v.title)}</h4>
+          <p style="font-size:13px; color:var(--text-dim); margin-top:4px;">${escapeHtml(v.content || '')}</p>
+        </div>
+      </div>
+    `).join('');
   }
-  animateGlow();
-})();
 
-// Module scripts don't expose top-level functions globally, but
-// the HTML above calls these via onclick="..." — so attach them
-// to window explicitly.
-Object.assign(window, {
-  goTo, setCrTab, toggleForm,
-  submitVideo, submitNote, submitPlan, submitImage, submitLink,
-  deleteItem, renameItem, startRename, quickRename,
-  togglePlanDone, toggleNoteExpand, editNoteContent,
-  openLightbox, closeLightbox,
-  setTagFilter, handleGlobalSearch, jumpToSearchResult,
-  toggleTheme, exportBackup, importBackup,
-  toggleFocusTimer, resetFocusTimer,
-  setPlansView, calendarShift
-});
+  // Render Notes
+  function renderNotes() {
+    renderTagChips('notes', 'tagChips-notes');
+    const grid = document.getElementById('grid-notes');
+    let items = window.store.notes;
+
+    if(window.activeFilters.notes !== 'all') {
+      items = items.filter(i => i.tag === window.activeFilters.notes);
+    }
+
+    if(items.length === 0) {
+      grid.innerHTML = emptyStateHTML("No notes added yet.");
+      return;
+    }
+
+    grid.innerHTML = items.map(n => `
+      <div class="item-card note-card">
+        ${n.tag ? `<span class="item-tag">${escapeHtml(n.tag)}</span>` : ''}
+        <h4>${escapeHtml(n.title)}</h4>
+        <div class="note-body" id="note-body-${n.id}">${parseSimpleMarkdown(escapeHtml(n.content || ''))}</div>
+        <button class="btn btn-sm btn-ghost" style="margin-top:8px; align-self:flex-start;" onclick="toggleNoteExpand('${n.id}')">Toggle Expand</button>
+      </div>
+    `).join('');
+  }
+
+  function toggleNoteExpand(id) {
+    const el = document.getElementById(`note-body-${id}`);
+    if(el) el.classList.toggle('expanded');
+  }
+
+  // Render Plans
+  function renderPlans() {
+    renderTagChips('plans', 'tagChips-plans');
+    const grid = document.getElementById('grid-plans');
+    let items = window.store.plans;
+
+    if(window.activeFilters.plans !== 'all') {
+      items = items.filter(i => i.tag === window.activeFilters.plans);
+    }
+
+    if(items.length === 0) {
+      grid.innerHTML = emptyStateHTML("No study plans added yet.");
+    } else {
+      grid.innerHTML = items.map(p => `
+        <div class="item-card plan-card ${p.done ? 'done' : ''}">
+          <div class="plan-top">
+            <div class="checkbox ${p.done ? 'checked' : ''}" onclick="togglePlanStatus('${p.id}', ${!p.done})"></div>
+            <div>
+              <h4>${escapeHtml(p.title)}</h4>
+              ${p.date ? `<span class="due-badge" style="margin-top:6px;">Due: ${p.date}</span>` : ''}
+            </div>
+          </div>
+          ${p.content ? `<p style="font-size:13px; color:var(--text-dim); margin-top:6px;">${escapeHtml(p.content)}</p>` : ''}
+        </div>
+      `).join('');
+    }
+
+    renderCalendar();
+  }
+
+  function togglePlanStatus(id, newStatus) {
+    window.updateItemInDB('plans', id, { done: newStatus });
+  }
+
+  function switchPlanView(v) {
+    document.getElementById('planViewListBtn').classList.toggle('active', v === 'list');
+    document.getElementById('planViewCalBtn').classList.toggle('active', v === 'cal');
+    document.getElementById('planListView').style.display = (v === 'list') ? 'block' : 'none';
+    document.getElementById('planCalView').classList.toggle('active', v === 'cal');
+  }
+
+  function renderCalendar() {
+    const grid = document.getElementById('calGrid');
+    if(!grid) return;
+
+    const y = window.calDate.getFullYear();
+    const m = window.calDate.getMonth();
+    document.getElementById('calTitle').textContent = new Date(y, m).toLocaleDateString([], { month: 'long', year: 'numeric' });
+
+    const firstDay = new Date(y, m, 1).getDay();
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+
+    let html = `
+      <div class="calendar-dow">Sun</div><div class="calendar-dow">Mon</div><div class="calendar-dow">Tue</div>
+      <div class="calendar-dow">Wed</div><div class="calendar-dow">Thu</div><div class="calendar-dow">Fri</div><div class="calendar-dow">Sat</div>
+    `;
+
+    for(let i = 0; i < firstDay; i++) {
+      html += `<div class="calendar-cell empty"></div>`;
+    }
+
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    for(let d = 1; d <= daysInMonth; d++) {
+      const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const dayTasks = window.store.plans.filter(p => p.date === dateStr);
+      const isToday = dateStr === todayStr;
+
+      html += `
+        <div class="calendar-cell ${isToday ? 'today' : ''}">
+          <span class="calendar-daynum">${d}</span>
+          ${dayTasks.map(t => `<div class="calendar-task ${t.done ? 'done' : ''}">${escapeHtml(t.title)}</div>`).join('')}
+        </div>
+      `;
+    }
+
+    grid.innerHTML = html;
+  }
+
+  function changeCalMonth(delta) {
+    window.calDate.setMonth(window.calDate.getMonth() + delta);
+    renderCalendar();
+  }
+
+  // Render Gallery
+  function renderGallery() {
+    renderTagChips('gallery', 'tagChips-gallery');
+    const grid = document.getElementById('grid-gallery');
+    let items = window.store.gallery;
+
+    if(window.activeFilters.gallery !== 'all') {
+      items = items.filter(i => i.tag === window.activeFilters.gallery);
+    }
+
+    if(items.length === 0) {
+      grid.innerHTML = emptyStateHTML("No gallery items added yet.");
+      return;
+    }
+
+    grid.innerHTML = items.map(g => `
+      <div class="item-card gallery-card" onclick="openLightbox('${escapeHtml(g.url)}', '${escapeHtml(g.title)}')">
+        <div class="gallery-thumb-wrap">
+          <img src="${escapeHtml(g.url)}" alt="${escapeHtml(g.title)}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+        </div>
+        <div class="gallery-info">
+          ${g.tag ? `<span class="item-tag" style="margin-bottom:4px;">${escapeHtml(g.tag)}</span>` : ''}
+          <h4>${escapeHtml(g.title)}</h4>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function openLightbox(url, title) {
+    document.getElementById('lightboxImg').src = url;
+    document.getElementById('lightboxCap').textContent = title;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox(e) {
+    if(e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+  }
+
+  // Render Links
+  function renderLinks() {
+    renderTagChips('links', 'tagChips-links');
+    const grid = document.getElementById('grid-links');
+    let items = window.store.links;
+
+    if(window.activeFilters.links !== 'all') {
+      items = items.filter(i => i.tag === window.activeFilters.links);
+    }
+
+    if(items.length === 0) {
+      grid.innerHTML = emptyStateHTML("No resource links added yet.");
+      return;
+    }
+
+    grid.innerHTML = items.map(l => `
+      <div class="item-card link-card">
+        ${l.tag ? `<span class="item-tag">${escapeHtml(l.tag)}</span>` : ''}
+        <h4>${escapeHtml(l.title)}</h4>
+        ${l.content ? `<p style="font-size:13px; color:var(--text-dim);">${escapeHtml(l.content)}</p>` : ''}
+        <a href="${escapeHtml(l.url)}" target="_blank" rel="noopener" class="link-open" style="margin-top:auto;">
+          Open Link &rarr;
+        </a>
+      </div>
+    `).join('');
+  }
+
+  // Render Control Room
+  let currentCrTab = 'videos';
+
+  function switchCrTab(tab) {
+    currentCrTab = tab;
+    document.querySelectorAll('.cr-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.cr-pane').forEach(p => p.classList.remove('active'));
+
+    document.getElementById(`crtab-${tab}`).classList.add('active');
+    document.getElementById(`crpane-${tab}`).classList.add('active');
+    renderControlRoom();
+  }
+
+  function renderControlRoom() {
+    const list = document.getElementById(`crlist-${currentCrTab}`);
+    if(!list) return;
+
+    const items = window.store[currentCrTab] || [];
+
+    if(items.length === 0) {
+      list.innerHTML = `<div class="empty-inline">No items in this category.</div>`;
+      return;
+    }
+
+    list.innerHTML = items.map(item => `
+      <div class="cr-row">
+        <div class="cr-row-main">
+          <span class="name">${escapeHtml(item.title)}</span>
+          <span class="meta">${escapeHtml(item.tag || 'No Tag')} ${item.url ? '&bull; ' + escapeHtml(item.url) : ''}</span>
+        </div>
+        <div class="cr-row-actions">
+          <button class="btn btn-sm btn-ghost" onclick="editItem('${currentCrTab}', '${item.id}')">Edit</button>
+          <button class="btn btn-sm btn-danger" onclick="window.deleteItemFromDB('${currentCrTab}', '${item.id}')">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ---------- Form Logic ----------
+  function toggleForm(show) {
+    const card = document.getElementById('addFormCard');
+    if(show === undefined) show = !card.classList.contains('open');
+
+    if(show) {
+      document.getElementById('itemForm').reset();
+      document.getElementById('editItemId').value = '';
+      document.getElementById('formHeading').textContent = "Add New Content";
+      adjustFormFields(document.getElementById('itemType').value);
+      card.classList.add('open');
+    } else {
+      card.classList.remove('open');
+    }
+  }
+
+  function adjustFormFields(type) {
+    const urlField = document.getElementById('urlField');
+    const dateGrid = document.getElementById('dateGrid');
+
+    if(type === 'videos' || type === 'gallery' || type === 'links') {
+      urlField.style.display = 'flex';
+    } else {
+      urlField.style.display = 'none';
+    }
+
+    if(type === 'plans') {
+      dateGrid.style.display = 'grid';
+    } else {
+      dateGrid.style.display = 'none';
+    }
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const type = document.getElementById('itemType').value;
+    const id = document.getElementById('editItemId').value;
+
+    const payload = {
+      title: document.getElementById('itemTitle').value,
+      tag: document.getElementById('itemTag').value,
+      url: document.getElementById('itemUrl').value,
+      date: document.getElementById('itemDate').value,
+      content: document.getElementById('itemContent').value,
+      createdAt: Date.now()
+    };
+
+    if(id) {
+      window.updateItemInDB(type, id, payload);
+    } else {
+      window.addItemToDB(type, payload);
+    }
+
+    toggleForm(false);
+  }
+
+  function editItem(col, id) {
+    const item = window.store[col].find(i => i.id === id);
+    if(!item) return;
+
+    document.getElementById('itemType').value = col;
+    document.getElementById('editItemId').value = id;
+    document.getElementById('itemTitle').value = item.title || '';
+    document.getElementById('itemTag').value = item.tag || '';
+    document.getElementById('itemUrl').value = item.url || '';
+    document.getElementById('itemDate').value = item.date || '';
+    document.getElementById('itemContent').value = item.content || '';
+
+    document.getElementById('formHeading').textContent = "Edit Content";
+    adjustFormFields(col);
+    toggleForm(true);
+  }
+
+  // ---------- Global Search ----------
+  function handleGlobalSearch(query) {
+    const resDiv = document.getElementById('searchResults');
+    if(!query.trim()) {
+      resDiv.classList.remove('open');
+      return;
+    }
+
+    let results = [];
+    Object.keys(window.store).forEach(type => {
+      window.store[type].forEach(item => {
+        if(item.title.toLowerCase().includes(query.toLowerCase()) || 
+          (item.content && item.content.toLowerCase().includes(query.toLowerCase()))) {
+          results.push({...item, type});
+        }
+      });
+    });
+
+    if(results.length === 0) {
+      resDiv.innerHTML = `<div class="search-empty">No matching items found</div>`;
+    } else {
+      resDiv.innerHTML = results.map(r => `
+        <div class="search-result-item" onclick="goTo('${r.type}'); document.getElementById('searchResults').classList.remove('open');">
+          <div class="sr-title">${escapeHtml(r.title)}</div>
+          <div class="sr-meta">${r.type} &bull; ${escapeHtml(r.tag || 'No Tag')}</div>
+        </div>
+      `).join('');
+    }
+    resDiv.classList.add('open');
+  }
+
+  // ---------- Utilities ----------
+  function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
+  function emptyStateHTML(msg) {
+    return `<div class="empty-state" style="grid-column:1/-1;"><span class="glyph">&#128193;</span><p>${msg}</p></div>`;
+  }
+
+  function getEmbedIframe(url) {
+    if(url.includes('youtube.com') || url.includes('youtu.be')) {
+      let videoId = url.split('v=')[1] || url.split('/').pop();
+      if(videoId.includes('&')) videoId = videoId.split('&')[0];
+      return `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+    }
+    return `<iframe src="${url}"></iframe>`;
+  }
+
+  function parseSimpleMarkdown(text) {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`(.*?)`/g, '<code>$1</code>');
+  }
+
+  function showToast(msg, isDanger=false) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    toastMsg.textContent = msg;
+    toast.classList.toggle('danger', isDanger);
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+  window.showToast = showToast;
 </script>
+
 </body>
 </html>
