@@ -1,0 +1,883 @@
+
+
+Perfume collection · HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perfume Collection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --sun-yellow:#FFC93C;
+  --sun-orange:#FF7A1A;
+  --ember:#C2461C;
+  --dusk:#2A0E12;
+  --text:#FBEAE4;
+  --text-dim:#E8C9BF;
+  --glass:rgba(34,10,14,.72);
+  --card:rgba(40,12,16,.82);
+  --line:rgba(255,201,60,.30);
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Cairo","Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;background:#4b1626;color:var(--text);
+  font-family:var(--sans);line-height:1.6;overflow-x:hidden;
+}
+#scene{position:fixed;inset:0;width:100%;height:100%;z-index:-2}
+.scrim{position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(28,8,12,.5) 0%,rgba(28,8,12,.2) 42%,rgba(28,8,12,.5) 100%)}
+:focus-visible{outline:3px solid var(--sun-yellow);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+ 
+/* top bar */
+.topbar{
+  position:sticky;top:0;z-index:10;direction:ltr;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.65rem clamp(1rem,4vw,2.5rem);
+  background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.clock{display:flex;flex-direction:column;line-height:1.1}
+.clock-time{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,4.5vw,2.4rem);font-variant-numeric:lining-nums tabular-nums;letter-spacing:.02em}
+.clock-time .ampm{font-size:.5em;margin-inline-start:.4em;color:var(--sun-yellow);letter-spacing:.06em}
+.clock-date{display:flex;flex-wrap:wrap;gap:.1rem .7rem;font-size:.82rem;color:var(--text-dim)}
+.clock-date .tz{color:var(--sun-yellow);font-weight:600}
+ 
+/* buttons */
+.btn{
+  font:inherit;font-weight:600;font-size:.95rem;min-height:44px;padding:.55rem 1.15rem;
+  border-radius:999px;border:1px solid transparent;cursor:pointer;color:var(--text);background:transparent;
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+}
+.btn.primary{background:linear-gradient(90deg,var(--sun-yellow),var(--sun-orange));color:#2A0E10;font-weight:700}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.ghost{border-color:var(--line)}
+.btn.ghost:hover{background:rgba(255,235,225,.08)}
+.btn.accent{border-color:var(--sun-yellow);color:var(--sun-yellow)}
+.btn.accent:hover{background:rgba(255,201,60,.12)}
+.btn.danger{border-color:rgba(255,150,120,.55);color:#FFB8A4}
+.btn.danger.armed{background:#B3261E;border-color:#B3261E;color:#fff}
+.btn.sm{min-height:38px;padding:.3rem .9rem;font-size:.88rem}
+.btn:disabled{opacity:.55;cursor:progress}
+ 
+/* hero */
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem) 5rem}
+.hero{padding:clamp(2.2rem,8vw,5rem) 0 .6rem;direction:ltr}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.8rem,9vw,5.4rem);line-height:.98;margin:0;letter-spacing:.01em;text-shadow:0 2px 26px rgba(30,6,10,.75)}
+.hero p{margin:.7rem 0 0;font-size:1.05rem;text-shadow:0 1px 12px rgba(30,6,10,.8)}
+ 
+/* section titles */
+.line-title{
+  display:inline-flex;align-items:baseline;gap:.9rem;margin:2.2rem 0 1rem;padding:.3rem 1.1rem .35rem;
+  background:var(--glass);border:1px solid var(--line);border-radius:999px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);direction:ltr;
+}
+.line-title h2{font-family:var(--serif);font-weight:600;font-size:1.55rem;line-height:1.2;margin:0}
+.line-title span{font-size:.92rem;color:var(--sun-yellow);direction:rtl}
+ 
+/* cards */
+.card{
+  display:flex;gap:1.5rem;direction:rtl;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1.1rem;margin:0 0 1.1rem;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 12px 32px rgba(20,4,6,.35);
+  scroll-margin-top:96px;
+}
+.card.flip{flex-direction:row-reverse}
+.card-body{flex:1;min-width:0}
+.name{font-family:var(--serif);font-weight:700;font-size:clamp(1.8rem,4.2vw,2.5rem);line-height:1.1;margin:.1rem 0 .7rem;direction:ltr;text-align:right}
+.rows{margin:0}
+.row{display:grid;grid-template-columns:9.6rem 1fr;gap:.15rem 1rem;padding:.55rem 0;border-top:1px solid rgba(255,201,60,.2)}
+.row dt{color:var(--sun-yellow);font-weight:700;font-size:.92rem}
+.row dd{margin:0;font-size:1rem}
+.media{
+  flex:0 0 clamp(150px,26%,230px);min-height:250px;border-radius:14px;overflow:hidden;position:relative;
+  background:linear-gradient(165deg,#FFD65E 0%,#FF8A24 55%,#C2461C 100%);
+  display:grid;place-items:center;
+}
+.media svg{width:78%;height:auto;max-height:270px;filter:drop-shadow(0 10px 12px rgba(60,10,5,.4))}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.empty{padding:2rem;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;direction:ltr}
+ 
+@media (max-width:680px){
+  .card,.card.flip{flex-direction:column;gap:1rem}
+  .media{order:-1;flex:none;min-height:220px;width:100%}
+  .row{grid-template-columns:1fr}
+}
+ 
+/* control panel */
+dialog{
+  border:1px solid var(--line);border-radius:20px;padding:0;color:var(--text);
+  background:linear-gradient(180deg,#3a1418,#2a0e12 45%);
+  width:min(780px,calc(100vw - 1.5rem));max-height:calc(100dvh - 2rem);overflow:auto;direction:ltr;
+}
+dialog::backdrop{background:rgba(20,4,8,.68);backdrop-filter:blur(3px)}
+.panel-in{padding:1.2rem 1.4rem 1.6rem}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.panel-head h2{font-family:var(--serif);font-size:1.9rem;font-weight:600;margin:0}
+.icon-btn{font:inherit;font-size:1.6rem;line-height:1;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer}
+.icon-btn:hover{background:rgba(255,235,225,.08)}
+.tabs{display:flex;gap:.4rem;border-bottom:1px solid var(--line);margin-bottom:1.2rem}
+.tabs button{
+  font:inherit;font-weight:600;color:var(--text-dim);background:none;border:0;border-bottom:3px solid transparent;
+  padding:.6rem .9rem;cursor:pointer;min-height:44px;
+}
+.tabs button[aria-selected="true"]{color:var(--sun-yellow);border-bottom-color:var(--sun-orange)}
+.add-grid{display:grid;grid-template-columns:210px 1fr;gap:1.4rem}
+.add-media{display:flex;flex-direction:column;gap:.7rem}
+.preview{min-height:250px;width:100%}
+.field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.9rem}
+.field label,.field .lbl{font-size:.9rem;font-weight:600;color:var(--text-dim)}
+.field input[type=text],.field textarea,.field select{
+  font:inherit;color:var(--text);background:rgba(255,235,225,.08);border:1px solid var(--line);
+  border-radius:10px;padding:.6rem .8rem;width:100%;
+}
+.field select option{background:#2A0E12;color:var(--text)}
+.field textarea{resize:vertical;min-height:84px}
+.field [lang=ar]{font-family:var(--sans);font-size:1rem}
+.field input[type=color]{width:64px;height:42px;padding:2px;border-radius:10px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.name-row{display:flex;gap:.5rem}
+.hint{margin:.1rem 0 0;font-size:.82rem;color:var(--text-dim);min-height:1.2em}
+.file-btn:focus-within{outline:3px solid var(--sun-yellow);outline-offset:3px}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem}
+@media (max-width:640px){
+  .add-grid{grid-template-columns:1fr}
+  .preview{min-height:210px}
+}
+ 
+.m-list{list-style:none;margin:0;padding:0;display:grid;gap:.6rem;outline:none}
+.m-row{display:flex;align-items:center;gap:.9rem;padding:.55rem;border:1px solid var(--line);border-radius:14px;background:rgba(255,235,225,.05)}
+.thumb{flex:0 0 56px;height:72px;border-radius:10px;overflow:hidden;position:relative;display:grid;place-items:center;background:linear-gradient(165deg,#FFD65E,#FF8A24 55%,#C2461C)}
+.thumb svg{width:82%;height:auto}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.m-info{flex:1;min-width:0;display:flex;flex-direction:column}
+.m-info strong{font-family:var(--serif);font-size:1.25rem;line-height:1.2}
+.m-info span{font-size:.82rem;color:var(--text-dim)}
+.m-actions{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+.m-foot{margin-top:1.3rem;padding-top:1rem;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between}
+.m-foot p{margin:0;font-size:.85rem;color:var(--text-dim);max-width:42ch}
+ 
+.toast{
+  position:fixed;left:50%;bottom:1.4rem;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:50;
+  background:rgba(34,10,14,.94);border:1px solid var(--sun-yellow);color:var(--text);
+  padding:.65rem 1.2rem;border-radius:999px;max-width:calc(100vw - 2rem);text-align:center;font-size:.95rem;
+  transition:opacity .25s,transform .25s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .toast{transition:none}
+}
+</style>
+</head>
+<body>
+ 
+<!-- shared gradients for the bottle drawings -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F9E29A"/><stop offset=".5" stop-color="#D19A33"/><stop offset="1" stop-color="#8A5A14"/>
+    </linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/>
+    </linearGradient>
+    <linearGradient id="gShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".34"/>
+    </linearGradient>
+  </defs>
+</svg>
+ 
+<!-- sunset over Manhattan -->
+<svg id="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4b1626"/><stop offset=".32" stop-color="#b8401f"/><stop offset=".62" stop-color="#ff8a24"/><stop offset=".88" stop-color="#ffc93c"/><stop offset="1" stop-color="#ffe08a"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#fff3b0" stop-opacity="1"/><stop offset=".25" stop-color="#ffd25a" stop-opacity=".85"/><stop offset="1" stop-color="#ff8a24" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffb040"/><stop offset=".35" stop-color="#c2461c"/><stop offset="1" stop-color="#3a1018"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#000"/>
+    </linearGradient>
+    <mask id="refMask" maskUnits="userSpaceOnUse" x="0" y="640" width="1600" height="260">
+      <rect x="0" y="640" width="1600" height="260" fill="url(#fade)"/>
+    </mask>
+  </defs>
+  <rect x="0" y="0" width="1600" height="660" fill="url(#sky)"/>
+  <circle cx="930" cy="615" r="380" fill="url(#sunGlow)"/>
+  <circle cx="930" cy="612" r="78" fill="#fff6c4"/>
+  <!-- distant mountains -->
+  <path d="M-20 640 L-20 480 L70 440 L150 490 L240 430 L330 500 L430 560 L520 610 L600 640 Z" fill="#a24030" opacity=".7"/>
+  <path d="M1020 640 L1120 590 L1230 520 L1320 470 L1410 500 L1500 430 L1620 470 L1620 640 Z" fill="#a24030" opacity=".7"/>
+  <path d="M-20 640 L-20 540 L80 505 L170 545 L260 520 L360 585 L450 640 Z" fill="#6b2a2c"/>
+  <path d="M1180 640 L1280 575 L1380 540 L1470 575 L1560 520 L1620 545 L1620 640 Z" fill="#6b2a2c"/>
+  <!-- river -->
+  <rect x="0" y="640" width="1600" height="260" fill="url(#water)"/>
+  <g id="sunGlints" fill="#fff0a8"></g>
+  <!-- skyline -->
+  <g id="skyBack" fill="#64262a" opacity=".85"></g>
+  <g mask="url(#refMask)" opacity=".28"><use href="#sk" transform="translate(0 1280) scale(1 -1)"/></g>
+  <g id="sk" fill="#2a0f14"></g>
+  <!-- banks and pines -->
+  <g id="banks" fill="#1d0a0e">
+    <path d="M-20 900 L-20 790 Q120 760 260 800 Q340 825 420 900 Z"/>
+    <path d="M1620 900 L1620 800 Q1480 770 1340 810 Q1260 835 1190 900 Z"/>
+  </g>
+</svg>
+<div class="scrim"></div>
+ 
+<header class="topbar">
+  <div class="clock">
+    <div class="clock-time" aria-label="Current time"><span id="hms">--:--:--</span><span class="ampm" id="ampm"></span></div>
+    <div class="clock-date"><span id="date"></span><span class="tz">Jerusalem, Palestine</span></div>
+  </div>
+  <button class="btn primary" id="openPanel" type="button">Control Panel</button>
+</header>
+ 
+<main class="wrap">
+  <section class="hero">
+    <h1>Perfume Collection</h1>
+    <p id="count"></p>
+  </section>
+  <div id="list"></div>
+</main>
+ 
+<dialog id="panel" aria-labelledby="panelTitle">
+  <div class="panel-in">
+    <header class="panel-head">
+      <h2 id="panelTitle">Control Panel</h2>
+      <button class="icon-btn" id="closePanel" type="button" aria-label="Close Control Panel">&times;</button>
+    </header>
+ 
+    <div class="tabs" role="tablist" aria-label="Control Panel sections">
+      <button role="tab" id="tab-add" type="button" aria-selected="true" aria-controls="pane-add">Add perfume</button>
+      <button role="tab" id="tab-manage" type="button" aria-selected="false" aria-controls="pane-manage">Manage collection</button>
+    </div>
+ 
+    <section id="pane-add" role="tabpanel" aria-labelledby="tab-add">
+      <div class="add-grid">
+        <div class="add-media">
+          <div class="media preview" id="preview"></div>
+          <label class="btn ghost file-btn" for="f-photo">Upload photo</label>
+          <input class="sr-only" id="f-photo" type="file" accept="image/*">
+          <button class="btn ghost" id="removePhoto" type="button" hidden>Remove photo</button>
+          <div class="field">
+            <label for="f-color">Bottle color (used when there is no photo)</label>
+            <input id="f-color" type="color" value="#8B4A1C">
+          </div>
+          <div class="field">
+            <label for="f-line">Line</label>
+            <select id="f-line">
+              <option value="Tobacco">Tobacco line</option>
+              <option value="Diamond">Diamond line</option>
+              <option value="Other" selected>More perfumes</option>
+            </select>
+          </div>
+        </div>
+ 
+        <div class="add-fields">
+          <div class="field">
+            <label for="f-name">Name (English)</label>
+            <div class="name-row">
+              <input id="f-name" type="text" autocomplete="off" placeholder="For example: Spanish Tobacco">
+              <button class="btn accent" id="autofill" type="button" hidden>Auto-fill</button>
+            </div>
+            <p class="hint" id="autoStatus" role="status"></p>
+          </div>
+          <div class="field">
+            <label for="f-desc">Description (Arabic)</label>
+            <textarea id="f-desc" rows="3" dir="rtl" lang="ar" placeholder="اكتب الوصف بالعربية"></textarea>
+          </div>
+          <div class="field">
+            <label for="f-season">Best season and time (Arabic)</label>
+            <input id="f-season" type="text" dir="rtl" lang="ar" placeholder="الفصل والوقت">
+          </div>
+          <div class="field">
+            <label for="f-occ">Occasions (Arabic)</label>
+            <input id="f-occ" type="text" dir="rtl" lang="ar" placeholder="المناسبات">
+          </div>
+          <div class="field">
+            <label for="f-smoke">Performance with smoking or vape (Arabic)</label>
+            <input id="f-smoke" type="text" dir="rtl" lang="ar" placeholder="الأداء مع التدخين/الفيب">
+          </div>
+          <div class="actions">
+            <button class="btn primary" id="saveBtn" type="button">Add perfume</button>
+            <button class="btn ghost" id="cancelEdit" type="button" hidden>Cancel editing</button>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section id="pane-manage" role="tabpanel" aria-labelledby="tab-manage" hidden>
+      <ul class="m-list" id="manageList" tabindex="-1"></ul>
+      <div class="m-foot">
+        <p>Changes are saved in this browser only, so a different phone or computer keeps its own collection.</p>
+        <button class="btn danger sm" id="restoreBtn" type="button">Restore original collection</button>
+      </div>
+    </section>
+  </div>
+</dialog>
+ 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+ 
+<script>
+(function(){
+  "use strict";
+ 
+  /* ---------- constants and data ---------- */
+  const KEY = "perfume-collection-v1";
+  const TZ = "Asia/Jerusalem";
+  const DEFAULT_COLOR = "#8B4A1C";
+  const LINES = [
+    { key: "Tobacco", en: "Tobacco line",  ar: "سلسلة التبغ" },
+    { key: "Diamond", en: "Diamond line",  ar: "سلسلة الدايموند" },
+    { key: "Other",   en: "More perfumes", ar: "عطور أخرى" }
+  ];
+  const LABELS = { desc: "الوصف", season: "الفصل والوقت", occasions: "المناسبات", smoke: "الأداء مع التدخين/الفيب" };
+ 
+  const DEFAULTS = [
+    { id: "spanish-tobacco", name: "Spanish Tobacco", line: "Tobacco", color: "#8B4A1C", image: null,
+      desc: "مزيج فخم يجمع بين التبغ الإسباني، التوابل الدافئة، والتونكا مع لمسات فاكهية ناعمة.",
+      season: "الخريف، الشتاء، والربيع (ممتاز لدوام المدرسة والمشاوير اليومية).",
+      occasions: "الاجتماعات، الأيام الدراسية، واللقاءات الشبابية.",
+      smoke: "ممتاز جداً في امتصاص زناخة الدخان وتغطيتها بطابع دافئ وأنيق." },
+    { id: "french-tobacco", name: "French Tobacco", line: "Tobacco", color: "#8E6FA8", image: null,
+      desc: "توليفة ناعمة ولطيفة تجمع بين اللافندر، الفانيليا، والتبغ الخفيف.",
+      season: "الربيع، الصيف، والخريف (مثالي للمساحات المغلقة).",
+      occasions: "الامتحانات، الصفوف المكتظة، ودروس السواقة بالسيارة.",
+      smoke: "خيار رهيب وممتاز جداً يتكامل مع نكهات الفيب السكرية والفاكهية." },
+    { id: "greek-tobacco", name: "Greek Tobacco", line: "Tobacco", color: "#9AA04A", image: null,
+      desc: "عطر أروماتك منعش بامتياز، يمزج الحمضيات والأعشاب المتوسطية مع اللافندر والتبغ الهادئ.",
+      season: "الصيف والربيع (خصوصاً في أوقات الظهيرة والحرارة المرتفعة).",
+      occasions: "المشاوير العائلية، القعدات الخفيفة، والطلعات الكاجوال.",
+      smoke: "عطر هادئ وقريب من الجسم (Skin Scent) يُفضل استخدامه بالنظافة الصافية." },
+    { id: "cuban-tobacco", name: "Cuban Tobacco", line: "Tobacco", color: "#4A2413", image: null,
+      desc: "عطر تبغي دسم وثقيل، غني بنوتات التبغ الكوبي، الأخشاب، والتوابل القوية.",
+      season: "الشتاء والبرد الشديد (السهرات الليلية).",
+      occasions: "المناسبات الليلية الفخمة واللقاءات الرسمية.",
+      smoke: "\"الكرت الرابح\" للتغطية الإسعافية القوية على رائحة السجائر الثقيلة بعد التدخين." },
+    { id: "arabian-tobacco", name: "Arabian Tobacco", line: "Tobacco", color: "#7A4A1A", image: null,
+      desc: "مزيج شرقي فخم وعميق يجمع بين العود، البخور الدافئ، ونوتات التبغ.",
+      season: "الشتاء والخريف (الأجواء الباردة).",
+      occasions: "صلاة الجمعة، الأعياد، والأعراس والمناسبات الرسمية الفخمة.",
+      smoke: "يعطي هيبة شرقية طغية ويغطي على روائح التدخين بقوة." },
+    { id: "jamaican-tobacco", name: "Jamaican Tobacco", line: "Tobacco", color: "#B5471E", image: null,
+      desc: "عطر استوائي دافئ ومثير، يمزج بين التبغ والقرفة مع نفحات دافئة حادة.",
+      season: "الخريف، الشتاء، والأمسيات الصيفية.",
+      occasions: "الأفراح، الحفلات، والطلعات المسائية الكبيرة (يدوم 12+ ساعة).",
+      smoke: "فوحان وثبات جباران يندمجان بذكاء مع رائحة الدخان." },
+    { id: "dominican-tobacco", name: "Dominican Tobacco", line: "Tobacco", color: "#3E2A1C", image: null,
+      desc: "عطر تبغي فاخر يمزج بين الأخشاب الداكنة، التوابل، والتبغ الكاريبي الدافئ.",
+      season: "الشتاء والخريف.",
+      occasions: "الاجتماعات الرسمية، السهرات، والأمسيات الاجتماعية.",
+      smoke: "أداء قوي جداً وامتصاص ممتاز لرائحة الدخان." },
+    { id: "mexican-tobacco", name: "Mexican Tobacco", line: "Tobacco", color: "#7A2E1B", image: null,
+      desc: "عطر تبغي دافئ ومتبل، يعتمد على اللمسات الخشبية والتركيبة المكسيكية الداكنة.",
+      season: "الشتاء والخريف.",
+      occasions: "السهرات الخارجية، القعدات الشبابية الليلية، والطقس البارد.",
+      smoke: "ثبات قوي جداً ويمنح هالة دافئة تحجب زناخة السجائر." },
+    { id: "brazilian-tobacco", name: "Brazilian Tobacco", line: "Tobacco", color: "#9A5A22", image: null,
+      desc: "توليفة تبغية حيوية تجمع بين الأخشاب الاستوائية، التوابل، واللمسات الدافئة.",
+      season: "الخريف والربيع والأمسيات المعزولة.",
+      occasions: "القعدات الشبابية والمشاوير المفتوحة.",
+      smoke: "ممتاز في التغطية وإعطاء طابع دافئ ومميز." },
+    { id: "white-regent-diamond", name: "White Regent Diamond", line: "Diamond", color: "#ECE7E2", image: null,
+      desc: "ملك النظافة والهدوء؛ عطر مسكي بودري أثيري يعطي شعور الاستحمام والنقاء الفاخر.",
+      season: "جميع الفصول (طوال السنة).",
+      occasions: "صلاة الجمعة، المساحات المغلقة (السيارة)، والامتحانات.",
+      smoke: "يُفضل استخدامه على جسم نظيف أو مع الفيب لطابعه المسكي الناعم." },
+    { id: "emerald-soul-diamond", name: "Emerald Soul Diamond", line: "Diamond", color: "#2E9E73", image: null,
+      desc: "عطر أروماتك حيوي يجمع بين النوتات الخضراء، الانتعاش، والنفحات الفاكهية المتزنة.",
+      season: "الصيف والربيع (الأجواء الدافئة والحارة).",
+      occasions: "الجيم، النادي الرياضي، والأنشطة البدنية والصيفية.",
+      smoke: "يتفاعل بقوة مع حرارة الجسم والتعرق، ممتاز مع الفيب." },
+    { id: "grey-pearl-diamond", name: "Grey Pearl Diamond", line: "Diamond", color: "#9AA0A8", image: null,
+      desc: "عطر الهيبة والأناقة؛ مزيج من المسك البودري الفاخر مع لمسة توابل ناعمة وطابع لؤلؤي راقٍ.",
+      season: "الخريف، الربيع، والصيف المعتدل.",
+      occasions: "بديل فخم للمدرسة، اللقاءات الاجتماعية الرسمية، والمشاوير المرتبة.",
+      smoke: "يتحمل التدخين الخفيف (مثل البرلمنت) ويمزجه بأسلوب بودري فخم." }
+  ];
+ 
+  /* ---------- helpers ---------- */
+  const $ = (s, r) => (r || document).querySelector(s);
+  function el(tag, props) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (k === "class") n.className = v;
+      else if (k === "text") n.textContent = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v);
+    }
+    for (let i = 2; i < arguments.length; i++) {
+      const c = arguments[i];
+      if (c != null) n.append(c);
+    }
+    return n;
+  }
+  const isHex = c => /^#[0-9a-f]{6}$/i.test(c || "");
+  const groupOf = p => (p.line === "Tobacco" || p.line === "Diamond") ? p.line : "Other";
+  const lineLabel = p => LINES.find(l => l.key === groupOf(p)).en;
+ 
+  let toastTimer = null;
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("show"), 3200);
+  }
+ 
+  /* ---------- storage ---------- */
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const a = JSON.parse(raw);
+        if (Array.isArray(a)) return a;
+      }
+    } catch (e) { /* fall through to defaults */ }
+    return JSON.parse(JSON.stringify(DEFAULTS));
+  }
+  function persist() {
+    try { localStorage.setItem(KEY, JSON.stringify(perfumes)); return true; }
+    catch (e) {
+      toast("Could not save. Browser storage is full or blocked. Try removing a photo.");
+      return false;
+    }
+  }
+  let perfumes = load();
+ 
+  /* ---------- background scene ---------- */
+  (function buildScene() {
+    const BASE = 640;
+    function rng(seed) {
+      return function () {
+        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+        let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+    function skyline(seed, scale, withWindows) {
+      const r = rng(seed);
+      let x = -10, rects = "", wins = "";
+      while (x < 1610) {
+        const w = 20 + r() * 34;
+        const mid = Math.exp(-Math.pow((x - 640) / 170, 2));
+        const down = Math.exp(-Math.pow((x - 1120) / 150, 2));
+        const h = (50 + r() * 70 + (mid * 70 + down * 70) * (0.5 + r() * 0.6)) * scale;
+        rects += `<rect x="${x.toFixed(1)}" y="${(BASE - h).toFixed(1)}" width="${w.toFixed(1)}" height="${(h + 2).toFixed(1)}"/>`;
+        if (r() < 0.45) {
+          const w2 = w * (0.5 + r() * 0.2), h2 = 8 + r() * 22;
+          rects += `<rect x="${(x + (w - w2) / 2).toFixed(1)}" y="${(BASE - h - h2).toFixed(1)}" width="${w2.toFixed(1)}" height="${h2.toFixed(1)}"/>`;
+        }
+        if (withWindows) {
+          const n = Math.floor(r() * 7);
+          for (let k = 0; k < n; k++) {
+            const wx = x + 3 + r() * Math.max(2, w - 8);
+            const wy = BASE - h + 6 + r() * Math.max(2, h - 14);
+            wins += `<rect x="${wx.toFixed(1)}" y="${wy.toFixed(1)}" width="2.2" height="3"/>`;
+          }
+        }
+        x += w + (r() < 0.3 ? 2 + r() * 4 : 0);
+      }
+      return { rects, wins };
+    }
+ 
+    $("#skyBack").innerHTML = skyline(5, 0.78, false).rects;
+ 
+    const front = skyline(11, 1, true);
+    const landmarks =
+      /* Empire State Building */
+      `<rect x="600" y="470" width="80" height="172"/><rect x="615" y="405" width="50" height="70"/><rect x="626" y="360" width="28" height="48"/><rect x="634" y="325" width="12" height="38"/><polygon points="636,325 640,270 644,325"/><rect x="639.2" y="235" width="1.6" height="40"/>` +
+      /* Chrysler Building */
+      `<rect x="764" y="410" width="32" height="232"/><path d="M764 410 Q780 320 796 410 Z"/><rect x="779.2" y="300" width="1.6" height="50"/>` +
+      /* One World Trade Center */
+      `<polygon points="1098,642 1098,372 1120,300 1142,372 1142,642"/><rect x="1119.3" y="205" width="1.4" height="100"/>`;
+    $("#sk").innerHTML = front.rects + landmarks + `<g fill="#FFC85A" opacity=".8">${front.wins}</g>`;
+ 
+    let glints = "";
+    const gr = rng(3);
+    for (let i = 0; i < 11; i++) {
+      const w = 150 - i * 11 + gr() * 24;
+      glints += `<rect x="${(930 - w / 2 + (gr() - 0.5) * 20).toFixed(1)}" y="${652 + i * 15}" width="${w.toFixed(1)}" height="4" rx="2" opacity="${(0.8 - i * 0.06).toFixed(2)}"/>`;
+    }
+    $("#sunGlints").innerHTML = glints;
+ 
+    function pine(x, y, h) {
+      let s = "";
+      for (let i = 0; i < 3; i++) {
+        const th = h * (0.55 - i * 0.1), ty = y - h * 0.3 * i - h * 0.1;
+        s += `<polygon points="${x},${ty - th} ${x - th * 0.32},${ty} ${x + th * 0.32},${ty}"/>`;
+      }
+      return s + `<rect x="${x - 2}" y="${y - 10}" width="4" height="14"/>`;
+    }
+    const pines = [[40, 792, 130], [95, 782, 160], [150, 786, 110], [215, 798, 85],
+                   [1560, 798, 140], [1505, 788, 170], [1445, 794, 115], [1385, 808, 80]]
+      .map(p => pine(p[0], p[1], p[2])).join("");
+    $("#banks").insertAdjacentHTML("beforeend", pines);
+  })();
+ 
+  /* ---------- clock (Jerusalem) ---------- */
+  const timeFmt = new Intl.DateTimeFormat("en-US", { timeZone: TZ, hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
+  const dateFmt = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  function tick() {
+    const now = new Date();
+    let h = "", m = "", s = "", ap = "";
+    for (const p of timeFmt.formatToParts(now)) {
+      if (p.type === "hour") h = p.value;
+      else if (p.type === "minute") m = p.value;
+      else if (p.type === "second") s = p.value;
+      else if (p.type === "dayPeriod") ap = p.value;
+    }
+    $("#hms").textContent = `${h}:${m}:${s}`;
+    $("#ampm").textContent = ap;
+    $("#date").textContent = dateFmt.format(now);
+  }
+  tick();
+  setInterval(tick, 1000);
+  document.addEventListener("visibilitychange", tick);
+ 
+  /* ---------- bottle drawing ---------- */
+  function bottleSVG(color, line, label) {
+    const c = isHex(color) ? color : DEFAULT_COLOR;
+    const aria = String(label || "Perfume bottle").replace(/[&<>"']/g, "");
+    if (line === "Diamond") {
+      return `<svg viewBox="0 0 200 260" role="img" aria-label="${aria}" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="246" rx="56" ry="8" fill="rgba(40,8,6,.28)"/>
+        <rect x="88" y="78" width="24" height="24" fill="url(#gGlass)"/>
+        <rect x="78" y="32" width="44" height="48" rx="6" fill="url(#gGold)"/>
+        <rect x="78" y="32" width="44" height="48" rx="6" fill="none" stroke="#fff" stroke-opacity=".35"/>
+        <polygon points="100,238 46,140 72,100 128,100 154,140" fill="${c}"/>
+        <polygon points="72,100 128,100 116,140 84,140" fill="#fff" fill-opacity=".30"/>
+        <polygon points="46,140 72,100 84,140" fill="#fff" fill-opacity=".12"/>
+        <polygon points="154,140 128,100 116,140" fill="#000" fill-opacity=".18"/>
+        <polygon points="46,140 84,140 100,238" fill="#000" fill-opacity=".10"/>
+        <polygon points="84,140 116,140 100,238" fill="#fff" fill-opacity=".16"/>
+        <polygon points="116,140 154,140 100,238" fill="#000" fill-opacity=".24"/>
+        <path d="M46 140H154M84 140L72 100M116 140L128 100M84 140L100 238M116 140L100 238" stroke="#fff" stroke-opacity=".45" fill="none"/>
+        <polygon points="100,238 46,140 72,100 128,100 154,140" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2" stroke-linejoin="round"/>
+      </svg>`;
+    }
+    return `<svg viewBox="0 0 200 260" role="img" aria-label="${aria}" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="100" cy="246" rx="60" ry="8" fill="rgba(40,8,6,.28)"/>
+      <rect x="86" y="70" width="28" height="26" rx="3" fill="url(#gGlass)"/>
+      <rect x="76" y="24" width="48" height="50" rx="6" fill="url(#gGold)"/>
+      <rect x="76" y="24" width="48" height="50" rx="6" fill="none" stroke="#fff" stroke-opacity=".35"/>
+      <rect x="44" y="92" width="112" height="148" rx="14" fill="#fff" fill-opacity=".18" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+      <rect x="52" y="112" width="96" height="120" rx="9" fill="${c}"/>
+      <rect x="52" y="112" width="96" height="120" rx="9" fill="url(#gShade)"/>
+      <rect x="61" y="122" width="9" height="96" rx="4.5" fill="#fff" fill-opacity=".28"/>
+      <rect x="74" y="150" width="52" height="46" rx="4" fill="#FBEAE4" fill-opacity=".9"/>
+      <path d="M83 164H117M83 173H117M92 182H108" stroke="#B5761E" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>`;
+  }
+  function fillMedia(container, p) {
+    container.replaceChildren();
+    if (p.image) container.append(el("img", { src: p.image, alt: p.name || "", loading: "lazy" }));
+    else container.insertAdjacentHTML("beforeend", bottleSVG(p.color, p.line, p.name));
+  }
+ 
+  /* ---------- collection view ---------- */
+  function cardEl(p, i) {
+    const rows = el("dl", { class: "rows" });
+    for (const k of ["desc", "season", "occasions", "smoke"]) {
+      if (!p[k]) continue;
+      rows.append(el("div", { class: "row" },
+        el("dt", { text: LABELS[k] }),
+        el("dd", { text: p[k], lang: "ar" })));
+    }
+    const body = el("div", { class: "card-body" }, el("h3", { class: "name", text: p.name }), rows);
+    const media = el("div", { class: "media" });
+    fillMedia(media, p);
+    return el("article", { class: "card" + (i % 2 ? " flip" : ""), id: "card-" + p.id }, body, media);
+  }
+  function render() {
+    const root = $("#list");
+    root.replaceChildren();
+    const n = perfumes.length;
+    $("#count").textContent = n === 1 ? "1 perfume in the collection" : n + " perfumes in the collection";
+    if (!n) {
+      root.append(el("div", { class: "empty" },
+        el("p", { text: "The collection is empty. Open the Control Panel to add a perfume or restore the original collection." })));
+      return;
+    }
+    for (const g of LINES) {
+      const items = perfumes.filter(p => groupOf(p) === g.key);
+      if (!items.length) continue;
+      root.append(el("div", { class: "line-title" }, el("h2", { text: g.en }), el("span", { text: g.ar, lang: "ar" })));
+      items.forEach((p, i) => root.append(cardEl(p, i)));
+    }
+  }
+ 
+  /* ---------- control panel ---------- */
+  const dlg = $("#panel");
+  const f = {
+    name: $("#f-name"), line: $("#f-line"), color: $("#f-color"), photo: $("#f-photo"),
+    desc: $("#f-desc"), season: $("#f-season"), occ: $("#f-occ"), smoke: $("#f-smoke")
+  };
+  let draftImage = null, editingId = null, lineTouched = false;
+ 
+  function renderPreview() {
+    fillMedia($("#preview"), { image: draftImage, color: f.color.value, line: f.line.value, name: f.name.value || "Perfume bottle" });
+    $("#removePhoto").hidden = !draftImage;
+  }
+  function resetForm() {
+    editingId = null; draftImage = null; lineTouched = false;
+    f.name.value = ""; f.desc.value = ""; f.season.value = ""; f.occ.value = ""; f.smoke.value = "";
+    f.color.value = DEFAULT_COLOR; f.line.value = "Other"; f.photo.value = "";
+    $("#saveBtn").textContent = "Add perfume";
+    $("#tab-add").textContent = "Add perfume";
+    $("#cancelEdit").hidden = true;
+    $("#autoStatus").textContent = sampleFn ? "Auto-fill suggests the details from the name. Review them before saving." : "";
+    renderPreview();
+  }
+  function showTab(which) {
+    for (const k of ["add", "manage"]) {
+      const on = k === which;
+      $("#tab-" + k).setAttribute("aria-selected", String(on));
+      $("#pane-" + k).hidden = !on;
+    }
+    if (which === "manage") renderManage();
+  }
+  function openPanel(which) {
+    if (!dlg.open) { resetForm(); dlg.showModal(); document.body.style.overflow = "hidden"; }
+    showTab(which || "add");
+  }
+  function closePanel() { if (dlg.open) dlg.close(); }
+ 
+  $("#openPanel").addEventListener("click", () => openPanel("add"));
+  $("#closePanel").addEventListener("click", closePanel);
+  dlg.addEventListener("click", e => { if (e.target === dlg) closePanel(); });
+  dlg.addEventListener("close", () => { document.body.style.overflow = ""; });
+  $("#tab-add").addEventListener("click", () => showTab("add"));
+  $("#tab-manage").addEventListener("click", () => showTab("manage"));
+  $(".tabs").addEventListener("keydown", e => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      const next = $("#tab-add").getAttribute("aria-selected") === "true" ? "manage" : "add";
+      showTab(next); $("#tab-" + next).focus();
+    }
+  });
+ 
+  f.color.addEventListener("input", renderPreview);
+  f.line.addEventListener("change", () => { lineTouched = true; renderPreview(); });
+  f.name.addEventListener("input", () => {
+    if (!lineTouched) {
+      if (/tobacco/i.test(f.name.value)) f.line.value = "Tobacco";
+      else if (/diamond/i.test(f.name.value)) f.line.value = "Diamond";
+      else f.line.value = "Other";
+    }
+    renderPreview();
+  });
+ 
+  function readFile(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = () => rej(new Error("read failed"));
+      r.readAsDataURL(file);
+    });
+  }
+  async function shrinkImage(file) {
+    const src = await readFile(file);
+    const img = await new Promise((res, rej) => {
+      const i = new Image();
+      i.onload = () => res(i);
+      i.onerror = () => rej(new Error("bad image"));
+      i.src = src;
+    });
+    const max = 560;
+    const s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(img.naturalWidth * s));
+    c.height = Math.max(1, Math.round(img.naturalHeight * s));
+    const ctx = c.getContext("2d");
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+    let out = c.toDataURL("image/webp", 0.85);
+    if (!out.startsWith("data:image/webp")) {
+      ctx.globalCompositeOperation = "destination-over";
+      ctx.fillStyle = "#f3e4da";
+      ctx.fillRect(0, 0, c.width, c.height);
+      out = c.toDataURL("image/jpeg", 0.85);
+    }
+    return out;
+  }
+  f.photo.addEventListener("change", async () => {
+    const file = f.photo.files && f.photo.files[0];
+    if (!file) return;
+    try { draftImage = await shrinkImage(file); renderPreview(); }
+    catch (e) { toast("That file could not be read as an image. Try a JPG or PNG."); }
+    f.photo.value = "";
+  });
+  $("#removePhoto").addEventListener("click", () => { draftImage = null; renderPreview(); });
+ 
+  function slug(name) {
+    const base = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "perfume";
+    return base + "-" + Math.random().toString(36).slice(2, 7);
+  }
+  $("#saveBtn").addEventListener("click", () => {
+    const name = f.name.value.trim();
+    if (!name) { toast("Enter the perfume name first."); f.name.focus(); return; }
+    const data = {
+      name, line: f.line.value, color: f.color.value, image: draftImage,
+      desc: f.desc.value.trim(), season: f.season.value.trim(), occasions: f.occ.value.trim(), smoke: f.smoke.value.trim()
+    };
+    let id, msg;
+    if (editingId) {
+      const i = perfumes.findIndex(p => p.id === editingId);
+      id = editingId;
+      if (i >= 0) perfumes[i] = Object.assign({ id }, data);
+      msg = "Saved changes to " + name + ".";
+    } else {
+      id = slug(name);
+      perfumes.push(Object.assign({ id }, data));
+      msg = "Added " + name + " to the collection.";
+    }
+    persist();
+    render();
+    closePanel();
+    toast(msg);
+    const card = document.getElementById("card-" + id);
+    if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  $("#cancelEdit").addEventListener("click", () => { resetForm(); });
+ 
+  function startEdit(id) {
+    const p = perfumes.find(x => x.id === id);
+    if (!p) return;
+    editingId = id; lineTouched = true;
+    draftImage = p.image || null;
+    f.name.value = p.name || ""; f.desc.value = p.desc || ""; f.season.value = p.season || "";
+    f.occ.value = p.occasions || ""; f.smoke.value = p.smoke || "";
+    f.color.value = isHex(p.color) ? p.color : DEFAULT_COLOR;
+    f.line.value = groupOf(p);
+    $("#saveBtn").textContent = "Save changes";
+    $("#tab-add").textContent = "Edit perfume";
+    $("#cancelEdit").hidden = false;
+    $("#autoStatus").textContent = "";
+    renderPreview();
+    showTab("add");
+    f.name.focus();
+  }
+ 
+  /* two-step confirm buttons */
+  function armed(btn, label, confirmLabel, action) {
+    let t = null;
+    btn.addEventListener("click", () => {
+      if (btn.classList.contains("armed")) { clearTimeout(t); action(); return; }
+      btn.classList.add("armed");
+      btn.textContent = confirmLabel;
+      t = setTimeout(() => { btn.classList.remove("armed"); btn.textContent = label; }, 4000);
+    });
+  }
+  function removePerfume(id) {
+    const p = perfumes.find(x => x.id === id);
+    perfumes = perfumes.filter(x => x.id !== id);
+    persist(); render(); renderManage();
+    $("#manageList").focus();
+    toast("Deleted " + (p ? p.name : "perfume") + ".");
+  }
+  function renderManage() {
+    const list = $("#manageList");
+    list.replaceChildren();
+    $("#tab-manage").textContent = "Manage collection (" + perfumes.length + ")";
+    if (!perfumes.length) {
+      list.append(el("li", { class: "hint", text: "The collection is empty. Add a perfume or restore the original collection." }));
+      return;
+    }
+    for (const p of perfumes) {
+      const thumb = el("div", { class: "thumb" });
+      fillMedia(thumb, p);
+      const del = el("button", { class: "btn danger sm", type: "button", text: "Delete", "aria-label": "Delete " + p.name });
+      armed(del, "Delete", "Confirm delete", () => removePerfume(p.id));
+      list.append(el("li", { class: "m-row" },
+        thumb,
+        el("div", { class: "m-info" }, el("strong", { text: p.name }), el("span", { text: lineLabel(p) })),
+        el("div", { class: "m-actions" },
+          el("button", { class: "btn ghost sm", type: "button", text: "Edit", "aria-label": "Edit " + p.name, onclick: () => startEdit(p.id) }),
+          del)));
+    }
+  }
+  armed($("#restoreBtn"), "Restore original collection", "Confirm: replaces everything", () => {
+    perfumes = JSON.parse(JSON.stringify(DEFAULTS));
+    persist(); render(); renderManage();
+    const b = $("#restoreBtn"); b.classList.remove("armed"); b.textContent = "Restore original collection";
+    toast("Original collection restored.");
+  });
+ 
+  /* ---------- auto-fill with Claude ---------- */
+  let sampleFn = null;
+  function buildPrompt(name) {
+    return `You are filling in an entry for a personal perfume collection app. The perfume is called "${name}".
+Reply with only one JSON object with exactly these keys:
+{"description": string, "season": string, "occasions": string, "smoke": string, "color": string, "line": string}
+Rules:
+- description, season, occasions and smoke are written in Arabic, one short sentence or phrase each, in the same warm style as this example for "Spanish Tobacco": description "مزيج فخم يجمع بين التبغ الإسباني، التوابل الدافئة، والتونكا مع لمسات فاكهية ناعمة.", season "الخريف، الشتاء، والربيع (ممتاز لدوام المدرسة والمشاوير اليومية).", occasions "الاجتماعات، الأيام الدراسية، واللقاءات الشبابية.", smoke "ممتاز جداً في امتصاص زناخة الدخان وتغطيتها بطابع دافئ وأنيق."
+- description: the scent character and main notes. season: best seasons and time of day. occasions: suitable occasions such as weddings, business meetings, casual hangouts. smoke: how it performs next to cigarette smoke or vape smell (masks it, blends with it, or is best worn on clean skin).
+- color: a muted hex color such as "#8B4A1C" that suits the liquid in the bottle.
+- line: "Tobacco" if the name contains tobacco, "Diamond" if it contains diamond, otherwise "Other".
+- If you do not recognise this exact perfume, infer from the name and keep the claims general. Do not invent specific notes.`;
+  }
+  function errorCopy(e) {
+    switch (e && e.code) {
+      case "cancelled": return "";
+      case "not_granted": return "Auto-fill needs permission to use Claude. Press Auto-fill again and allow it.";
+      case "rate_limited": return "Too many requests right now. Wait a moment, then try again.";
+      case "session_expired": return "Your session expired. Sign in to Claude again, then retry.";
+      case "invalid_json":
+      case "empty_completion":
+      case "refused": return "No suggestions came back for that name. Check the spelling or fill the fields yourself.";
+      default: return "Auto-fill failed. Try again or fill the fields yourself.";
+    }
+  }
+  $("#autofill").addEventListener("click", async () => {
+    const name = f.name.value.trim();
+    const status = $("#autoStatus");
+    if (!name) { status.textContent = "Type the perfume name first."; f.name.focus(); return; }
+    const btn = $("#autofill");
+    btn.disabled = true;
+    status.textContent = "Looking up " + name + "...";
+    try {
+      const d = await sampleFn.json(buildPrompt(name), { modelTier: "quick" });
+      const s = v => (typeof v === "string" ? v.trim() : "");
+      if (s(d.description)) f.desc.value = s(d.description);
+      if (s(d.season)) f.season.value = s(d.season);
+      if (s(d.occasions)) f.occ.value = s(d.occasions);
+      if (s(d.smoke)) f.smoke.value = s(d.smoke);
+      if (isHex(s(d.color))) f.color.value = s(d.color);
+      if (LINES.some(l => l.key === d.line)) { f.line.value = d.line; lineTouched = true; }
+      renderPreview();
+      status.textContent = "Suggestions added from Claude's general knowledge. They can be wrong, so review them before saving.";
+    } catch (e) {
+      status.textContent = errorCopy(e);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+  (async function initSample() {
+    try { sampleFn = (await (window.claude && window.claude.use ? window.claude.use("sample") : null)) || null; }
+    catch (e) { sampleFn = null; }
+    if (sampleFn) {
+      $("#autofill").hidden = false;
+      if (!$("#autoStatus").textContent) $("#autoStatus").textContent = "Auto-fill suggests the details from the name. Review them before saving.";
+    }
+  })();
+ 
+  /* ---------- start ---------- */
+  render();
+  resetForm();
+})();
+</script>
+</body>
+</html>
+ 
